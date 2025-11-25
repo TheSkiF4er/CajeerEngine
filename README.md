@@ -30,7 +30,11 @@ Cajeer Engine - https://cajeer.com/ **[Login: admin | Password: admin]**
 * Discussion - **[Telegram Chat](https://t.me/sf4meet)**
 
 ## Description
-**Cajeer Website Engine** (abbr. **CWE**) is an open source content management system (Open-source CMS) developed by the Russian studio "Cajeer 404" (formerly "Cajeer Web") by order of the Russian studio "Cajeer Software" (formerly " Cajeer Developers). The system is written in PHP and uses MySQL as a database. The development was started in 2018, but from 2018 to 2021 the system was commercial, and starting from 2022 the system was completely rewritten by new authors and received the status of an open system, and therefore the 2022 version can rightly be considered the third version of the system. The system is positioned by its publisher as a tool for creating any kind of websites. The main languages of the system are English, Spanish, Russian and French, there are also German and Italian localizations.
+**Cajeer Engine** is an open-source content management system (CMS) developed by the Russian team Cajeer 404. The platform is built with PHP and uses MySQL as its primary database management system. Development began in 2013, but from 2018 to 2024 the product was distributed as a commercial solution under the Cajeer Studios Group brand.
+
+In 2025, the system was completely redesigned by a new team of developers and received open-source status. The 2025 release is considered the third major generation of Cajeer Engine.
+
+The developers position the platform as a universal tool for creating websites of any complexity. The main interface languages are English, Spanish, Russian, and French, with additional German and Italian localizations available.
 
 ## About the project
 **Cajeer Engine Kit** (abbr. **CEK**) are content management systems that were developed by the Cajeer Russian team to make it easier for the team to create custom web resources. The systems are written in the PHP programming language and use MySQL as a database for simple administration and for further editing by the customer of the finished product. The development was started in 2014, but from 2014 to 2018 the systems were closed and distributed individually by order of clients, and starting from 2018 they were completely transferred to the Russian studio Cajeer Web and received the status of commercial content management systems.
