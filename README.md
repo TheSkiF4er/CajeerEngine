@@ -11,6 +11,7 @@ ____
  <img src="https://img.shields.io/github/stars/TheSkiF4er/CajeerEngine"/>
  <img src="https://img.shields.io/badge/donations-0₿-red"/>
  <img src="https://img.shields.io/badge/license-apache%202.0-brightgreen"/>
+ <img src="https://img.shields.io/badge/version%200.0.1-blue"/>
 </div>
 
 ## Demonstration
