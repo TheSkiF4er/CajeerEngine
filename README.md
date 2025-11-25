@@ -21,6 +21,8 @@ Cajeer Engine - https://cajeer.com/ **[Login: admin | Password: admin]**
 ## Support and contributions to the project
 ### Support
 * TON - UQAbALefjNaGxdWgiQ-JBGHjlTSMKSL4vaEehxGA4h0S3YNh
+* ETH - 0x0bD4E2dC298ed6d881B26D3b3cf482ADDbba23A6
+* BTC - bc1q8s42d9cuuvepncek5sxg59q70gdjr5f5vk3xgk
 ### Contributions
 * Blog - **[Telegram](https://t.me/sf4blog)**
 * Discussion - **[Telegram](https://t.me/sf4meet)**
