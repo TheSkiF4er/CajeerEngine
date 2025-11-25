@@ -10,7 +10,7 @@ ____
  <img src="https://img.shields.io/github/forks/Cajeer-Team/Cajeer-Website-Engine"/>
  <img src="https://img.shields.io/github/stars/Cajeer-Team/Cajeer-Website-Engine"/>
  <img src="https://img.shields.io/badge/donations-0₿-red"/>
- <img src="https://img.shields.io/badge/license-cc%20by--sa%204.0-brightgreen"/>
+ <img src="https://img.shields.io/badge/license-apache%204.0-brightgreen"/>
 </div>
 
 ## Demonstration
