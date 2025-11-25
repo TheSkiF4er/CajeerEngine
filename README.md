@@ -4,13 +4,13 @@ ____
 
 <div align="center">
  <img src="https://img.shields.io/badge/downloads-0-green"/>
- <img src="https://img.shields.io/badge/made%20by-cajeer-blue"/>
+ <img src="https://img.shields.io/badge/made%20by-skif4er-blue"/>
  <img src="https://img.shields.io/badge/software-open--source-yellowgreen"/>
- <img src="https://img.shields.io/github/issues/Cajeer-Team/Cajeer-Website-Engine"/>
- <img src="https://img.shields.io/github/forks/Cajeer-Team/Cajeer-Website-Engine"/>
- <img src="https://img.shields.io/github/stars/Cajeer-Team/Cajeer-Website-Engine"/>
+ <img src="https://img.shields.io/github/issues/TheSkiF4er/CajeerEngine"/>
+ <img src="https://img.shields.io/github/forks/TheSkiF4er/CajeerEngine"/>
+ <img src="https://img.shields.io/github/stars/TheSkiF4er/CajeerEngine"/>
  <img src="https://img.shields.io/badge/donations-0₿-red"/>
- <img src="https://img.shields.io/badge/license-Apache%202.0-brightgreen"/>
+ <img src="https://img.shields.io/badge/license-apache%202.0-brightgreen"/>
 </div>
 
 ## Demonstration
