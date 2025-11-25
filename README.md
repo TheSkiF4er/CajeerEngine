@@ -26,8 +26,8 @@ Cajeer Engine - https://cajeer.com/ **[Login: admin | Password: admin]**
 * ETH - 0x0bD4E2dC298ed6d881B26D3b3cf482ADDbba23A6
 * BTC - bc1q8s42d9cuuvepncek5sxg59q70gdjr5f5vk3xgk
 ### Contributions
-* Blog - **[Telegram](https://t.me/sf4blog)**
-* Discussion - **[Telegram](https://t.me/sf4meet)**
+* Blog - **[Telegram Channel](https://t.me/sf4blog)**
+* Discussion - **[Telegram Chat](https://t.me/sf4meet)**
 
 ## Description
 **Cajeer Website Engine** (abbr. **CWE**) is an open source content management system (Open-source CMS) developed by the Russian studio "Cajeer 404" (formerly "Cajeer Web") by order of the Russian studio "Cajeer Software" (formerly " Cajeer Developers). The system is written in PHP and uses MySQL as a database. The development was started in 2018, but from 2018 to 2021 the system was commercial, and starting from 2022 the system was completely rewritten by new authors and received the status of an open system, and therefore the 2022 version can rightly be considered the third version of the system. The system is positioned by its publisher as a tool for creating any kind of websites. The main languages of the system are English, Spanish, Russian and French, there are also German and Italian localizations.
