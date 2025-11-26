@@ -1,6 +1,13 @@
 #  Cajeer Engine
+### Open-Source Content Management System (CMS)
 
-____
+Cajeer Engine is an open-source content management system (CMS) built with **PHP** and **MySQL**, originally developed by the Russian team **Cajeer 404**.  
+The system was created in 2013 as an internal tool for building custom web resources efficiently. After years of commercial distribution under **Cajeer Studios Group** (2018–2024), the platform was fully redesigned and released as an open-source project in **2025** — marking the **third major generation** of Cajeer Engine.
+
+The platform is positioned as a universal tool for creating websites of any complexity, from simple landing pages to full-scale web services.  
+Supported interface languages: **English, Spanish, Russian, French**, as well as additional **German and Italian** localizations.
+
+---
 
 <div align="center">
  <img src="https://img.shields.io/badge/downloads-0-green"/>
@@ -15,39 +22,111 @@ ____
 src="https://img.shields.io/badge/version-0.0.1-blue"/>
 </div>
 
-## Demonstration
-Cajeer Engine - https://cajeer.com/ **[УСТАРЕЛО]**
+---
 
-Cajeer Engine - https://cajeer.com/ **[Login: admin | Password: admin]**
+## 🚀 Features
 
-## Support and contributions to the project
-### Support
-* TON - UQAbALefjNaGxdWgiQ-JBGHjlTSMKSL4vaEehxGA4h0S3YNh
-* ETH - 0x0bD4E2dC298ed6d881B26D3b3cf482ADDbba23A6
-* BTC - bc1q8s42d9cuuvepncek5sxg59q70gdjr5f5vk3xgk
-### Contributions
-* Blog - **[Telegram Channel](https://t.me/sf4blog)**
-* Discussion - **[Telegram Chat](https://t.me/sf4meet)**
+- **Modernized 2025 core** — fully rewritten architecture
+- **Modular system** for building extendable websites
+- **Template & theme system** with clean separation of logic and UI
+- **Built-in admin panel** for content and user management
+- **Multilingual support** with flexible localization tools
+- **Optimized routing & database abstraction layer**
+- **Developer-friendly structure** for creating custom modules and plugins
+- **Open-source license** enabling free use and modification
 
-## Description
-**Cajeer Engine** is an open-source content management system (CMS) developed by the Russian team Cajeer 404. The platform is built with PHP and uses MySQL as its primary database management system. Development began in 2013, but from 2018 to 2024 the product was distributed as a commercial solution under the Cajeer Studios Group brand.
+---
 
-In 2025, the system was completely redesigned by a new team of developers and received open-source status. The 2025 release is considered the third major generation of Cajeer Engine.
+## 📚 Documentation
 
-The developers position the platform as a universal tool for creating websites of any complexity. The main interface languages are English, Spanish, Russian, and French, with additional German and Italian localizations available.
+Full documentation is available in the **GitHub Wiki**:
 
-## About the project
-**Cajeer Engine** is a content management system developed by the Russian team Cajeer 404 to simplify the creation of custom web resources. The platform is built on PHP and uses MySQL as its primary database, providing convenient administration and the ability to further edit the final product. Development began in 2013, but from 2014 to 2018 the system remained closed and was distributed exclusively through individual client orders. In 2018, the project was transferred to the Cajeer Studios Group, where it received the status of a commercial CMS.
+### **Main Sections**
+- **[Home](../../wiki/Home)**  
+- **[About Cajeer Engine](../../wiki/About-Cajeer-Engine)**  
+- **[Project Structure](../../wiki/Project-Structure)**  
 
-The idea of creating an in-house CMS was proposed by SkiF4er to increase the efficiency of Cajeer 404 developers, simplify subsequent project maintenance, and accelerate the completion of client orders. As a result, the number of web resources built on the system grew significantly, and the CMS became the team’s signature solution. However, as its core components became outdated, the system required major redevelopment and was handed over to Cajeer Studios Group for further improvement. The studio continued enhancing the platform while also changing its license and distribution model, moving away from closed individual deliveries toward a commercial format.
+### **Getting Started**
+- **[Installation Guide](../../wiki/Installation-Guide)**  
+- **[System Requirements](../../wiki/System-Requirements)**  
+- **[Configuration](../../wiki/Configuration)**  
+- **[Directory Structure](../../wiki/Directory-Structure)**  
 
-Only the core principle of the platform remained unchanged: “Convenience and simplicity are the key to the CMS’s success.”
+### **Core Concepts**
+- **[Architecture Overview](../../wiki/Architecture-Overview)**  
+- **[Core Principles](../../wiki/Core-Principles)**  
+- **[Routing](../../wiki/Routing)**  
+- **[Templates & Themes](../../wiki/Templates-and-Themes)**  
+- **[Database Layer](../../wiki/Database-Layer)**  
 
-## Usage
-**[GitHub Documentation](https://github.com/TheSkiF4er/CajeerEngine/wiki)**
+### **Development**
+- **[Coding Standards](../../wiki/Coding-Standards)**  
+- **[Module Development](../../wiki/Module-Development)**  
+- **[Plugin System](../../wiki/Plugin-System)**  
+- **[Theme Development](../../wiki/Theme-Development)**  
+- **[Localization](../../wiki/Localization)**  
 
-## List of changes
-**[GitHub Changelog](https://github.com/TheSkiF4er/CajeerEngine/blob/main/CHANGELOG.md)**
+### **Administration**
+- **[Admin Panel](../../wiki/Admin-Panel)**  
+- **[User Management](../../wiki/User-Management)**  
+- **[Permissions & Roles](../../wiki/Permissions-and-Roles)**  
+- **[Content Editing Tools](../../wiki/Content-Editing)**  
 
-## License
-**[GitHub License](https://github.com/TheSkiF4er/CajeerEngine/blob/main/LICENSE)**
+### **Deployment**
+- **[Production Deployment](../../wiki/Production-Deployment)**  
+- **[Security Guidelines](../../wiki/Security-Guidelines)**  
+- **[Backup & Restore](../../wiki/Backup-and-Restore)**  
+- **[Performance Optimization](../../wiki/Performance-Optimization)**  
+
+### **Community**
+- **[Contributing](../../wiki/Contributing)**  
+- **[Code of Conduct](../../wiki/Code-of-Conduct)**  
+- **[Release Notes](../../wiki/Release-Notes)**  
+- **[Roadmap](../../wiki/Roadmap)**  
+- **[FAQ](../../wiki/FAQ)**  
+
+---
+
+## 🛠 Installation
+
+Follow the complete steps in the wiki:  
+👉 **[Installation Guide](../../wiki/Installation-Guide)**
+
+### Quickstart
+```bash
+git clone https://github.com/TheSkiF4er/CajeerEngine.git
+cd CajeerEngine
+```
+
+## 📁 Repository Structure
+
+A full explanation is available here:
+👉 **[Project Structure](../../wiki/Installation-Guide)**
+
+```bash
+/core           → core CMS modules and engine logic  
+/modules        → extendable modules and plugins  
+/themes         → templates, layouts, UI resources  
+/config         → configuration files  
+/public         → public-facing assets  
+/storage        → logs, cache, runtime data
+```
+
+## 🤝 Contributing
+
+We welcome contributions!
+Please see the guidelines before submitting PRs:
+👉 **[Contributing](../../wiki/Installation-Guide)**
+
+## 📄 License
+
+Cajeer Engine is released under the Apache License 2.0.
+See **[LICENSE](https://github.com/TheSkiF4er/CajeerEngine/blob/main/LICENSE)** for full terms.
+
+## 🌐 Links
+
+* **📘 Documentation (Wiki):** https://github.com/TheSkiF4er/CajeerEngine/wiki
+
+* **🐞 Issue Tracker:** https://github.com/TheSkiF4er/CajeerEngine/issues
+
+* **⭐ Star the project** to support development!
