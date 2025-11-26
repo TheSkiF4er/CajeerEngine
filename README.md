@@ -42,13 +42,13 @@ src="https://img.shields.io/badge/version-0.0.1-blue"/>
 Full documentation is available in the **GitHub Wiki**:
 
 ### **Main Sections**
-- **[Home](../../wiki/Home)**  
-- **[About Cajeer Engine](../../wiki/About-Cajeer-Engine)**  
-- **[Project Structure](../../wiki/Project-Structure)**  
+- **[Home](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
+- **[About Cajeer Engine](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
+- **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
 
 ### **Getting Started**
-- **[Installation Guide](../../wiki/Installation-Guide)**  
-- **[System Requirements](../../wiki/System-Requirements)**  
+- **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
+- **[System Requirements](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
 - **[Configuration](../../wiki/Configuration)**  
 - **[Directory Structure](../../wiki/Directory-Structure)**  
 
