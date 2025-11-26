@@ -139,11 +139,11 @@ See **[LICENSE](https://github.com/TheSkiF4er/CajeerEngine/blob/main/LICENSE)** 
   <img src="https://img.shields.io/badge/MySQL-5.7%2F8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
 
   <!-- License -->
-  <img src="https://img.shields.io/badge/License-MIT-success?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="License">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-orange?style=for-the-badge&logo=apache&logoColor=white" alt="License">
 
   <!-- Version -->
-  <img src="https://img.shields.io/badge/Version-3.0.0-blue?style=for-the-badge&logo=git&logoColor=white" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.1-blue?style=for-the-badge&logo=git&logoColor=white" alt="Version">
 
   <!-- Contributors -->
-  <img src="https://img.shields.io/github/contributors/your/repo?style=for-the-badge&color=yellow&logo=github" alt="Contributors">
+  <img src="https://img.shields.io/github/contributors/TheSkiF4er/CajeerEngine?style=for-the-badge&color=yellow&logo=github" alt="Contributors">
 </p>
