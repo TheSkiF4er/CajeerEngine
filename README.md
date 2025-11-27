@@ -97,12 +97,12 @@ A full explanation is available here:
 👉 **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#quick-links)**
 
 ```bash
-/core           → core CMS modules and engine logic  
-/modules        → extendable modules and plugins  
-/themes         → templates, layouts, UI resources  
-/config         → configuration files  
-/public         → public-facing assets  
-/storage        → logs, cache, runtime data
+/cms/engine           → core CMS modules and engine logic  
+cms/engine/modules        → extendable modules and plugins  
+/cms/templates        → templates, layouts, UI resources  
+/cms/engine/data         → configuration files  
+/dbs         → clean database  
+/modules       → third-party modules developed by the community
 ```
 
 ## 🤝 Contributing
