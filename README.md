@@ -43,54 +43,47 @@ Full documentation is available in the **GitHub Wiki**:
 
 ### **Main Sections**
 - **[Home](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
-- **[About Cajeer Engine](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
-- **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
+- **[About Cajeer Engine](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#cajeer-engine--overview)**  
+- **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#quick-links)**  
 
 ### **Getting Started**
-- **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
-- **[System Requirements](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
-- **[Configuration](../../wiki/Configuration)**  
-- **[Directory Structure](../../wiki/Directory-Structure)**  
+- **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#installation-steps)**  
+- **[System Requirements](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#server-requirements)**  
+- **[Configuration](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#3-configure-environment)**  
+- **[Directory Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#file-structure-overview)**  
 
 ### **Core Concepts**
-- **[Architecture Overview](../../wiki/Architecture-Overview)**  
-- **[Core Principles](../../wiki/Core-Principles)**  
-- **[Routing](../../wiki/Routing)**  
-- **[Templates & Themes](../../wiki/Templates-and-Themes)**  
-- **[Database Layer](../../wiki/Database-Layer)**  
+- **[Architecture Overview](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#21-system-architecture)**
+- **[Core Principles](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#23-core-principles)**
+- **[Routing](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#routing)**  
+- **[Templates & Themes](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#template-system)**  
+- **[Database Layer](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#database-layer)**  
 
 ### **Development**
-- **[Coding Standards](../../wiki/Coding-Standards)**  
-- **[Module Development](../../wiki/Module-Development)**  
-- **[Plugin System](../../wiki/Plugin-System)**  
-- **[Theme Development](../../wiki/Theme-Development)**  
-- **[Localization](../../wiki/Localization)**  
+- **[Coding Standards](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide#91-code-style)**  
+- **[Module Development](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#41-creating-modules)**  
+- **[Plugin System](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#44-extending-the-core)**  
+- **[Theme Development](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#42-creating-themes)**  
+- **[Localization](https://github.com/TheSkiF4er/CajeerEngine/wiki/5.-Localization#52-adding-new-languages)**  
 
 ### **Administration**
-- **[Admin Panel](../../wiki/Admin-Panel)**  
-- **[User Management](../../wiki/User-Management)**  
-- **[Permissions & Roles](../../wiki/Permissions-and-Roles)**  
-- **[Content Editing Tools](../../wiki/Content-Editing)**  
-
-### **Deployment**
-- **[Production Deployment](../../wiki/Production-Deployment)**  
-- **[Security Guidelines](../../wiki/Security-Guidelines)**  
-- **[Backup & Restore](../../wiki/Backup-and-Restore)**  
-- **[Performance Optimization](../../wiki/Performance-Optimization)**  
+- **[Admin Panel](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#31-admin-panel)**  
+- **[User Management](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#user-management)** 
+- **[Content Editing Tools](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#content-editing)**  
 
 ### **Community**
-- **[Contributing](../../wiki/Contributing)**  
-- **[Code of Conduct](../../wiki/Code-of-Conduct)**  
-- **[Release Notes](../../wiki/Release-Notes)**  
-- **[Roadmap](../../wiki/Roadmap)**  
-- **[FAQ](../../wiki/FAQ)**  
+- **[Contributing](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide)**  
+- **[Code of Conduct](https://github.com/TheSkiF4er/CajeerEngine/wiki/Community#2-code-of-conduct)**  
+- **[Release Notes](https://github.com/TheSkiF4er/CajeerEngine/wiki/7.-Release-Notes)**  
+- **[Roadmap](https://github.com/TheSkiF4er/CajeerEngine/wiki/8.-Roadmap)**  
+- **[FAQ](https://github.com/TheSkiF4er/CajeerEngine/wiki/FAQ)**  
 
 ---
 
 ## 🛠 Installation
 
 Follow the complete steps in the wiki:  
-👉 **[Installation Guide](../../wiki/Installation-Guide)**
+👉 **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#installation-steps)**
 
 ### Quickstart
 ```bash
@@ -101,7 +94,7 @@ cd CajeerEngine
 ## 📁 Repository Structure
 
 A full explanation is available here:
-👉 **[Project Structure](../../wiki/Installation-Guide)**
+👉 **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#quick-links)**
 
 ```bash
 /core           → core CMS modules and engine logic  
@@ -116,7 +109,7 @@ A full explanation is available here:
 
 We welcome contributions!
 Please see the guidelines before submitting PRs:
-👉 **[Contributing](../../wiki/Installation-Guide)**
+👉 **[Contributing](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide)**
 
 ## 📄 License
 
