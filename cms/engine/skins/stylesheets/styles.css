@@ -1,1 +1,46 @@
-
+.MessageBlock{
+	color: #ffd700;
+	border: 1px solid #ffd700;
+	background: #000000;
+	padding: 10px;
+	text-align: center;
+}
+.capblock{
+	width: 215px;
+	height: 30px;
+}
+.capimg{
+	width: 110px;
+	height: 30px;
+	order: 1px solid #ffd700;
+}
+.ChatBox{
+	height: 300px;
+	overflow: auto;
+	border: 1px solid #ffd700;
+}
+.ChatBlock{
+	border: 1px solid #ffd700;
+	background: #000000;
+	padding: 10px;
+	color: #ffd700;
+	margin: 10px;
+}
+.ChatBlock span{
+	color: #ffd700;
+	font-size: 10px;
+	display: block;
+}
+.Chat{
+	width: 300px;
+}
+.PageSelector{
+	margin: 10px;
+}
+.SwitchItem, .SwitchItemCur{
+	padding: 2px 15px;
+	background: #000000;
+}
+.SwitchItemCur{
+	background: #ffd700;
+}
