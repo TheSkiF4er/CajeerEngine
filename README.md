@@ -98,7 +98,7 @@ A full explanation is available here:
 
 ```bash
 /cms/engine           → core CMS modules and engine logic  
-cms/engine/modules        → extendable modules and plugins  
+/cms/engine/modules        → extendable modules and plugins  
 /cms/templates        → templates, layouts, UI resources  
 /cms/engine/data         → configuration files  
 /dbs         → clean database  
