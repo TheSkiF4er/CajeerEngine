@@ -1,142 +1,322 @@
-#  Cajeer Engine
-### Open-Source Content Management System (CMS)
+# Cajeer Engine
 
-Cajeer Engine is an open-source content management system (CMS) built with **PHP** and **MySQL**, originally developed by the Russian team **Cajeer 404**.  
-The system was created in 2013 as an internal tool for building custom web resources efficiently. After years of commercial distribution under **Cajeer Studios Group** (2018–2024), the platform was fully redesigned and released as an open-source project in **2025** — marking the **third major generation** of Cajeer Engine.
-
-The platform is positioned as a universal tool for creating websites of any complexity, from simple landing pages to full-scale web services.  
-Supported interface languages: **English, Spanish, Russian, French**, as well as additional **German and Italian** localizations.
+> Открытая CMS нового поколения на PHP и MySQL с классическим `.tpl`‑шаблонизатором и полностью уникальным ядром.  
 
 ---
 
-<div align="center">
- <img src="https://img.shields.io/badge/downloads-0-green"/>
- <img src="https://img.shields.io/badge/made%20by-skif4er-blue"/>
- <img src="https://img.shields.io/badge/software-open--source-yellowgreen"/>
- <img src="https://img.shields.io/github/issues/TheSkiF4er/CajeerEngine"/>
- <img src="https://img.shields.io/github/forks/TheSkiF4er/CajeerEngine"/>
- <img src="https://img.shields.io/github/stars/TheSkiF4er/CajeerEngine"/>
- <img src="https://img.shields.io/badge/donations-0₿-red"/>
- <img src="https://img.shields.io/badge/license-apache%202.0-brightgreen"/>
- <img
-src="https://img.shields.io/badge/version-0.0.1-blue"/>
-</div>
+## 🔥 О проекте
+
+**Cajeer Engine** — это самоописанная, независимая CMS без сторонних фреймворков и шаблонизаторов.  
+Никаких Laravel / Symfony / Twig / Blade — всё, от роутера до шаблонов, написано вручную, специально под задачи Cajeer Engine.
+
+- Язык: **PHP**
+- База данных: **MySQL / MariaDB**
+- Шаблоны: **`.tpl` в духе DLE, но современнее и гибче**
+- Лицензия: **Apache 2.0**
+- Автор: **SkiF4er**
+- Команда: **Cajeer Team**
 
 ---
 
-## 🚀 Features
+## 📜 История проекта
 
-- **Modernized 2025 core** — fully rewritten architecture
-- **Modular system** for building extendable websites
-- **Template & theme system** with clean separation of logic and UI
-- **Built-in admin panel** for content and user management
-- **Multilingual support** with flexible localization tools
-- **Optimized routing & database abstraction layer**
-- **Developer-friendly structure** for creating custom modules and plugins
-- **Open-source license** enabling free use and modification
+Cajeer Engine — это open-source система управления контентом (CMS), написанная на PHP и MySQL, изначально разработанная российской командой **Cajeer 404**.
 
----
-
-## 📚 Documentation
-
-Full documentation is available in the **GitHub Wiki**:
-
-### **Main Sections**
-- **[Home](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home)**  
-- **[About Cajeer Engine](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#cajeer-engine--overview)**  
-- **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#quick-links)**  
-
-### **Getting Started**
-- **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#installation-steps)**  
-- **[System Requirements](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#server-requirements)**  
-- **[Configuration](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#3-configure-environment)**  
-- **[Directory Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#file-structure-overview)**  
-
-### **Core Concepts**
-- **[Architecture Overview](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#21-system-architecture)**
-- **[Core Principles](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#23-core-principles)**
-- **[Routing](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#routing)**  
-- **[Templates & Themes](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#template-system)**  
-- **[Database Layer](https://github.com/TheSkiF4er/CajeerEngine/wiki/2.-System-Overview#database-layer)**  
-
-### **Development**
-- **[Coding Standards](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide#91-code-style)**  
-- **[Module Development](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#41-creating-modules)**  
-- **[Plugin System](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#44-extending-the-core)**  
-- **[Theme Development](https://github.com/TheSkiF4er/CajeerEngine/wiki/4.-Developer-Guide#42-creating-themes)**  
-- **[Localization](https://github.com/TheSkiF4er/CajeerEngine/wiki/5.-Localization#52-adding-new-languages)**  
-
-### **Administration**
-- **[Admin Panel](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#31-admin-panel)**  
-- **[User Management](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#user-management)** 
-- **[Content Editing Tools](https://github.com/TheSkiF4er/CajeerEngine/wiki/3.-User-Guide#content-editing)**  
-
-### **Community**
-- **[Contributing](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide)**  
-- **[Code of Conduct](https://github.com/TheSkiF4er/CajeerEngine/wiki/Community#2-code-of-conduct)**  
-- **[Release Notes](https://github.com/TheSkiF4er/CajeerEngine/wiki/7.-Release-Notes)**  
-- **[Roadmap](https://github.com/TheSkiF4er/CajeerEngine/wiki/8.-Roadmap)**  
-- **[FAQ](https://github.com/TheSkiF4er/CajeerEngine/wiki/FAQ)**  
+- **2013** — Cajeer Engine создаётся как **внутренний инструмент** для быстрого построения кастомных веб‑ресурсов.
+- **2014-2018** — выпускается полноценный первый релиз платформы, но в виде закрытого продукта для внутренней клиентской базы.
+- **2018–2024** — платформа развивается и распространяется как коммерческий продукт под брендом **Cajeer Studios Group**.
+- **2025-...** — движок полностью переработан, переписан ядром третьего поколения и **открыт в виде open-source проекта**.  
+  Эта версия — **третье крупное поколение Cajeer Engine**, основанное на опыте предыдущих лет, но с обновлённой архитектурой и открытым исходным кодом.
 
 ---
 
-## 🛠 Installation
+## ✨ Ключевые особенности
 
-Follow the complete steps in the wiki:  
-👉 **[Installation Guide](https://github.com/TheSkiF4er/CajeerEngine/wiki/1.-Getting-Started#installation-steps)**
+- 🧠 **Полностью уникальное ядро**
+  - собственный роутер, ядро, модульность, API, безопасность, cron, CLI
+- 🎭 **Собственный `.tpl` шаблонизатор**
+  - синтаксис в стиле DLE, но с расширенной логикой и возможностью расширения
+- 🔌 **Модульная архитектура**
+  - системные и внешние модули, единый формат, возможность подключения сторонних разработчиков
+- 🌍 **Многоязычность**
+  - языковые пакеты для ядра, модулей и пользовательских расширений
+- ♻️ **Система обновлений**
+  - собственный формат пакетов обновлений (`.cajeerpatch`) и языков (`.cajeerpkg`)
+- 🧩 **Совместимость с DLE-стилем**
+  - похожий подход к шаблонам, группам пользователей, разделам, лентам новостей
+- 🛡 **Безопасность**
+  - CSRF‑защита, фильтрация данных, авторизация, разграничение прав
+- 🚀 **Производительность**
+  - компиляция `.tpl` в PHP, кэширование, собственный лёгкий DB‑слой
 
-### Quickstart
-```bash
-git clone https://github.com/TheSkiF4er/CajeerEngine.git
-cd CajeerEngine
+---
+
+## 🧱 Архитектура (обзор)
+
+Проект организован как классический движок с чётким разделением ответственности:
+
+- `/engine` — ядро CMS (Core, Database, Security, Template, API, Updater, Modules, Cron)
+- `/templates` — фронтенд‑шаблоны `.tpl` (сайт и админка)
+- `/modules` — внешние модули (плагины)
+- `/languages` — дополнительные языковые пакеты
+- `/packages` — пакеты обновлений и языков
+- `/system` — конфигурация, маршруты, версии, настройки обновлений
+- `/storage` — кэш, логи, сессии, скомпилированные шаблоны, бэкапы
+- `/uploads` — пользовательские загрузки
+- `/public` — публичная директория (точка входа для веб-сервера)
+- `/cli` — консольные утилиты (установка, обновление, диагностика)
+
+Пример фрагмента структуры:
+
+```text
+/engine/
+  /core/
+  /template/
+  /database/
+  /security/
+  /modules/
+  /languages/
+  /updater/
+  /cron/
+
+/templates/
+  /default/
+  /admin/
+
+/public/
+  index.php
+  admin.php
+````
+
+---
+
+## 🎭 Шаблонизатор `.tpl`
+
+Шаблонизатор Cajeer Engine вдохновлён DLE, но предлагает значительно больше возможностей.
+
+Примеры синтаксиса:
+
+```tpl
+{title}
+{content}
+
+[if logged]
+    Добро пожаловать, {user.name}!
+[else]
+    Пожалуйста, авторизуйтесь.
+[/if]
+
+[group=1]
+    Блок только для администраторов
+[/group]
+
+{module:news limit="10" order="desc"}
 ```
 
-## 📁 Repository Structure
+Особенности:
 
-A full explanation is available here:
-👉 **[Project Structure](https://github.com/TheSkiF4er/CajeerEngine/wiki/0.-Home#quick-links)**
+* простые теги: `{title}`, `{content}`, `{user.name}`, `{config.site_name}`
+* условные блоки: `[if]`, `[else]`, `[group]`, `[not-group]`, `[available]`
+* модульные теги: `{module:news}`, `{module:comments}` и т.п.
+* переменные и простые выражения
+* компиляция `.tpl` → PHP в каталог `storage/compiled_tpl/`
+* возможность расширять синтаксис через `TagRegistry` и `TagProcessor`
 
-```bash
-/cms/engine           → core CMS modules and engine logic  
-/cms/engine/modules        → extendable modules and plugins  
-/cms/templates        → templates, layouts, UI resources  
-/cms/engine/data         → configuration files  
-/dbs         → clean database  
-/modules       → third-party modules developed by the community
+---
+
+## 🧩 Модули
+
+Cajeer Engine поддерживает системные и внешние модули.
+
+Пример структуры модуля:
+
+```text
+/engine/modules/news/
+  controller.php
+  model.php
+  tags.php
+  admin.php
+  install.php
+  /lang/
+    en.lang.php
+    ru.lang.php
 ```
 
-## 🤝 Contributing
+Типичные модули:
 
-We welcome contributions!
-Please see the guidelines before submitting PRs:
-👉 **[Contributing](https://github.com/TheSkiF4er/CajeerEngine/wiki/9.-Contribution-Guide)**
+* `news` — новости / статьи
+* `users` — пользователи, авторизация, профили
+* `comments` — система комментариев
+* `static` — статические страницы
 
-## 📄 License
+Внешние модули располагаются в `/modules` и подключаются через админку или CLI.
 
-Cajeer Engine is released under the Apache License 2.0.
-See **[LICENSE](https://github.com/TheSkiF4er/CajeerEngine/blob/main/LICENSE)** for full terms.
+---
 
-## 🌐 Links
+## 🌍 Языки
 
-* **📘 Documentation (Wiki):** https://github.com/TheSkiF4er/CajeerEngine/wiki
+Многоязычность реализована на уровне:
 
-* **🐞 Issue Tracker:** https://github.com/TheSkiF4er/CajeerEngine/issues
+* ядра (`/engine/languages`)
+* модулей (`/engine/modules/*/lang`)
+* пользовательских пакетов (`/languages`)
 
-* **⭐ Star the project** to support development!
+Пример языка:
 
-<p align="center">
-  <!-- PHP -->
-  <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+```php
+return [
+    'welcome' => 'Добро пожаловать, {name}',
+    'errors' => [
+        'not_found' => 'Страница не найдена',
+    ],
+];
+```
 
-  <!-- MySQL -->
-  <img src="https://img.shields.io/badge/MySQL-5.7%2F8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+Использование в коде:
 
-  <!-- License -->
-  <img src="https://img.shields.io/badge/License-Apache%202.0-orange?style=for-the-badge&logo=apache&logoColor=white" alt="License">
+```php
+echo Lang::get('welcome', ['name' => $userName]);
+```
 
-  <!-- Version -->
-  <img src="https://img.shields.io/badge/Version-0.0.1-blue?style=for-the-badge&logo=git&logoColor=white" alt="Version">
+---
 
-  <!-- Contributors -->
-  <img src="https://img.shields.io/github/contributors/TheSkiF4er/CajeerEngine?style=for-the-badge&color=yellow&logo=github" alt="Contributors">
-</p>
+## ♻️ Обновления и пакеты
+
+Cajeer Engine имеет собственную систему обновлений:
+
+* форматы:
+
+  * `.cajeerpatch` — обновления ядра/шаблонов/модулей
+  * `.cajeerpkg` — языковые пакеты и дополнительные компоненты
+* обновления могут устанавливаться:
+
+  * через админ-панель
+  * через CLI
+  * из локального файла
+
+Пример CLI:
+
+```bash
+php cli/update.php          # проверить и установить обновления
+php cli/update.php --rollback
+php cli/cache_clear.php
+```
+
+---
+
+## 🔧 Требования
+
+* PHP **8.2+**
+* MySQL / MariaDB
+* Веб‑сервер (Apache / Nginx) с поддержкой `mod_rewrite` или аналогов
+* Доступ к консоли (желательно) для использования `/cli`
+
+---
+
+## 🚀 Установка (общая схема)
+
+1. Скачайте архив с движком или клонируйте репозиторий в папку проекта.
+2. Убедитесь, что веб‑сервер направлен в каталог `/public`.
+3. Выставьте права на запись для:
+
+   * `/storage`
+   * `/uploads`
+   * `/packages`
+4. Настройте подключение к базе в `system/db.php`.
+5. Запустите установщик:
+
+   * через браузер (открыть `/public/`), **или**
+   * через консоль:
+
+     ```bash
+     php cli/install.php
+     ```
+6. Зайдите в админ-панель (`/public/admin.php`), завершите базовые настройки.
+
+---
+
+## ⚙️ Быстрый старт (пример)
+
+Контроллер модуля `news`:
+
+```php
+// engine/modules/news/controller.php
+
+class NewsController
+{
+    public function index()
+    {
+        $news = NewsModel::latest(10);
+        return Template::render('news_short.tpl', ['news' => $news]);
+    }
+}
+```
+
+Фрагмент `.tpl`:
+
+```tpl
+[foreach news]
+    <h2>{item.title}</h2>
+    <div class="date">{item.date}</div>
+    <div class="short">{item.short_story}</div>
+[/foreach]
+```
+
+---
+
+## 📌 Дорожная карта (Roadmap)
+
+Планируемое развитие ветки open-source:
+
+* **v0.1** — базовое ядро, роутер, `.tpl` шаблонизатор, модуль `news`
+* **v0.2** — модуль пользователей, авторизация, админ-панель
+* **v0.3** — система обновлений, языки, CLI-пакеты
+* **v1.0** — стабильный релиз с документацией, SDK для модулей и тем
+
+---
+
+## 🤝 Вклад в проект
+
+Cajeer Engine — открытый проект. Любой желающий может:
+
+* предлагать идеи и улучшения
+* создавать свои модули и темы
+* присылать pull‑request’ы
+* помогать с документацией и переводами
+
+Рекомендуем структура вклада:
+
+1. Создать отдельную ветку для фичи или исправления.
+2. Описать изменения в понятном виде.
+3. При необходимости обновить документацию в `/docs`.
+4. Приложить примеры использования (шаблоны, код, конфиги).
+
+---
+
+## 📚 Документация
+
+Структура документации:
+
+* `/docs/api` — описание API и endpoint’ов
+* `/docs/modules` — создание и подключение модулей
+* `/docs/templates` — справочник по `.tpl` синтаксису
+* `/docs/updater` — сборка и установка обновлений (`.cajeerpatch`)
+
+---
+
+## 📝 Лицензия
+
+Проект распространяется под лицензией **Apache License 2.0**.
+Вы можете использовать, модифицировать и распространять Cajeer Engine в личных и коммерческих проектах с соблюдением условий лицензии.
+
+---
+
+## 👤 Автор и благодарности
+
+* **Автор и мейнтейнер:** SkiF4er
+* **Исходная команда:** Cajeer 404
+* **Коммерческое развитие:** Cajeer Studios Group (2018–2024)
+* **Open-source поколение:** Cajeer Engine 3‑го поколения (с 2025)
+
+Если ты читаешь это — значит, у Cajeer Engine появилась новая жизнь в мире open-source.
+Добро пожаловать в движок, который вырос из реальной боевой практики и теперь открыт для всех.
