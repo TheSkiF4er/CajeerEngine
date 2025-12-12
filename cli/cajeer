@@ -1,1 +1,24 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . '/../engine/bootstrap.php';
 
+$cmd = $argv[1] ?? 'help';
+
+switch ($cmd) {
+    case 'diagnose':
+        echo "CajeerEngine diagnose: OK\n";
+        echo "PHP: " . PHP_VERSION . "\n";
+        echo "Version: " . trim(file_get_contents(ROOT_PATH . '/system/version.txt')) . "\n";
+        exit(0);
+
+    case 'cache:clear':
+        echo "Cache clear (stub)\n";
+        exit(0);
+
+    default:
+        echo "CajeerEngine CLI\n";
+        echo "Commands:\n";
+        echo "  diagnose\n";
+        echo "  cache:clear\n";
+        exit(0);
+}
