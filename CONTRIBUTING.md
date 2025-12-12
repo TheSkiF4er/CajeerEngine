@@ -1,4 +1,4 @@
-# CONTRIBUTING (RU)
+# CONTRIBUTING
 
 Спасибо за вклад в CajeerEngine.
 
