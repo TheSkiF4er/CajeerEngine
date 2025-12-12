@@ -1,0 +1,25 @@
+{
+  "name": "cajeer/cajeerengine",
+  "description": "Cajeer Engine — уникальная CMS с .tpl шаблонами (DLE-style) и встроенным UI Rarog.",
+  "type": "project",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "TheSkiF4er",
+      "homepage": "https://cajeer.ru"
+    }
+  ],
+  "require": {
+    "php": ">=8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Core\\": "engine/Core/",
+      "Template\\": "engine/Template/",
+      "Database\\": "engine/Database/",
+      "Updater\\": "engine/Updater/",
+      "Languages\\": "engine/Languages/",
+      "Modules\\": "engine/Modules/"
+    }
+  }
+}

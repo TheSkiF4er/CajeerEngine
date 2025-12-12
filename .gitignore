@@ -1,0 +1,14 @@
+# runtime
+/storage/cache/
+/storage/logs/
+/storage/sessions/
+/storage/compiled_tpl/
+/uploads/
+
+# local
+.env
+.idea/
+.vscode/
+
+# vendor (если появится)
+/vendor/
