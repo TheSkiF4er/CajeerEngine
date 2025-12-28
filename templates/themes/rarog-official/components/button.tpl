@@ -1,0 +1,1 @@
+<a class="rg-btn rg-btn--primary" href="{href}">{text}</a>

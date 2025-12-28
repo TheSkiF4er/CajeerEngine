@@ -1,0 +1,1 @@
+<a class="btn" href="{href}">{text}</a>

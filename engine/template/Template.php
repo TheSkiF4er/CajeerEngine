@@ -1,6 +1,8 @@
 <?php
 namespace Template;
 
+use Theme\ThemeManager;
+
 use Core\KernelSingleton;
 
 class Template

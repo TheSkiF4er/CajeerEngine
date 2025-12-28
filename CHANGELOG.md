@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.0] - 2025-12-28
+### Добавлено — UI / Themes / Marketplace (подготовка)
+- Theme system: `templates/themes/*` + `public/assets/themes/*` + `Theme\ThemeManager`.
+- UI components library: partial-компоненты (`components/*.tpl`) + `UI\Components`.
+- Theme switching: CLI и admin endpoints (JSON).
+- Marketplace API (подготовка): конфиг + client stub + admin статус.
+- Official themes: `default` и `rarog-official` (Rarog-based).
+
+
 ## [1.8.0] - 2025-12-28
 ### Добавлено — Developer Experience
 - CLI генераторы: make:module, make:content, make:template.

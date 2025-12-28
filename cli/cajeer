@@ -188,6 +188,28 @@ switch ($cmd) {
     echo "Template created: $file\n";
     exit(0);
 
+
+  case 'theme:list':
+    \Core\Config::load();
+    $themes = \Theme\ThemeManager::list();
+    echo "Active: " . \Theme\ThemeManager::active() . "\n";
+    foreach ($themes as $k=>$v) echo $k . " — " . ($v['title'] ?? '') . "\n";
+    exit(0);
+
+  case 'theme:switch':
+    \Core\Config::load();
+    $theme = $argv[2] ?? '';
+    if (!$theme) { echo "Usage: php cli/cajeer theme:switch <theme>\n"; exit(2); }
+    $ok = \Theme\ThemeManager::switch($theme);
+    echo $ok ? "OK\n" : "FAILED\n";
+    exit($ok ? 0 : 1);
+
+  case 'marketplace:status':
+    \Core\Config::load();
+    $c = new \Marketplace\Client();
+    echo json_encode($c->status(), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) . "\n";
+    exit(0);
+
   default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";

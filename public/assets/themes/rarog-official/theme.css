@@ -1,0 +1,6 @@
+/* CajeerEngine official theme (Rarog-based) */
+:root { --ce-accent: #2b7cff; }
+.navbar { display:flex; justify-content:space-between; align-items:center; padding:14px 0; }
+.navbar__brand { font-weight:700; }
+.navbar__nav a { margin-left:12px; text-decoration:none; }
+.container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
