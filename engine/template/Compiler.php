@@ -3,9 +3,11 @@ namespace Template;
 
 class Compiler
 {
-    public static function compile(string $tpl, string $tplRoot, string $cachePath): string
-    {
-        // includes: {include file="header.tpl"}
+    \1
+        // DLE compatibility preprocessing
+        $tpl = \Template\DleTagAdapter::preprocess($tpl);
+
+// includes: {include file="header.tpl"}
         $tpl = preg_replace_callback('/\{include\s+file=\"([^\"]+)\"\}/i', function($m) use ($tplRoot, $cachePath) {
             $file = $tplRoot . '/' . $m[1];
             $compiled = $cachePath . '/' . md5($file) . '.php';

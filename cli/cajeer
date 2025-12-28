@@ -73,6 +73,61 @@ switch ($cmd) {
     exit(0);
 
 
+
+  case 'migrate:dle:check':
+    \Core\Config::load();
+    $cfg = require ROOT_PATH . '/system/dle.php';
+    $tpl = $argv[2] ?? null; // path to DLE templates
+    $m = new \Migration\Dle\DleMigrator();
+    $report = $m->check($cfg, $tpl);
+    $file = $report->save(ROOT_PATH . '/storage/migrations');
+    echo "Report: $file\n";
+    echo $report->ok() ? "OK\n" : "HAS ERRORS\n";
+    exit($report->ok() ? 0 : 1);
+
+  case 'migrate:dle:db':
+    \Core\Config::load();
+    $cfg = require ROOT_PATH . '/system/dle.php';
+    $m = new \Migration\Dle\DleMigrator();
+    $report = new \Migration\Report();
+    try { $m->importDb($cfg, $report); } catch (\Throwable $e) { $report->error('Импорт БД упал', ['error'=>$e->getMessage()]); }
+    $file = $report->save(ROOT_PATH . '/storage/migrations');
+    echo "Report: $file\n";
+    exit($report->ok() ? 0 : 1);
+
+  case 'migrate:dle:templates':
+    $src = $argv[2] ?? '';
+    $dst = $argv[3] ?? (ROOT_PATH . '/templates/dle-converted');
+    if (!$src) { echo "Usage: php cli/cajeer migrate:dle:templates <dle_templates_dir> [dst_dir]\n"; exit(2); }
+    $report = new \Migration\Report();
+    (new \Migration\Dle\DleMigrator())->convertTemplates($src, $dst, $report);
+    $file = $report->save(ROOT_PATH . '/storage/migrations');
+    echo "Converted -> $dst\n";
+    echo "Report: $file\n";
+    exit($report->ok() ? 0 : 1);
+
+  case 'migrate:dle:run':
+    \Core\Config::load();
+    $cfg = require ROOT_PATH . '/system/dle.php';
+    $srcTpl = $argv[2] ?? '';
+    $dstTpl = $argv[3] ?? (ROOT_PATH . '/templates/dle-converted');
+    if (!$srcTpl) { echo "Usage: php cli/cajeer migrate:dle:run <dle_templates_dir> [dst_dir]\n"; exit(2); }
+
+    $m = new \Migration\Dle\DleMigrator();
+    $report = $m->check($cfg, $srcTpl);
+    if (!$report->ok()) {
+      $file = $report->save(ROOT_PATH . '/storage/migrations');
+      echo "Report: $file\n";
+      echo "Compatibility check failed. Fix warnings/errors and retry.\n";
+      exit(1);
+    }
+    try { $m->importDb($cfg, $report); } catch (\Throwable $e) { $report->error('Импорт БД упал', ['error'=>$e->getMessage()]); }
+    $m->convertTemplates($srcTpl, $dstTpl, $report);
+
+    $file = $report->save(ROOT_PATH . '/storage/migrations');
+    echo "Report: $file\n";
+    exit($report->ok() ? 0 : 1);
+
   default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";

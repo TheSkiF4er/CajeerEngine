@@ -346,3 +346,7 @@ Cajeer Engine — открытый проект. Любой желающий м�
 
 ## SEO & Performance
 См. `docs/SEO_PERF_RU.md`.
+
+
+## Миграция с DLE
+См. `docs/MIGRATION_DLE_RU.md`.
