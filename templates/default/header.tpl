@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ru">
 <head>
+{meta_tags}
+{jsonld}
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>

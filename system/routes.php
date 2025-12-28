@@ -7,4 +7,7 @@ return [
 ,
   '/page' => ['pages', 'view'],
   '/category' => ['category', 'view'],
+,
+    '/sitemap.xml' => ['seo', 'sitemap'],
+    '/robots.txt' => ['seo', 'robots']
 ];

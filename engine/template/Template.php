@@ -1,31 +1,65 @@
 <?php
 namespace Template;
 
-use Core\Config;
+use Core\KernelSingleton;
 
-/**
- * Template Engine v1.1 (DLE-style)
- * - compile .tpl to cached PHP
- * - supports include/if/group/available/module tags
- */
 class Template
 {
-    private string $tplRoot;
-    private string $theme;
-    private string $cacheDir;
-    private bool $debug;
+    protected string $tplPath;
+    protected string $cachePath;
+    protected bool $debug;
 
-    public function __construct(?string $tplRoot = null, string $theme = 'default')
+    public function __construct(?string $tplPath = null, ?string $cachePath = null, bool $debug = false, ?string $theme = null)
     {
-        $this->tplRoot = $tplRoot ?: (string)Config::get('template.templates_dir', ROOT_PATH . '/templates');
-        $this->theme = $theme;
-        $this->cacheDir = (string)Config::get('template.cache_dir', ROOT_PATH . '/storage/compiled_tpl');
-        $this->debug = (bool)Config::get('template.debug', false);
+        $theme = $theme ?: 'default';
+        $this->tplPath = $tplPath ?: ROOT_PATH . '/templates/' . $theme;
+        $this->cachePath = $cachePath ?: ROOT_PATH . '/storage/compiled_tpl';
+        $this->debug = $debug;
+        if (!is_dir($this->cachePath)) @mkdir($this->cachePath, 0775, true);
     }
 
-    public function render(string $tplFile, array $vars = [], array $ctxOverride = []): void
+    private function globals(): array
     {
-        $rt = new TemplateRuntime($this->tplRoot, $this->theme, $this->cacheDir, $this->debug);
-        $rt->render($tplFile, $vars, $ctxOverride);
+        $g = [];
+        try {
+            $seo = KernelSingleton::container()->get('seo');
+            if ($seo instanceof \Seo\MetaManager) {
+                $g['meta_tags'] = $seo->renderHead();
+                $g['jsonld'] = $seo->renderJsonLd();
+            }
+        } catch (\Throwable $e) {
+            $g['meta_tags'] = '';
+            $g['jsonld'] = '';
+        }
+        return $g;
+    }
+
+    public function render(string $tplFile, array $vars = []): void
+    {
+        $vars = array_merge($this->globals(), $vars);
+
+        $full = $this->tplPath . '/' . $tplFile;
+        if (!file_exists($full)) {
+            throw new \Exception("Template not found: $full");
+        }
+
+        // compile/invalidate cache
+        $compiled = $this->cachePath . '/' . md5($full) . '.php';
+        $srcMtime = filemtime($full) ?: 0;
+        $cmpMtime = file_exists($compiled) ? (filemtime($compiled) ?: 0) : 0;
+
+        if (!file_exists($compiled) || $cmpMtime < $srcMtime) {
+            $content = file_get_contents($full);
+
+            // basic DLE-like replacements for {var}
+            // {include file="x.tpl"} supported in compiler stage
+            $php = Compiler::compile((string)$content, $this->tplPath, $this->cachePath);
+
+            file_put_contents($compiled, $php);
+        }
+
+        // execute compiled
+        extract($vars, EXTR_SKIP);
+        include $compiled;
     }
 }

@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.0] - 2025-12-28
+### Добавлено — SEO
+- Meta Manager: управление title/description/keywords/canonical, OpenGraph/Twitter Cards.
+- JSON-LD микроразметка (Article/Website) через SEO API.
+- `/sitemap.xml` (динамический) и `public/robots.txt` (production-friendly шаблон).
+
+### Добавлено — Performance
+- Page cache (full HTML) для GET запросов (skip for logged-in/admin/POST).
+- Fragment cache API (`Cache::remember`) для компонентов/виджетов/модулей.
+- Template cache hardening: авто-инвалидация compiled tpl при изменении исходника.
+- Cache invalidation по тегам (`tags`) и быстрый `cache:clear` через CLI.
+- Lazy-loading helpers: `Html::lazyImages()` для безопасного добавления `loading="lazy"`.
+
+### Изменено
+- Kernel выполняет output buffering для перехвата HTML и записи в page cache.
+
+
 ## [1.4.0] - 2025-12-28
 ### Добавлено
 - Plugins & Events v1.4: системный EventBus (events/hooks) и менеджер плагинов.

@@ -27,6 +27,9 @@ class AdminKernel
         $this->container->instance('container', $this->container);
         $this->container->instance('events', $this->events);
 
+        $this->container->singleton('seo', function() { return new \\Seo\\MetaManager(); });
+
+
         $coreVersion = trim((string)@file_get_contents(ROOT_PATH . '/system/version.txt')) ?: '0.0.0';
         $this->plugins = new PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', $coreVersion);
         $this->container->instance('plugins', $this->plugins);
