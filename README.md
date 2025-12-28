@@ -362,3 +362,7 @@ Cajeer Engine — открытый проект. Любой желающий м�
 
 ## Темы, UI и Marketplace
 См. `docs/THEMES_RU.md` и `docs/MARKETPLACE_API_RU.md`.
+
+
+## v2.0 Next
+См. `docs/V2_OVERVIEW_RU.md` и `docs/LTS_POLICY_RU.md`.

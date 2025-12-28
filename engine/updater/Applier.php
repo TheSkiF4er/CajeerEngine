@@ -20,18 +20,15 @@ class Applier
         $z = new \ZipArchive();
         if ($z->open($packageFile) !== true) throw new \RuntimeException('Cannot open package: '.$packageFile);
 
-        // optional checks.json
         $checksRaw = $z->getFromName('checks.json');
         if ($checksRaw !== false) {
             $checks = json_decode($checksRaw, true);
             if (is_array($checks)) $this->runChecks($checks);
         }
 
-        // pre hook
         $pre = $z->getFromName('scripts/pre.php');
         if ($pre !== false) $this->runHook($pre, $manifest);
 
-        // overlay files/
         $root = realpath(ROOT_PATH);
         for ($i=0; $i<$z->numFiles; $i++) {
             $name = $z->getNameIndex($i);
@@ -41,31 +38,26 @@ class Applier
 
             $rel = substr($name, strlen('files/'));
             $dst = $root . '/' . $rel;
-
             @mkdir(dirname($dst), 0775, true);
             $content = $z->getFromIndex($i);
             file_put_contents($dst, $content);
         }
 
-        // post hook
         $post = $z->getFromName('scripts/post.php');
         if ($post !== false) $this->runHook($post, $manifest);
 
-        // invalidate caches
         Cache::clear();
-
         $z->close();
 
-        // applied marker
         $applied = $this->updatesPath . '/applied_' . date('Ymd_His') . '_' . preg_replace('/[^a-z0-9_-]+/i','-', $id) . '.json';
         file_put_contents($applied, json_encode([
-            'id' => $id,
-            'applied_at' => date('c'),
-            'package' => $packageFile,
-            'manifest' => $manifest,
+            'id'=>$id,
+            'applied_at'=>date('c'),
+            'package'=>$packageFile,
+            'manifest'=>$manifest
         ], JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
-        return ['applied_file'=>$applied, 'id'=>$id];
+        return ['applied_file'=>$applied,'id'=>$id];
     }
 
     private function runHook(string $php, array $manifest): void

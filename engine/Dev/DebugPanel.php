@@ -8,6 +8,8 @@ class DebugPanel
         $cfg = Logger::cfg();
         if (!($cfg['enabled'] ?? false)) return false;
         if (!($cfg['debug_panel'] ?? false)) return false;
+
+        // show only when explicitly requested
         return isset($_GET['__debug']) && (string)$_GET['__debug'] === '1';
     }
 
@@ -15,6 +17,7 @@ class DebugPanel
     {
         header('Content-Type: text/html; charset=utf-8');
         $safe = fn($s)=>htmlspecialchars((string)$s, ENT_QUOTES|ENT_SUBSTITUTE, 'UTF-8');
+        $json = $safe(json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
         echo "<!doctype html><html><head><meta charset='utf-8'><title>CajeerEngine Debug</title>";
         echo "<style>
@@ -48,6 +51,7 @@ class DebugPanel
 
         echo "<div class='card'><h3>Notes</h3><pre>".$safe(json_encode($data['notes'] ?? [], JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT))."</pre></div>";
 
+        echo "<div class='card'><h3>Raw JSON</h3><pre>".$json."</pre></div>";
         echo "</body></html>";
         exit;
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * DLE source connection settings for migration toolkit.
- * You can also override via CLI arguments (future).
+ * You can also override via CLI arguments.
  */
 return [
   'db' => [
@@ -12,9 +12,7 @@ return [
     'password' => '',
     'charset' => 'utf8mb4'
   ],
-  // DLE table prefix if custom (default: dle_)
   'prefix' => 'dle_',
-  // Import mode
   'import' => [
     'users' => true,
     'categories' => true,

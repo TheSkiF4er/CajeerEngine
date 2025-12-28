@@ -77,7 +77,7 @@ switch ($cmd) {
   case 'migrate:dle:check':
     \Core\Config::load();
     $cfg = require ROOT_PATH . '/system/dle.php';
-    $tpl = $argv[2] ?? null; // path to DLE templates
+    $tpl = $argv[2] ?? null;
     $m = new \Migration\Dle\DleMigrator();
     $report = $m->check($cfg, $tpl);
     $file = $report->save(ROOT_PATH . '/storage/migrations');
@@ -189,6 +189,7 @@ switch ($cmd) {
     exit(0);
 
 
+
   case 'theme:list':
     \Core\Config::load();
     $themes = \Theme\ThemeManager::list();
@@ -208,6 +209,24 @@ switch ($cmd) {
     \Core\Config::load();
     $c = new \Marketplace\Client();
     echo json_encode($c->status(), JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) . "\n";
+    exit(0);
+
+
+  case 'site:list':
+    \Core\Config::load();
+    $cfg = is_file(ROOT_PATH . '/system/sites.php') ? (array)require ROOT_PATH . '/system/sites.php' : [];
+    echo json_encode($cfg, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) . "\n";
+    exit(0);
+
+  case 'api:token:add':
+    $token = $argv[2] ?? '';
+    $name = $argv[3] ?? 'token';
+    if (!$token) { echo "Usage: php cli/cajeer api:token:add <token> [name]\n"; exit(2); }
+    $cfgFile = ROOT_PATH . '/system/api.php';
+    $cfg = is_file($cfgFile) ? (array)require $cfgFile : ['enabled'=>true,'tokens'=>[]];
+    $cfg['tokens'][$token] = ['name'=>$name,'scopes'=>['read','write']];
+    file_put_contents($cfgFile, "<?php\nreturn " . var_export($cfg, true) . ";\n");
+    echo "Token added.\n";
     exit(0);
 
   default:

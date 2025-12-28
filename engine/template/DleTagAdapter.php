@@ -1,10 +1,6 @@
 <?php
 namespace Template;
 
-/**
- * Best-effort adapter for common DLE tags and blocks.
- * Conservative: unsupported tags remain as-is and should be handled manually.
- */
 class DleTagAdapter
 {
     public static function preprocess(string $tpl): string

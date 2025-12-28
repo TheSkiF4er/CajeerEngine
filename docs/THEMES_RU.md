@@ -17,11 +17,6 @@ php cli/cajeer theme:switch rarog-official
 - `GET /admin/themes`
 - `POST /admin/themes/switch?theme=rarog-official`
 
-## UI components library
-Простая библиотека partial-компонентов:
-- `engine/UI/Components.php`
-- компоненты лежат в `templates/themes/<theme>/components/`
-
 ## Official themes (Rarog-based)
-- `default` — базовая тема
+- `default` — базовая
 - `rarog-official` — официальная тема на базе Rarog (использует `/assets/rarog/*`).

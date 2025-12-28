@@ -1,40 +1,37 @@
 # Migration Toolkit: DLE → CajeerEngine (v1.6)
 
-Цель — максимально безболезненный переход с DLE на CajeerEngine.
+## Настройка
+1) Укажите доступ к базе DLE в `system/dle.php` (host/db/user/pass).
+2) Если у DLE нестандартный префикс таблиц — поменяйте `prefix`.
 
-## 1) Настройка доступа к базе DLE
-Отредактируйте `system/dle.php`:
-- `db.host / db.database / db.username / db.password`
-- `prefix` (если у DLE нестандартный)
-
-## 2) Проверка совместимости
+## Проверка совместимости
 ```bash
 php cli/cajeer migrate:dle:check /path/to/dle/templates
 ```
-Отчёт сохранится в `storage/migrations/report_<id>.json`.
+Отчёт: `storage/migrations/report_<id>.json`.
 
-## 3) Импорт БД
+## Импорт БД
 ```bash
 php cli/cajeer migrate:dle:db
 ```
 
-Импортируется best-effort:
+Импорт best-effort:
 - категории
-- пользователи (без паролей, ставятся временные)
+- пользователи (без паролей: назначаются временные)
 - новости/посты → `content(type=news)`
 - статические страницы → `content(type=page)`
 
-## 4) Конвертация шаблонов
+## Конвертация шаблонов
 ```bash
 php cli/cajeer migrate:dle:templates /path/to/dle/templates templates/dle-converted
 ```
 
-## 5) Полный сценарий
+## Полный сценарий
 ```bash
 php cli/cajeer migrate:dle:run /path/to/dle/templates templates/dle-converted
 ```
 
-## Важно
-- DLE пароли не совместимы: после миграции требуется сброс.
-- Специфические DLE теги остаются как есть и подсвечиваются в отчёте.
-- Для базовой совместимости используется `Template\DleTagAdapter` (best-effort).
+## Примечания
+- Пароли DLE не совместимы: требуется сброс паролей после миграции.
+- Специфические DLE-теги остаются как есть и попадают в warnings отчёта.
+- Для DLE-совместимости включён `Template\DleTagAdapter` (best-effort).

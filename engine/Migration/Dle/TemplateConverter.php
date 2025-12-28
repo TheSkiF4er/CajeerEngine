@@ -39,6 +39,7 @@ class TemplateConverter
      * Best-effort conversion:
      * - сохраняем .tpl структуру DLE
      * - минимально маппим популярные плейсхолдеры на переменные CajeerEngine
+     * - оставшиеся специфичные теги DLE будут обработаны DleTagAdapter (best-effort) или попадут в отчёт
      */
     public function convertOne(string $tpl): array
     {
@@ -53,8 +54,8 @@ class TemplateConverter
             if (stripos($tpl, $k) !== false) $tpl = str_ireplace($k, $v, $tpl);
         }
 
-        if (stripos($tpl, '[not-logged]') !== false) $warnings[] = 'Найден блок [not-logged] — адаптируется через DLE Tag Adapter (best-effort).';
-        if (stripos($tpl, '[logged]') !== false) $warnings[] = 'Найден блок [logged] — адаптируется через DLE Tag Adapter (best-effort).';
+        if (stripos($tpl, '[not-logged]') !== false) $warnings[] = 'Найден блок [not-logged] — будет адаптирован через DLE Tag Adapter (best-effort).';
+        if (stripos($tpl, '[logged]') !== false) $warnings[] = 'Найден блок [logged] — будет адаптирован через DLE Tag Adapter (best-effort).';
 
         return [$tpl, $warnings];
     }

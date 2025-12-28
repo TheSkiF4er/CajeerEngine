@@ -5,7 +5,6 @@
   <title>{title}</title>
   {meta_tags}
   <link rel="stylesheet" href="{theme_url}/theme.css" />
-  <!-- Rarog assets (local component) -->
   <link rel="stylesheet" href="/assets/rarog/rarog.min.css" />
 </head>
 <body class="rarog">

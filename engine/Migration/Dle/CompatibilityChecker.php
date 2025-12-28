@@ -22,7 +22,6 @@ class CompatibilityChecker
                 }
             }
 
-            // charset check (best-effort)
             try {
                 $st = $pdo->query("SHOW VARIABLES LIKE 'character_set_database'");
                 $row = $st->fetch();
@@ -46,7 +45,6 @@ class CompatibilityChecker
             return;
         }
 
-        // Patterns that frequently require manual migration
         $needReview = ['{custom ', '{ajax', '{calendar', '[aviable=', '[available='];
 
         $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($templatesDir, \FilesystemIterator::SKIP_DOTS));

@@ -23,4 +23,10 @@ class Connection
 
         return self::$pdo;
     }
+
+    public static function pdo(): \PDO
+    {
+        if (!self::$pdo) throw new \RuntimeException('DLE PDO not connected');
+        return self::$pdo;
+    }
 }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0] - 2025-12-28
+### Добавлено — CajeerEngine Next
+- Template DSL v2: DLE-совместимый синтаксис + расширения, компиляция `.tpl → PHP` (storage/compiled_tpl_v2).
+- UI Builder (skeleton): схемы (storage/ui_builder) + admin endpoints.
+- Headless API-first: `/api/v1/*` endpoints + token auth (system/api.php).
+- Multi-site: host-based sites registry (system/sites.php) + site-level theme.
+- Marketplace: stubs (status/themes/plugins) + API endpoint.
+- Advanced permissions: Policy engine + system/permissions.php.
+- LTS: политика поддержки.
+
+
 ## [1.9.0] - 2025-12-28
 ### Добавлено — UI / Themes / Marketplace (подготовка)
 - Theme system: `templates/themes/*` + `public/assets/themes/*` + `Theme\ThemeManager`.
@@ -14,17 +25,7 @@
 - CLI генераторы: make:module, make:content, make:template.
 - Devtools: Debug панель (/?__debug=1), сбор метрик запросов/шаблонов/SQL.
 - Логи: запросы, шаблоны, SQL (в storage/dev).
-- Документация: docs/DEVTOOLS_RU.md.
-
-
-## [1.7.0] - 2025-12-28
-### Добавлено — Updater & Packages
-- Полноценный Updater: backup/rollback (restore), каналы stable/beta, поддержка локального/удалённого манифеста.
-- Форматы пакетов:
-  - `.cajeerpkg` — пакет (overlay файлов + хуки pre/post).
-  - `.cajeerpatch` — патч (overlay + опциональные проверки).
-- CLI-команды: updater:check/apply/backup/restore.
-- Поддержка обновления компонентов (в т.ч. public/assets/rarog) через пакеты.
+- Документация для разработчиков: docs/DEVTOOLS_RU.md.
 
 
 ## [1.6.0] - 2025-12-28
@@ -33,6 +34,16 @@
 - Импорт основных сущностей DLE (best-effort): новости/посты, категории, статические страницы, пользователи.
 - Конвертер шаблонов DLE → Cajeer `.tpl` + генерация предупреждений/логов.
 - DLE Tag Adapter: режим совместимости для наиболее частых DLE-тегов в шаблонах.
+
+
+## [1.7.0] - 2025-12-28
+### Добавлено — Updater & Packages
+- Полноценный Updater: backup/rollback, каналы stable/beta, поддержка локального/удалённого манифеста.
+- Форматы пакетов:
+  - `.cajeerpkg` — пакет (overlay файлов + хуки pre/post).
+  - `.cajeerpatch` — патч (overlay + опциональные проверки/инвалидации кэша).
+- CLI-команды: updater:check/apply/backup/restore.
+- Поддержка обновления компонентов (в т.ч. public/assets/rarog) через пакеты.
 
 
 ## [1.5.0] - 2025-12-28

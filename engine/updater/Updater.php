@@ -7,9 +7,7 @@ class Updater
 
     public function __construct()
     {
-        $this->cfg = is_file(ROOT_PATH . '/system/updater.php')
-          ? (array)require ROOT_PATH . '/system/updater.php'
-          : [];
+        $this->cfg = require ROOT_PATH . '/system/updater.php';
     }
 
     public function manifest(): Manifest
@@ -17,26 +15,20 @@ class Updater
         $src = $this->cfg['manifest'] ?? (ROOT_PATH . '/system/updates/manifest.json');
         $raw = null;
 
-        if (is_string($src) && preg_match('/^https?:\/\//i', $src)) {
-            $raw = @file_get_contents($src);
-        } else {
-            $raw = @file_get_contents((string)$src);
-        }
+        if (is_string($src) && preg_match('/^https?:\/\//i', $src)) $raw = @file_get_contents($src);
+        else $raw = @file_get_contents((string)$src);
 
         $data = json_decode((string)$raw, true);
         if (!is_array($data)) $data = ['channels'=>['stable'=>[],'beta'=>[]]];
         return new Manifest($data);
     }
 
-    public function channel(): string
-    {
-        return (string)($this->cfg['channel'] ?? 'stable');
-    }
+    public function channel(): string { return (string)($this->cfg['channel'] ?? 'stable'); }
 
     public function check(): array
     {
         $items = $this->manifest()->channel($this->channel());
-        usort($items, fn($a,$b)=>strcmp((string)($b['version']??''), (string)($a['version']??'')));
+        usort($items, fn($a,$b)=>strcmp((string)($b['version']??''),(string)($a['version']??'')));
         return $items;
     }
 

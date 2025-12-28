@@ -1,6 +1,8 @@
 <?php
 namespace Template;
 
+use Template\DSL\Compiler;
+
 use Theme\ThemeManager;
 
 use Core\KernelSingleton;
@@ -15,7 +17,7 @@ class Template
     {
         $theme = $theme ?: 'default';
         $this->tplPath = $tplPath ?: ROOT_PATH . '/templates/' . $theme;
-        $this->cachePath = $cachePath ?: ROOT_PATH . '/storage/compiled_tpl';
+        $this->cachePath = $cachePath ?: ROOT_PATH . '/storage/compiled_tpl_v2';
         $this->debug = $debug;
         if (!is_dir($this->cachePath)) @mkdir($this->cachePath, 0775, true);
     }
@@ -65,4 +67,24 @@ class Template
         extract($vars, EXTR_SKIP);
         include $compiled;
     }
+
+    protected function compiledPath(string $tplFile): string
+    {
+        $key = md5($this->tplPath . '|' . $tplFile);
+        return rtrim($this->cachePath,'/') . '/' . $key . '.php';
+    }
+
+    protected function ensureCompiled(string $tplFile, string $full): string
+    {
+        if (!is_dir($this->cachePath)) @mkdir($this->cachePath, 0775, true);
+        $compiled = $this->compiledPath($tplFile);
+        $need = !is_file($compiled) || (filemtime($compiled) < filemtime($full));
+        if ($need) {
+            $src = file_get_contents($full);
+            $php = \Template\DSL\Compiler::compile($src);
+            file_put_contents($compiled, $php);
+        }
+        return $compiled;
+    }
+
 }
