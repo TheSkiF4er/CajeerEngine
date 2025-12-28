@@ -387,3 +387,10 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Admin: `public/admin/marketplace.php`
 - DB schema: `php cli/cajeer marketplace:install-schema`
 - Docs: `docs/MARKETPLACE_RU.md`
+
+
+## v2.4 — Enterprise & Security
+- Config: `system/security.php`, `system/workspaces.php`
+- Docs: `docs/ENTERPRISE_SECURITY_RU.md`
+- Admin: `public/admin/security.php`
+- Cron: `system/cron/publish_scheduled.php`

@@ -36,4 +36,8 @@ return [
     '/api/v1/marketplace/installed' => ['api', 'marketplaceInstalled'],
     '/api/v1/marketplace/upload-install' => ['api', 'marketplaceUploadInstall'],
     '/api/v1/marketplace/trust-publisher' => ['api', 'marketplaceTrustPublisher'],
+    '/api/v1/security/csrf' => ['api', 'csrfToken'],
+    '/api/v1/audit/list' => ['api', 'auditList'],
+    '/api/v1/workflow/transition' => ['api', 'workflowTransition'],
+    '/api/v1/workflow/schedule' => ['api', 'workflowSchedule'],
 ];

@@ -114,4 +114,95 @@ class Controller
         Response::json(['ok'=>true,'trusted'=>true]);
     }
 
+    // Security / Enterprise (v2.4)
+    public function csrfToken()
+    {
+        $sec = is_file(ROOT_PATH.'/system/security.php') ? require ROOT_PATH.'/system/security.php' : [];
+        $t = \Security\CSRF::token((array)($sec['csrf'] ?? []));
+        Response::json(['ok'=>true,'token'=>$t]);
+    }
+
+    public function auditList()
+    {
+        \API\Auth::requireScope('admin.read');
+        $pdo = \Database\DB::pdo();
+        $rows = [];
+        if ($pdo) {
+            $pdo->exec("CREATE TABLE IF NOT EXISTS ce_audit_logs (
+                id BIGINT NOT NULL AUTO_INCREMENT,
+                created_at DATETIME NULL,
+                user_id INT NULL,
+                workspace_id INT NULL,
+                action VARCHAR(190) NOT NULL,
+                ip VARCHAR(64) NULL,
+                user_agent VARCHAR(255) NULL,
+                context_json MEDIUMTEXT NULL,
+                PRIMARY KEY (id),
+                KEY idx_action (action),
+                KEY idx_user (user_id),
+                KEY idx_ws (workspace_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+            $limit = max(1, min(200, (int)($_GET['limit'] ?? 50)));
+            $rows = $pdo->query("SELECT id,created_at,user_id,workspace_id,action,ip,user_agent,context_json FROM ce_audit_logs ORDER BY id DESC LIMIT $limit")->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        Response::json(['ok'=>true,'data'=>$rows]);
+    }
+
+    public function workflowTransition()
+    {
+        \API\Auth::requireScope('admin.write');
+        $id = (int)($_GET['content_id'] ?? 0);
+        $to = (string)($_GET['to'] ?? '');
+        $ws = \Core\Workspace::currentId();
+
+        $user = \API\Auth::user();
+        if (!\Permissions\Policy::allows($user, 'content.workflow', ['workspace_id'=>$ws,'content_id'=>$id])) {
+            Response::json(['ok'=>false,'error'=>'forbidden']);
+        }
+
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+
+        // read current state
+        $st = $pdo->prepare("SELECT workflow_state FROM ce_content_items WHERE id=:id LIMIT 1");
+        $st->execute([':id'=>$id]);
+        $row = $st->fetch(\PDO::FETCH_ASSOC);
+        $from = (string)($row['workflow_state'] ?? 'draft');
+
+        if (!\Workflow\Workflow::canTransition($from, $to)) {
+            Response::json(['ok'=>false,'error'=>'invalid_transition','from'=>$from,'to'=>$to]);
+        }
+
+        $publishedAt = null;
+        if ($to === \Workflow\Workflow::PUBLISHED) $publishedAt = date('Y-m-d H:i:s');
+
+        $st = $pdo->prepare("UPDATE ce_content_items SET workflow_state=:s, published_at=COALESCE(:p, published_at) WHERE id=:id");
+        $st->execute([':s'=>$to, ':p'=>$publishedAt, ':id'=>$id]);
+
+        \Audit\AuditLogger::log('workflow.transition', ['user_id'=>$user['id'] ?? null,'workspace_id'=>$ws,'content_id'=>$id,'from'=>$from,'to'=>$to]);
+        Response::json(['ok'=>true,'from'=>$from,'to'=>$to]);
+    }
+
+    public function workflowSchedule()
+    {
+        \API\Auth::requireScope('admin.write');
+        $id = (int)($_GET['content_id'] ?? 0);
+        $at = (string)($_GET['at'] ?? ''); // Y-m-d H:i:s
+        $ws = \Core\Workspace::currentId();
+        $user = \API\Auth::user();
+
+        if (!\Permissions\Policy::allows($user, 'content.schedule', ['workspace_id'=>$ws,'content_id'=>$id])) {
+            Response::json(['ok'=>false,'error'=>'forbidden']);
+        }
+
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+
+        $st = $pdo->prepare("UPDATE ce_content_items SET scheduled_at=:a WHERE id=:id");
+        $st->execute([':a'=>$at, ':id'=>$id]);
+
+        \Audit\AuditLogger::log('workflow.schedule', ['user_id'=>$user['id'] ?? null,'workspace_id'=>$ws,'content_id'=>$id,'at'=>$at]);
+        Response::json(['ok'=>true,'scheduled_at'=>$at]);
+    }
+
 }

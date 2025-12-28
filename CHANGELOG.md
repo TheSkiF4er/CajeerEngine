@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0] - 2025-12-28
+### Добавлено
+- Security: CSRF (cookie+header/form), basic XSS helpers, rate limiting, IP allow/deny.
+- Audit logs: ce_audit_logs + API listing.
+- Enterprise RBAC: fine-grained perms, per-content grants, workspace/team isolation helpers.
+- Workflow: draft→review→publish, approval foundation, scheduled publishing + cron script.
+
 ## [2.3.0] - 2025-12-28
 ### Добавлено
 - Marketplace Core: установка из админки (upload), реестр установленных пакетов, получение remote index.
