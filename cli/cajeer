@@ -15,7 +15,23 @@ switch ($cmd) {
         echo "Cache clear (stub)\n";
         exit(0);
 
-    default:
+      case 'db:install':
+    $db = require ROOT_PATH . '/system/db.php';
+    $pdo = \Database\DB::connect($db);
+    $sql = file_get_contents(ROOT_PATH . '/system/schema.sql');
+    $pdo->exec($sql);
+    echo "DB schema installed.\n";
+    exit(0);
+
+  case 'seed:demo':
+    $db = require ROOT_PATH . '/system/db.php';
+    $pdo = \Database\DB::connect($db);
+    $sql = file_get_contents(ROOT_PATH . '/system/seed_demo.sql');
+    $pdo->exec($sql);
+    echo "Demo data inserted.\n";
+    exit(0);
+
+  default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";
         echo "  diagnose\n";
