@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0] - 2025-12-28
+### Добавлено
+- Marketplace Core: установка из админки (upload), реестр установленных пакетов, получение remote index.
+- Типы пакетов: Plugins, Themes, UI Blocks, Content Types.
+- Проверка версий и зависимостей (минимальный semver).
+- Подписи пакетов (ed25519) и Trusted publishers (config + DB).
+- CLI: marketplace:install-schema, marketplace:install, marketplace:trust.
+
 ## [2.2.0] - 2025-12-28
 ### Добавлено
 - UI Builder (Visual Editor): drag&drop editor, sections/grid/blocks, preview.

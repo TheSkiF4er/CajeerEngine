@@ -3,26 +3,25 @@ namespace Marketplace;
 
 class Client
 {
-    private array $cfg;
+    protected array $cfg;
+    public function __construct(array $cfg){ $this->cfg = $cfg; }
 
-    public function __construct()
+    protected function url(string $path): string
     {
-        $this->cfg = is_file(ROOT_PATH . '/system/marketplace.php')
-            ? (array)require ROOT_PATH . '/system/marketplace.php'
-            : ['enabled'=>false];
+        return rtrim((string)$this->cfg['base_url'], '/') . '/' . ltrim($path, '/');
     }
 
-    public function enabled(): bool { return (bool)($this->cfg['enabled'] ?? false); }
-
-    public function status(): array
+    public function fetchJson(string $path): array
     {
-        return [
-            'enabled' => $this->enabled(),
-            'endpoint' => (string)($this->cfg['base_url'] ?? ''),
-            'note' => 'Marketplace API is a preparation stub in v1.9.',
-        ];
+        $url = $this->url($path);
+        $ctx = stream_context_create(['http' => ['timeout' => 10]]);
+        $raw = @file_get_contents($url, false, $ctx);
+        if ($raw === false) throw new \Exception("Marketplace fetch failed: $url");
+        $arr = json_decode($raw, true);
+        if (!is_array($arr)) throw new \Exception("Marketplace invalid json");
+        return $arr;
     }
 
-    public function listThemes(): array { return $this->status(); }
-    public function listPlugins(): array { return $this->status(); }
+    public function index(): array { return $this->fetchJson('index'); }
+    public function package(string $type, string $name): array { return $this->fetchJson('packages/'.rawurlencode($type).'/'.rawurlencode($name)); }
 }

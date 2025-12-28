@@ -381,3 +381,9 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Install: `php cli/cajeer ui:install`
 - Admin editor: `public/admin/ui_builder.php`
 - Docs: `docs/UI_BUILDER_RU.md`
+
+
+## v2.3 — Marketplace (Production)
+- Admin: `public/admin/marketplace.php`
+- DB schema: `php cli/cajeer marketplace:install-schema`
+- Docs: `docs/MARKETPLACE_RU.md`

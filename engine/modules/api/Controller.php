@@ -55,4 +55,63 @@ class Controller
         Response::json(['ok'=>true,'html'=>$html]);
     }
 
+    // Marketplace (v2.3)
+    public function marketplaceIndex()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/marketplace.php';
+        $client = new \Marketplace\Client($cfg);
+        $data = $client->index();
+        Response::json(['ok'=>true,'data'=>$data]);
+    }
+
+    public function marketplaceInstalled()
+    {
+        \API\Auth::requireScope('admin.read');
+        $pdo = \Database\DB::pdo();
+        $rows = [];
+        if ($pdo) {
+            $rows = $pdo->query("SELECT type,name,version,title,publisher_id,installed_at,updated_at FROM ce_marketplace_packages ORDER BY type,name")->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        Response::json(['ok'=>true,'data'=>$rows]);
+    }
+
+    public function marketplaceUploadInstall()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/marketplace.php';
+        if (empty($cfg['allow_local_upload'])) Response::json(['ok'=>false,'error'=>'local_upload_disabled']);
+        if (empty($_FILES['package']['tmp_name'])) Response::json(['ok'=>false,'error'=>'no_file']);
+
+        $dbCfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($dbCfg['db']);
+        $pdo = \Database\DB::pdo();
+        if ($pdo) $pdo->exec(file_get_contents(ROOT_PATH . '/system/sql/marketplace_v2_3.sql'));
+
+        $mgr = new \Marketplace\PackageManager($cfg);
+        $res = $mgr->installFromFile($_FILES['package']['tmp_name']);
+        Response::json($res);
+    }
+
+    public function marketplaceTrustPublisher()
+    {
+        \API\Auth::requireScope('admin.write');
+        $id = trim((string)($_POST['publisher_id'] ?? ''));
+        $key = trim((string)($_POST['pubkey_ed25519'] ?? ''));
+        $title = trim((string)($_POST['title'] ?? $id));
+        if ($id === '' || $key === '') Response::json(['ok'=>false,'error'=>'invalid_input']);
+
+        $dbCfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($dbCfg['db']);
+        $pdo = \Database\DB::pdo();
+        if ($pdo) {
+            $pdo->exec(file_get_contents(ROOT_PATH . '/system/sql/marketplace_v2_3.sql'));
+            $pdo->prepare("INSERT INTO ce_marketplace_publishers(publisher_id,title,pubkey_ed25519,trusted,created_at,updated_at)
+              VALUES(:id,:t,:k,1,NOW(),NOW())
+              ON DUPLICATE KEY UPDATE title=:t2,pubkey_ed25519=:k2,trusted=1,updated_at=NOW()")
+              ->execute([':id'=>$id,':t'=>$title,':k'=>$key,':t2'=>$title,':k2'=>$key]);
+        }
+        Response::json(['ok'=>true,'trusted'=>true]);
+    }
+
 }

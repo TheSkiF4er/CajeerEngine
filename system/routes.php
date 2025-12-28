@@ -32,4 +32,8 @@ return [
     '/api/v1/ui/get' => ['api', 'uiGet'],
     '/api/v1/ui/save' => ['api', 'uiSave'],
     '/api/v1/ui/preview' => ['api', 'uiPreview'],
+    '/api/v1/marketplace/index' => ['api', 'marketplaceIndex'],
+    '/api/v1/marketplace/installed' => ['api', 'marketplaceInstalled'],
+    '/api/v1/marketplace/upload-install' => ['api', 'marketplaceUploadInstall'],
+    '/api/v1/marketplace/trust-publisher' => ['api', 'marketplaceTrustPublisher'],
 ];
