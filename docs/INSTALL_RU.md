@@ -24,3 +24,11 @@ php cli/cajeer seed:demo
 - Откройте `/news/view?slug=content-core-v12`
 - Откройте `/page?slug=about`
 - Откройте `/category?slug=updates&type=news`
+
+
+## 5) Админка
+- Вход: `/admin` (или напрямую `/admin/login`)
+- По умолчанию после `seed:demo`:
+  - login: `admin`
+  - password: `admin`
+- Смените пароль в админке: `/admin/users` → `admin` → новый пароль.

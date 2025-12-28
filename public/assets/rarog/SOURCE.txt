@@ -1,0 +1,3 @@
+Rarog assets bundled from provided archive Rarog-main.zip
+CSS: concatenated 22 component css files + globals.css
+JS: /mnt/data/CajeerEngine-1.3.0/_rarog/Rarog-main/packages/js/src/rarog.esm.js
