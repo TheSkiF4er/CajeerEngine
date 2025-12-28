@@ -375,3 +375,9 @@ Cajeer Engine — открытый проект. Любой желающий м�
 1) Настройте БД в `system/config.php`
 2) Установите схему: `php cli/cajeer content:install`
 3) Используйте Bearer token: `dev-token` из `system/api.php`
+
+
+## v2.2 — UI Builder (Visual Editor)
+- Install: `php cli/cajeer ui:install`
+- Admin editor: `public/admin/ui_builder.php`
+- Docs: `docs/UI_BUILDER_RU.md`

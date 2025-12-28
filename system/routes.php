@@ -28,4 +28,8 @@ return [
     '/api/v1/types' => ['api', 'typesIndex'],
     '/api/v1/admin/me' => ['api', 'adminMe'],
     '/api/v1/admin/stats' => ['api', 'adminStats'],
+    '/api/v1/ui/blocks' => ['api', 'uiBlocks'],
+    '/api/v1/ui/get' => ['api', 'uiGet'],
+    '/api/v1/ui/save' => ['api', 'uiSave'],
+    '/api/v1/ui/preview' => ['api', 'uiPreview'],
 ];

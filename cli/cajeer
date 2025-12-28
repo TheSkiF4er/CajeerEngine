@@ -3,6 +3,16 @@
 require_once __DIR__ . '/../engine/bootstrap.php';
 
 $cmd = $argv[1] ?? '';
+if ($cmd === 'ui:install') {
+    $cfg = require ROOT_PATH . '/system/config.php';
+    \\Database\\DB::connect($cfg['db']);
+    $pdo = \\Database\\DB::pdo();
+    $sql = file_get_contents(ROOT_PATH . '/system/sql/ui_builder_v2_2.sql');
+    $pdo->exec($sql);
+    echo "OK: UI Builder schema (v2.2) installed\n";
+    exit(0);
+}
+
 if ($cmd === 'content:install') {
     $cfg = require ROOT_PATH . '/system/config.php';
     \Database\DB::connect($cfg['db']);

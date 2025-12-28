@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.0] - 2025-12-28
+### Добавлено
+- UI Builder (Visual Editor): drag&drop editor, sections/grid/blocks, preview.
+- JSON → render pipeline + blocks registry.
+- Blocks: text, image, gallery, form, custom HTML, module blocks.
+- Admin API: /api/v1/ui/*.
+- `.tpl` sync: `{ui_builder}` (auto-inject при наличии content_id).
+- CLI: `ui:install` + SQL `system/sql/ui_builder_v2_2.sql`.
+
 ## [2.1.0] - 2025-12-28
 ### Добавлено
 - Headless Content API v1: CRUD, фильтрация/сортировка/пагинация.
