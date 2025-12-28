@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0] - 2025-12-28
+### Добавлено
+- Platform mode: multi-tenant + site isolation (tenant/site resolver, context).
+- SaaS foundation: tenants, sites, domain mapping tables.
+- Usage metrics + optional limits + billing hook placeholders.
+- Auto-updates foundation: rollout tables, worker/cron, health checks.
+
 ## [2.4.0] - 2025-12-28
 ### Добавлено
 - Security: CSRF (cookie+header/form), basic XSS helpers, rate limiting, IP allow/deny.

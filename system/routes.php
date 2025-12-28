@@ -40,4 +40,9 @@ return [
     '/api/v1/audit/list' => ['api', 'auditList'],
     '/api/v1/workflow/transition' => ['api', 'workflowTransition'],
     '/api/v1/workflow/schedule' => ['api', 'workflowSchedule'],
+    '/api/v1/platform/health' => ['api', 'platformHealth'],
+    '/api/v1/platform/context' => ['api', 'platformContext'],
+    '/api/v1/platform/tenant/create' => ['api', 'platformTenantCreate'],
+    '/api/v1/platform/site/create' => ['api', 'platformSiteCreate'],
+    '/api/v1/platform/usage' => ['api', 'platformUsage'],
 ];

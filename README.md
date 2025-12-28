@@ -394,3 +394,10 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Docs: `docs/ENTERPRISE_SECURITY_RU.md`
 - Admin: `public/admin/security.php`
 - Cron: `system/cron/publish_scheduled.php`
+
+
+## v2.5 — SaaS & Platform Mode
+- Config: `system/platform.php`
+- Docs: `docs/PLATFORM_MODE_RU.md`
+- Admin: `public/admin/platform.php`
+- Cron: `system/cron/autoupdate_worker.php`

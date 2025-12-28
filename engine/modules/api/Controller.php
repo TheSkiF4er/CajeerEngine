@@ -205,4 +205,75 @@ class Controller
         Response::json(['ok'=>true,'scheduled_at'=>$at]);
     }
 
+    // Platform (v2.5)
+    public function platformHealth()
+    {
+        Response::json(\AutoUpdate\Health::ok());
+    }
+
+    public function platformContext()
+    {
+        \API\Auth::requireScope('admin.read');
+        Response::json([
+            'ok'=>true,
+            'tenant_id'=>\Platform\Context::tenantId(),
+            'site_id'=>\Platform\Context::siteId(),
+        ]);
+    }
+
+    public function platformTenantCreate()
+    {
+        \API\Auth::requireScope('admin.write');
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+        $pdo->exec(file_get_contents(ROOT_PATH . '/system/sql/platform_v2_5.sql'));
+
+        $slug = trim((string)($_POST['slug'] ?? ''));
+        $title = trim((string)($_POST['title'] ?? $slug));
+        if ($slug === '') Response::json(['ok'=>false,'error'=>'invalid_slug']);
+
+        $pdo->prepare("INSERT INTO ce_tenants(slug,title,plan,status,created_at,updated_at) VALUES(:s,:t,'free','active',NOW(),NOW())")
+            ->execute([':s'=>$slug, ':t'=>$title]);
+        Response::json(['ok'=>true,'tenant_id'=>(int)$pdo->lastInsertId()]);
+    }
+
+    public function platformSiteCreate()
+    {
+        \API\Auth::requireScope('admin.write');
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+        $pdo->exec(file_get_contents(ROOT_PATH . '/system/sql/platform_v2_5.sql'));
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $host = trim((string)($_POST['host'] ?? ''));
+        $title = trim((string)($_POST['title'] ?? $host));
+        if ($tenantId<=0 || $host==='') Response::json(['ok'=>false,'error'=>'invalid_input']);
+
+        $pdo->prepare("INSERT INTO ce_sites(tenant_id,title,host,status,created_at,updated_at) VALUES(:tid,:t,:h,'active',NOW(),NOW())")
+            ->execute([':tid'=>$tenantId, ':t'=>$title, ':h'=>$host]);
+
+        $siteId = (int)$pdo->lastInsertId();
+        $pdo->prepare("INSERT INTO ce_tenant_domains(tenant_id,site_id,host,created_at) VALUES(:tid,:sid,:h,NOW())
+            ON DUPLICATE KEY UPDATE tenant_id=:tid2, site_id=:sid2")
+            ->execute([':tid'=>$tenantId,':sid'=>$siteId,':h'=>$host,':tid2'=>$tenantId,':sid2'=>$siteId]);
+
+        Response::json(['ok'=>true,'site_id'=>$siteId]);
+    }
+
+    public function platformUsage()
+    {
+        \API\Auth::requireScope('admin.read');
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+
+        $tenantId = (int)($_GET['tenant_id'] ?? 0);
+        if ($tenantId<=0) Response::json(['ok'=>false,'error'=>'tenant_required']);
+        $date = (string)($_GET['date'] ?? date('Y-m-d'));
+
+        $st = $pdo->prepare("SELECT metric_key, metric_value, site_id FROM ce_usage_metrics WHERE tenant_id=:t AND bucket_date=:d ORDER BY metric_key");
+        $st->execute([':t'=>$tenantId, ':d'=>$date]);
+        $rows = $st->fetchAll(\PDO::FETCH_ASSOC);
+        Response::json(['ok'=>true,'data'=>$rows]);
+    }
+
 }
