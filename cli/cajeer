@@ -128,6 +128,44 @@ switch ($cmd) {
     echo "Report: $file\n";
     exit($report->ok() ? 0 : 1);
 
+
+  case 'updater:check':
+    \Core\Config::load();
+    $u = new \Updater\Updater();
+    $items = $u->check();
+    echo "Channel: " . $u->channel() . "\n";
+    foreach ($items as $it) {
+      echo ($it['version'] ?? '0.0.0') . " — " . ($it['title'] ?? '') . " (" . ($it['file'] ?? '') . ")\n";
+    }
+    exit(0);
+
+  case 'updater:backup':
+    \Core\Config::load();
+    $label = $argv[2] ?? 'manual';
+    $u = new \Updater\Updater();
+    $file = $u->backup($label);
+    echo "Backup: $file\n";
+    exit(0);
+
+  case 'updater:restore':
+    \Core\Config::load();
+    $file = $argv[2] ?? '';
+    if (!$file) { echo "Usage: php cli/cajeer updater:restore <backup_zip>\n"; exit(2); }
+    (new \Updater\Updater())->restore($file);
+    echo "Restored\n";
+    exit(0);
+
+  case 'updater:apply':
+    \Core\Config::load();
+    $pkg = $argv[2] ?? '';
+    if (!$pkg) { echo "Usage: php cli/cajeer updater:apply <package.cajeerpkg|package.cajeerpatch>\n"; exit(2); }
+    $u = new \Updater\Updater();
+    $res = $u->apply($pkg);
+    echo "Applied: " . ($res['id'] ?? '') . "\n";
+    echo "Applied marker: " . ($res['applied_file'] ?? '') . "\n";
+    echo "Backup: " . ($res['backup'] ?? '') . "\n";
+    exit(0);
+
   default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";

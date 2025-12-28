@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.7.0] - 2025-12-28
+### Добавлено — Updater & Packages
+- Полноценный Updater: backup/rollback (restore), каналы stable/beta, поддержка локального/удалённого манифеста.
+- Форматы пакетов:
+  - `.cajeerpkg` — пакет (overlay файлов + хуки pre/post).
+  - `.cajeerpatch` — патч (overlay + опциональные проверки).
+- CLI-команды: updater:check/apply/backup/restore.
+- Поддержка обновления компонентов (в т.ч. public/assets/rarog) через пакеты.
+
+
 ## [1.6.0] - 2025-12-28
 ### Добавлено — Migration Toolkit (DLE → CajeerEngine)
 - CLI-набор миграции: проверка совместимости, импорт БД, конвертация шаблонов, отчёт ошибок.
