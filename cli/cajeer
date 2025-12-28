@@ -31,6 +31,48 @@ switch ($cmd) {
     echo "Demo data inserted.\n";
     exit(0);
 
+
+  case 'plugin:list':
+    $pm = new \Plugins\PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', trim(file_get_contents(ROOT_PATH . '/system/version.txt')));
+    $list = $pm->list();
+    foreach ($list as $p) {
+      echo ($p['enabled'] ? '[x] ' : '[ ] ') . $p['id'] . ' ' . $p['version'] . ' — ' . $p['name'] . "\n";
+    }
+    exit(0);
+
+  case 'plugin:enable':
+    $id = $argv[2] ?? '';
+    if (!$id) { echo "Usage: php cli/cajeer plugin:enable <id>\n"; exit(2); }
+    $pm = new \Plugins\PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', trim(file_get_contents(ROOT_PATH . '/system/version.txt')));
+    $pm->enable($id);
+    echo "Enabled: $id\n";
+    exit(0);
+
+  case 'plugin:disable':
+    $id = $argv[2] ?? '';
+    if (!$id) { echo "Usage: php cli/cajeer plugin:disable <id>\n"; exit(2); }
+    $pm = new \Plugins\PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', trim(file_get_contents(ROOT_PATH . '/system/version.txt')));
+    $pm->disable($id);
+    echo "Disabled: $id\n";
+    exit(0);
+
+  case 'plugin:install':
+    $id = $argv[2] ?? '';
+    if (!$id) { echo "Usage: php cli/cajeer plugin:install <id>\n"; exit(2); }
+    $pm = new \Plugins\PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', trim(file_get_contents(ROOT_PATH . '/system/version.txt')));
+    $pm->install($id);
+    echo "Installed: $id\n";
+    exit(0);
+
+  case 'plugin:uninstall':
+    $id = $argv[2] ?? '';
+    if (!$id) { echo "Usage: php cli/cajeer plugin:uninstall <id>\n"; exit(2); }
+    $pm = new \Plugins\PluginManager(ROOT_PATH . '/plugins', ROOT_PATH . '/system/plugins.php', trim(file_get_contents(ROOT_PATH . '/system/version.txt')));
+    $pm->uninstall($id);
+    echo "Uninstalled: $id\n";
+    exit(0);
+
+
   default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";

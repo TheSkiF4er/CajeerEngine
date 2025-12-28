@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0] - 2025-12-28
+### Добавлено
+- Plugins & Events v1.4: системный EventBus (events/hooks) и менеджер плагинов.
+- Lifecycle модулей: install / enable / disable / uninstall (через PluginManager + CLI).
+- Dependency graph + topological load order + version constraints (семантическая проверка).
+- Override без правки ядра: плагины могут:
+  - подписываться на события (kernel.*, content.*, admin.*),
+  - регистрировать template-теги `{module:*}` через Template\Extensions,
+  - добавлять маршруты (frontend/admin),
+  - подменять сервисы в контейнере (Container bindings).
+
+### Изменено
+- Ядро и AdminKernel инициализируют контейнер/события и загружают плагины до роутинга.
+
+
 ## [1.3.0] - 2025-12-28
 ### Добавлено
 - Admin Panel v1.3: полноценный AdminKernel, авторизация и сессии.

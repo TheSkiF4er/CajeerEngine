@@ -10,6 +10,13 @@ class DashboardController
         $u = Auth::user();
         $ui = new UiController();
 
+        $widgetsHtml = '';
+        try {
+            $ev = \Core\KernelSingleton::events()->emit('admin.dashboard.widgets', ['widgets'=>[]]);
+            $w = $ev->payload['widgets'] ?? [];
+            if ($w) $widgetsHtml = implode("\n", $w);
+        } catch (\Throwable $e) {}
+
         $body = '
         <div class="rg-container rg-mt-3">
           <div class="rg-card">
@@ -23,6 +30,7 @@ class DashboardController
                 <a class="rg-btn rg-btn-secondary" href="/admin/logs">Логи действий</a>
                 <a class="rg-btn rg-btn-danger" href="/admin/logout">Выход</a>
               </div>
+              '.$widgetsHtml.'
             </div>
           </div>
         </div>';

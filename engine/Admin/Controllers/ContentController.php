@@ -38,6 +38,7 @@ class ContentController
                     $st->execute(array_merge([$status], $ids));
                 }
                 ActionLog::write('bulk', 'content', null, ['action'=>$action,'ids'=>$ids,'type'=>$type]);
+                try { \Core\KernelSingleton::events()->emit('content.admin.bulk', ['action'=>$action,'ids'=>$ids,'type'=>$type]); } catch (\Throwable $e) {}
             }
             header('Location: /admin/content?type='.rawurlencode($type));
             exit;
@@ -144,6 +145,7 @@ class ContentController
             ]);
             $id = (int)$pdo->lastInsertId();
             ActionLog::write('create', 'content', $id, ['type'=>$type,'slug'=>$slug]);
+            try { \Core\KernelSingleton::events()->emit('content.admin.created', ['id'=>$id,'type'=>$type,'slug'=>$slug]); } catch (\Throwable $e) {}
 
             header('Location: /admin/content/edit?id='.$id);
             exit;
@@ -180,6 +182,7 @@ class ContentController
             $st2 = $pdo->prepare('UPDATE content SET title=:title, slug=:slug, excerpt=:ex, content=:c, fields_json=:f, status=:s, updated_at=NOW() WHERE id=:id');
             $st2->execute(['title'=>$title,'slug'=>$slug,'ex'=>$excerpt,'c'=>$content,'f'=>$fields_json,'s'=>$status,'id'=>$id]);
             ActionLog::write('update', 'content', $id, ['slug'=>$slug]);
+            try { \Core\KernelSingleton::events()->emit('content.admin.updated', ['id'=>$id,'slug'=>$slug]); } catch (\Throwable $e) {}
 
             header('Location: /admin/content/edit?id='.$id);
             exit;
@@ -207,6 +210,7 @@ class ContentController
         $st = $pdo->prepare('DELETE FROM content WHERE id=:id');
         $st->execute(['id'=>$id]);
         ActionLog::write('delete', 'content', $id, []);
+        try { \Core\KernelSingleton::events()->emit('content.admin.deleted', ['id'=>$id]); } catch (\Throwable $e) {}
         header('Location: /admin/content');
         exit;
     }

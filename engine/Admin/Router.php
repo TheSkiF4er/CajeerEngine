@@ -14,6 +14,8 @@ class Router
         // normalize: /admin, /admin/login, /admin/content, ...
         $path = $uri;
 
+        try { $path = \Core\KernelSingleton::events()->filter('routes.admin.path', $path, []); } catch (\Throwable $e) {}
+
         // auth routes
         if ($path === '/admin/login') {
             (new Controllers\AuthController())->login();
