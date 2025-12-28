@@ -11,10 +11,10 @@ class Response
         exit;
     }
 
-    public static function text(string $content, int $code = 200): void
+    public static function view(string $content, int $code = 200): void
     {
         http_response_code($code);
-        header('Content-Type: text/plain; charset=utf-8');
+        header('Content-Type: text/html; charset=utf-8');
         echo $content;
         exit;
     }

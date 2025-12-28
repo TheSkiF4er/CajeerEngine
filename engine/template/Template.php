@@ -1,31 +1,31 @@
 <?php
 namespace Template;
 
+use Core\Config;
+
+/**
+ * Template Engine v1.1 (DLE-style)
+ * - compile .tpl to cached PHP
+ * - supports include/if/group/available/module tags
+ */
 class Template
 {
-    private string $tplPath;
+    private string $tplRoot;
+    private string $theme;
+    private string $cacheDir;
+    private bool $debug;
 
-    public function __construct(?string $tplPath = null)
+    public function __construct(?string $tplRoot = null, string $theme = 'default')
     {
-        $this->tplPath = $tplPath ?: ROOT_PATH . '/templates/default';
+        $this->tplRoot = $tplRoot ?: (string)Config::get('template.templates_dir', ROOT_PATH . '/templates');
+        $this->theme = $theme;
+        $this->cacheDir = (string)Config::get('template.cache_dir', ROOT_PATH . '/storage/compiled_tpl');
+        $this->debug = (bool)Config::get('template.debug', false);
     }
 
-    /**
-     * Минимальный рендер (stub): заменяет {key} на значение.
-     * В следующих итерациях будет TemplateParser/Compiler + cache.
-     */
-    public function render(string $tplFile, array $vars = []): void
+    public function render(string $tplFile, array $vars = [], array $ctxOverride = []): void
     {
-        $full = $this->tplPath . '/' . $tplFile;
-        if (!file_exists($full)) {
-            throw new \RuntimeException('Template not found: ' . $full);
-        }
-
-        $content = file_get_contents($full);
-        foreach ($vars as $k => $v) {
-            $content = str_replace('{' . $k . '}', (string)$v, $content);
-        }
-
-        echo $content;
+        $rt = new TemplateRuntime($this->tplRoot, $this->theme, $this->cacheDir, $this->debug);
+        $rt->render($tplFile, $vars, $ctxOverride);
     }
 }
