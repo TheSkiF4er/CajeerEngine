@@ -38,6 +38,7 @@ class Template
     {
         $vars = array_merge($this->globals(), $vars);
 
+        $t0 = microtime(true);
         $full = $this->tplPath . '/' . $tplFile;
         if (!file_exists($full)) {
             throw new \Exception("Template not found: $full");

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.0] - 2025-12-28
+### Добавлено — Developer Experience
+- CLI генераторы: make:module, make:content, make:template.
+- Devtools: Debug панель (/?__debug=1), сбор метрик запросов/шаблонов/SQL.
+- Логи: запросы, шаблоны, SQL (в storage/dev).
+- Документация: docs/DEVTOOLS_RU.md.
+
+
 ## [1.7.0] - 2025-12-28
 ### Добавлено — Updater & Packages
 - Полноценный Updater: backup/rollback (restore), каналы stable/beta, поддержка локального/удалённого манифеста.

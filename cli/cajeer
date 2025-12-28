@@ -166,6 +166,28 @@ switch ($cmd) {
     echo "Backup: " . ($res['backup'] ?? '') . "\n";
     exit(0);
 
+
+  case 'make:module':
+    $name = $argv[2] ?? '';
+    if (!$name) { echo "Usage: php cli/cajeer make:module <Name>\n"; exit(2); }
+    (new \Dev\Scaffold\MakeModule())->run($name);
+    echo "Module created: $name\n";
+    exit(0);
+
+  case 'make:content':
+    $type = $argv[2] ?? '';
+    if (!$type) { echo "Usage: php cli/cajeer make:content <type>\n"; exit(2); }
+    (new \Dev\Scaffold\MakeContent())->run($type);
+    echo "Content scaffold created: $type\n";
+    exit(0);
+
+  case 'make:template':
+    $file = $argv[2] ?? '';
+    if (!$file) { echo "Usage: php cli/cajeer make:template <file.tpl>\n"; exit(2); }
+    (new \Dev\Scaffold\MakeTemplate())->run($file);
+    echo "Template created: $file\n";
+    exit(0);
+
   default:
         echo "CajeerEngine CLI\n";
         echo "Commands:\n";

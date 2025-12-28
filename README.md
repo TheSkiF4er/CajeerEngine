@@ -354,3 +354,7 @@ Cajeer Engine — открытый проект. Любой желающий м�
 
 ## Обновления и пакеты
 См. `docs/UPDATER_PACKAGES_RU.md`.
+
+
+## Developer Experience
+См. `docs/DEVTOOLS_RU.md`.
