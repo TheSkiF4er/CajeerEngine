@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.0] - 2025-12-28
+### Добавлено
+- Headless Content API v1: CRUD, фильтрация/сортировка/пагинация.
+- JSON fields и relationships.
+- Версионирование контента (draft/published).
+- API Permissions: scopes `content.*` и `admin.*`, policy-aware (RBAC + caps).
+- Headless Admin API v1 (JSON).
+- CLI `content:install` и SQL схема `system/sql/content_v2_1.sql`.
+
 ## [2.0.0] - 2025-12-28
 ### Добавлено — CajeerEngine Next
 - Template DSL v2: DLE-совместимый синтаксис + расширения, компиляция `.tpl → PHP` (storage/compiled_tpl_v2).
@@ -10,7 +19,6 @@
 - Advanced permissions: Policy engine + system/permissions.php.
 - LTS: политика поддержки.
 
-
 ## [1.9.0] - 2025-12-28
 ### Добавлено — UI / Themes / Marketplace (подготовка)
 - Theme system: `templates/themes/*` + `public/assets/themes/*` + `Theme\ThemeManager`.
@@ -19,7 +27,6 @@
 - Marketplace API (подготовка): конфиг + client stub + admin статус.
 - Official themes: `default` и `rarog-official` (Rarog-based).
 
-
 ## [1.8.0] - 2025-12-28
 ### Добавлено — Developer Experience
 - CLI генераторы: make:module, make:content, make:template.
@@ -27,14 +34,12 @@
 - Логи: запросы, шаблоны, SQL (в storage/dev).
 - Документация для разработчиков: docs/DEVTOOLS_RU.md.
 
-
 ## [1.6.0] - 2025-12-28
 ### Добавлено — Migration Toolkit (DLE → CajeerEngine)
 - CLI-набор миграции: проверка совместимости, импорт БД, конвертация шаблонов, отчёт ошибок.
 - Импорт основных сущностей DLE (best-effort): новости/посты, категории, статические страницы, пользователи.
 - Конвертер шаблонов DLE → Cajeer `.tpl` + генерация предупреждений/логов.
 - DLE Tag Adapter: режим совместимости для наиболее частых DLE-тегов в шаблонах.
-
 
 ## [1.7.0] - 2025-12-28
 ### Добавлено — Updater & Packages
@@ -44,7 +49,6 @@
   - `.cajeerpatch` — патч (overlay + опциональные проверки/инвалидации кэша).
 - CLI-команды: updater:check/apply/backup/restore.
 - Поддержка обновления компонентов (в т.ч. public/assets/rarog) через пакеты.
-
 
 ## [1.5.0] - 2025-12-28
 ### Добавлено — SEO
@@ -62,7 +66,6 @@
 ### Изменено
 - Kernel выполняет output buffering для перехвата HTML и записи в page cache.
 
-
 ## [1.4.0] - 2025-12-28
 ### Добавлено
 - Plugins & Events v1.4: системный EventBus (events/hooks) и менеджер плагинов.
@@ -77,7 +80,6 @@
 ### Изменено
 - Ядро и AdminKernel инициализируют контейнер/события и загружают плагины до роутинга.
 
-
 ## [1.3.0] - 2025-12-28
 ### Добавлено
 - Admin Panel v1.3: полноценный AdminKernel, авторизация и сессии.
@@ -86,7 +88,6 @@
 - Управление шаблонами: просмотр/редактирование файлов `.tpl` из админки.
 - Логи действий (action log) для ключевых операций администрирования.
 - Rarog v3.5.0: подключены реальные ассеты из репозитория.
-
 
 ## [1.2.0] - 2025-12-28
 ### Добавлено
@@ -99,7 +100,6 @@
 - Добавлены роуты `/news`, `/news/view`, `/page`, `/category`.
 - Шаблоны `.tpl` расширены под списки/карточки контента.
 
-
 ## [1.1.0] - 2025-12-28
 ### Добавлено
 - Template Engine v1.1: компиляция `.tpl → PHP` + кеш.
@@ -110,7 +110,6 @@
 
 ### Изменено
 - Примеры шаблонов и контроллеров адаптированы под новый шаблонизатор.
-
 
 ## [1.0.0] - 2025-12-12
 ### Добавлено

@@ -17,4 +17,15 @@ return [
 ,
     '/sitemap.xml' => ['seo', 'sitemap'],
     '/robots.txt' => ['seo', 'robots']
+    '/api/v1/ping' => ['api', 'ping'],
+    '/api/v1/content' => ['api', 'contentIndex'],
+    '/api/v1/content/get' => ['api', 'contentGet'],
+    '/api/v1/content/create' => ['api', 'contentCreate'],
+    '/api/v1/content/update' => ['api', 'contentUpdate'],
+    '/api/v1/content/delete' => ['api', 'contentDelete'],
+    '/api/v1/content/publish' => ['api', 'contentPublish'],
+    '/api/v1/categories' => ['api', 'categoriesIndex'],
+    '/api/v1/types' => ['api', 'typesIndex'],
+    '/api/v1/admin/me' => ['api', 'adminMe'],
+    '/api/v1/admin/stats' => ['api', 'adminStats'],
 ];

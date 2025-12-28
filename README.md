@@ -366,3 +366,12 @@ Cajeer Engine — открытый проект. Любой желающий м�
 
 ## v2.0 Next
 См. `docs/V2_OVERVIEW_RU.md` и `docs/LTS_POLICY_RU.md`.
+
+
+## v2.1 — Content API v1 (Headless)
+Документация: `docs/API_V1_RU.md`
+
+### Quick start
+1) Настройте БД в `system/config.php`
+2) Установите схему: `php cli/cajeer content:install`
+3) Используйте Bearer token: `dev-token` из `system/api.php`
