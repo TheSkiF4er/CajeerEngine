@@ -7,7 +7,9 @@ class Updater
 
     public function __construct()
     {
-        $this->cfg = require ROOT_PATH . '/system/updater.php';
+        $this->cfg = is_file(ROOT_PATH . '/system/updater.php')
+          ? (array)require ROOT_PATH . '/system/updater.php'
+          : [];
     }
 
     public function manifest(): Manifest
