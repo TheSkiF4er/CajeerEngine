@@ -409,3 +409,9 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Metrics: `/metrics`
 - Backup: `/api/v1/backup/export` / `/api/v1/backup/import`
 - Logs: `storage/logs/app.jsonl`
+
+
+## v2.7 — Marketplace Expansion & Economy
+- Docs: `docs/MARKETPLACE_2_7_RU.md`
+- API: `/api/v1/marketplace/*`
+- DB: `system/sql/marketplace_v2_7.sql`

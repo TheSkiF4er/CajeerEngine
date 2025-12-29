@@ -365,6 +365,90 @@ class Controller
 
         \Audit\AuditLogger::log('backup.import', ['tables'=>$restored]);
         Response::json(['ok'=>true,'restored'=>$restored]);
+    
+    // Marketplace v2.7
+    public function marketplaceSync()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        $mp = is_file(ROOT_PATH.'/system/marketplace.php') ? require ROOT_PATH.'/system/marketplace.php' : ['enabled'=>false];
+        if (empty($mp['enabled'])) Response::json(['ok'=>false,'error'=>'marketplace_disabled']);
+        \Marketplace\MarketplaceService::ensureSchema();
+        $res = \Marketplace\MarketplaceService::syncRegistries($mp);
+        Response::json($res);
     }
 
+    public function marketplaceSearch()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        $q = (string)($_GET['q'] ?? '');
+        $type = isset($_GET['type']) ? (string)$_GET['type'] : null;
+        $items = \Marketplace\MarketplaceService::searchLocal($q, $type);
+        Response::json(['ok'=>true,'items'=>$items]);
+    }
+
+    public function marketplaceRate()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Marketplace\MarketplaceService::ensureSchema();
+        $pdo = \Database\DB::pdo();
+
+        $pid = (int)($_POST['package_id'] ?? 0);
+        $rating = (int)($_POST['rating'] ?? 0);
+        $comment = (string)($_POST['comment'] ?? '');
+        if ($pid<=0 || $rating<1 || $rating>5) Response::json(['ok'=>false,'error'=>'invalid_input']);
+
+        $pdo->prepare("INSERT INTO ce_marketplace_ratings(package_id,user_id,rating,comment,created_at) VALUES(:p,NULL,:r,:c,NOW())")
+            ->execute([':p'=>$pid,':r'=>$rating,':c'=>$comment]);
+
+        $row = $pdo->query("SELECT AVG(rating) a, COUNT(*) c FROM ce_marketplace_ratings WHERE package_id=".(int)$pid)->fetch(\PDO::FETCH_ASSOC);
+        $avg = (float)($row['a'] ?? 0); $cnt = (int)($row['c'] ?? 0);
+        $pdo->prepare("UPDATE ce_marketplace_packages SET rating_avg=:a, rating_count=:c WHERE id=:id")
+            ->execute([':a'=>$avg,':c'=>$cnt,':id'=>$pid]);
+
+        Response::json(['ok'=>true,'rating_avg'=>$avg,'rating_count'=>$cnt]);
+    }
+
+    public function marketplacePreflight()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Marketplace\MarketplaceService::ensureSchema();
+        $pdo = \Database\DB::pdo();
+
+        $packageId = (int)($_GET['package_id'] ?? 0);
+        if ($packageId<=0) Response::json(['ok'=>false,'error'=>'package_id_required']);
+
+        $p = $pdo->query("SELECT manifest_json,is_paid,license,price FROM ce_marketplace_packages WHERE id=".(int)$packageId." LIMIT 1")->fetch(\PDO::FETCH_ASSOC);
+        if (!$p) Response::json(['ok'=>false,'error'=>'not_found']);
+
+        $manifest = json_decode((string)($p['manifest_json'] ?? ''), true);
+        if (!is_array($manifest)) Response::json(['ok'=>false,'error'=>'invalid_manifest']);
+
+        $mp = is_file(ROOT_PATH.'/system/marketplace.php') ? require ROOT_PATH.'/system/marketplace.php' : [];
+        $sec = (array)($mp['security'] ?? []);
+
+        if (!empty($sec['require_signature'])) {
+            $sig = (string)($manifest['signature'] ?? '');
+            $payload = (string)($manifest['signed_payload'] ?? '');
+            $pubKey = '';
+            $pubFile = (string)($mp['registries']['official']['public_key'] ?? '');
+            if ($pubFile && is_file($pubFile)) $pubKey = file_get_contents($pubFile);
+            if (!$pubKey || !$payload || !$sig) Response::json(['ok'=>false,'error'=>'signature_required']);
+            if (!\Marketplace\Signature::verify($pubKey, $payload, $sig)) Response::json(['ok'=>false,'error'=>'signature_invalid']);
+        }
+
+        $tenantId = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+        $ent = \Marketplace\Monetization::checkEntitlement($p, $tenantId);
+        if (empty($ent['ok'])) Response::json($ent);
+
+        $res = \Marketplace\Sandbox::preflight($manifest);
+        Response::json($res);
+    }
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.0] - 2025-12-29
+### Добавлено
+- Remote registries (official + custom) + sync to local DB index.
+- Marketplace search + ratings + categories (foundation).
+- Dependency resolution v2 with SemVer constraints.
+- Security: signature enforcement + sandbox preflight.
+- Monetization hooks: paid packages foundation + license metadata.
+
 ## [2.6.0] - 2025-12-29
 ### Добавлено
 - Enforced tenant/site isolation (platform.enforced + require_tenant).

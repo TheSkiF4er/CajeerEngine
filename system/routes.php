@@ -50,4 +50,8 @@ return [
     '/api/v1/backup/export' => ['api', 'backupExport'],
     '/api/v1/backup/import' => ['api', 'backupImport'],
     '/metrics' => ['api', 'metrics'],
+    '/api/v1/marketplace/sync' => ['api', 'marketplaceSync'],
+    '/api/v1/marketplace/search' => ['api', 'marketplaceSearch'],
+    '/api/v1/marketplace/rate' => ['api', 'marketplaceRate'],
+    '/api/v1/marketplace/preflight' => ['api', 'marketplacePreflight'],
 ];
