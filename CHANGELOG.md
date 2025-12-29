@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.6.0] - 2025-12-29
+### Добавлено
+- Enforced tenant/site isolation (platform.enforced + require_tenant).
+- API version locking (header/query/prefix) with HTTP 426 on mismatch.
+- Observability: JSONL logging, request-id tracing, DB query tracing, Prometheus metrics.
+- Health probes: live/ready endpoints.
+- Ops: env profiles, safe config validation, backup & restore API.
+
 ## [2.5.0] - 2025-12-28
 ### Добавлено
 - Platform mode: multi-tenant + site isolation (tenant/site resolver, context).

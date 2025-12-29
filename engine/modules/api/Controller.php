@@ -276,4 +276,95 @@ class Controller
         Response::json(['ok'=>true,'data'=>$rows]);
     }
 
+    // Observability (v2.6)
+    public function healthLive()
+    {
+        Response::json(\Observability\Health::live());
+    }
+
+    public function healthReady()
+    {
+        Response::json(\Observability\Health::ready());
+    }
+
+    public function metrics()
+    {
+        $obs = is_file(ROOT_PATH.'/system/observability.php') ? require ROOT_PATH.'/system/observability.php' : [];
+        if (empty($obs['metrics']['enabled'])) {
+            header('HTTP/1.1 404 Not Found'); echo 'metrics disabled'; exit;
+        }
+        header('Content-Type: text/plain; version=0.0.4');
+        echo \Observability\Metrics::renderPrometheus();
+        exit;
+    }
+
+    // Backup & Restore (v2.6)
+    public function backupExport()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+
+        $tables = ['ce_content_items','ce_content_categories','ce_content_fields','ce_users','ce_rbac_roles','ce_rbac_role_permissions','ce_rbac_user_roles'];
+        $dump = ['meta'=>['version'=>trim((string)file_get_contents(ROOT_PATH.'/system/version.txt')),'ts'=>date('c')],'tables'=>[]];
+
+        foreach ($tables as $t) {
+            try { $dump['tables'][$t] = $pdo->query("SELECT * FROM `$t`")->fetchAll(\PDO::FETCH_ASSOC); }
+            catch (\Throwable $e) { $dump['tables'][$t] = ['__error__'=>$e->getMessage()]; }
+        }
+
+        $settings = [];
+        foreach (['config.php','security.php','platform.php','marketplace.php','workspaces.php','env.php','observability.php'] as $f) {
+            $p = ROOT_PATH . '/system/' . $f;
+            if (is_file($p)) $settings[$f] = file_get_contents($p);
+        }
+        $dump['settings_files'] = $settings;
+
+        header('Content-Type: application/json; charset=utf-8');
+        header('Content-Disposition: attachment; filename="cajeer-backup.json"');
+        echo json_encode($dump, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
+    public function backupImport()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        $pdo = \Database\DB::pdo();
+        if (!$pdo) Response::json(['ok'=>false,'error'=>'db_required']);
+
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw, true);
+        if (!is_array($data) || empty($data['tables'])) Response::json(['ok'=>false,'error'=>'invalid_backup']);
+
+        if (($_SERVER['HTTP_X_RESTORE_CONFIRM'] ?? '') !== 'YES') {
+            Response::json(['ok'=>false,'error'=>'restore_confirm_required','hint'=>'Set header X-Restore-Confirm: YES']);
+        }
+
+        $restored = [];
+        foreach ($data['tables'] as $table => $rows) {
+            if (!is_array($rows) || isset($rows['__error__'])) continue;
+            try {
+                $pdo->exec("DELETE FROM `$table`");
+                foreach ($rows as $row) {
+                    if (!is_array($row)) continue;
+                    $cols = array_keys($row);
+                    $place = array_map(fn($c)=>':'.$c, $cols);
+                    $sql = "INSERT INTO `$table` (`".implode('`,`',$cols)."`) VALUES (".implode(',',$place).")";
+                    $st = $pdo->prepare($sql);
+                    $params = [];
+                    foreach ($row as $k=>$v) $params[':'.$k] = $v;
+                    $st->execute($params);
+                }
+                $restored[] = $table;
+            } catch (\Throwable $e) {}
+        }
+
+        \Audit\AuditLogger::log('backup.import', ['tables'=>$restored]);
+        Response::json(['ok'=>true,'restored'=>$restored]);
+    }
+
 }

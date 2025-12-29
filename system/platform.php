@@ -2,6 +2,10 @@
 return [
   'enabled' => true,
 
+  'enforced' => true,
+  'require_tenant' => true,
+
+
   // Tenant resolution strategy:
   // - host: tenant by subdomain (tenant.example.com) or custom domain mapping
   // - header: X-Tenant-Id

@@ -3,29 +3,34 @@ namespace Core;
 
 class Config
 {
-    private static array $data = [];
-
-    public static function load(): void
+    public static function get(string $path, $default=null)
     {
-        $cfg = require ROOT_PATH . '/system/config.php';
-        self::$data = is_array($cfg) ? $cfg : [];
-    }
-
-    public static function all(): array
-    {
-        return self::$data;
-    }
-
-    public static function get(string $path, mixed $default = null): mixed
-    {
+        $cfg = $GLOBALS['CE_CONFIG'] ?? null;
+        if (!is_array($cfg)) return $default;
         $parts = explode('.', $path);
-        $node = self::$data;
+        $cur = $cfg;
         foreach ($parts as $p) {
-            if (!is_array($node) || !array_key_exists($p, $node)) {
-                return $default;
-            }
-            $node = $node[$p];
+            if (!is_array($cur) || !array_key_exists($p, $cur)) return $default;
+            $cur = $cur[$p];
         }
-        return $node;
+        return $cur;
+    }
+
+    public static function validateOrDie(): void
+    {
+        $cfg = $GLOBALS['CE_CONFIG'] ?? null;
+        if (!is_array($cfg)) return;
+
+        $errs = [];
+        if (empty($cfg['db']['driver'])) $errs[] = 'db.driver required';
+        if (empty($cfg['db']['host'])) $errs[] = 'db.host required';
+        if (empty($cfg['db']['database'])) $errs[] = 'db.database required';
+
+        if ($errs) {
+            header('HTTP/1.1 500 Internal Server Error');
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok'=>false,'error'=>'invalid_config','details'=>$errs], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+            exit;
+        }
     }
 }

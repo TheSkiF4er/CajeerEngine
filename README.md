@@ -401,3 +401,11 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Docs: `docs/PLATFORM_MODE_RU.md`
 - Admin: `public/admin/platform.php`
 - Cron: `system/cron/autoupdate_worker.php`
+
+
+## v2.6 — Stability, Observability & LTS Prep
+- Docs: `docs/LTS_PREP_2_6_RU.md`
+- Health: `/api/v1/health/live`, `/api/v1/health/ready`
+- Metrics: `/metrics`
+- Backup: `/api/v1/backup/export` / `/api/v1/backup/import`
+- Logs: `storage/logs/app.jsonl`

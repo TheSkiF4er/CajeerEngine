@@ -45,4 +45,9 @@ return [
     '/api/v1/platform/tenant/create' => ['api', 'platformTenantCreate'],
     '/api/v1/platform/site/create' => ['api', 'platformSiteCreate'],
     '/api/v1/platform/usage' => ['api', 'platformUsage'],
+    '/api/v1/health/live' => ['api', 'healthLive'],
+    '/api/v1/health/ready' => ['api', 'healthReady'],
+    '/api/v1/backup/export' => ['api', 'backupExport'],
+    '/api/v1/backup/import' => ['api', 'backupImport'],
+    '/metrics' => ['api', 'metrics'],
 ];
