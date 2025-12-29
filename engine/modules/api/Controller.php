@@ -451,4 +451,141 @@ class Controller
         $res = \Marketplace\Sandbox::preflight($manifest);
         Response::json($res);
     }
+    // Enterprise SaaS & Compliance v2.9
+    public function tenantSetStatus()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $status = (string)($_POST['status'] ?? '');
+        if ($tenantId<=0 || $status==='') Response::json(['ok'=>false,'error'=>'tenant_id_and_status_required']);
+
+        Response::json(\SaaS\TenantManager::setStatus($tenantId, $status));
+    }
+
+    public function tenantQuotasSet()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $raw = (string)($_POST['quotas_json'] ?? '');
+        $enforced = (int)($_POST['enforced'] ?? 1) === 1;
+
+        $quotas = json_decode($raw, true);
+        if ($tenantId<=0 || !is_array($quotas)) Response::json(['ok'=>false,'error'=>'tenant_id_and_valid_quotas_json_required']);
+
+        Response::json(\SaaS\TenantManager::setQuotas($tenantId, $quotas, $enforced));
+    }
+
+    public function auditVerify()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        Response::json(\Security\AuditTrail::verifyChain(5000));
+    }
+
+    public function ssoProviderCreate()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $type = (string)($_POST['type'] ?? '');
+        $name = (string)($_POST['name'] ?? '');
+        $cfgJson = (string)($_POST['config_json'] ?? '{}');
+        $enabled = (int)($_POST['enabled'] ?? 1) === 1;
+
+        $config = json_decode($cfgJson, true);
+        if ($tenantId<=0 || $type==='' || $name==='' || !is_array($config)) Response::json(['ok'=>false,'error'=>'invalid_input']);
+
+        Response::json(\Security\SSO::upsertProvider($tenantId, $type, $name, $config, $enabled));
+    }
+
+    public function mfaList()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+
+        $userId = (int)($_GET['user_id'] ?? 0);
+        if ($userId<=0) Response::json(['ok'=>false,'error'=>'user_id_required']);
+        Response::json(['ok'=>true,'items'=>\Security\MFA::listFactors($userId)]);
+    }
+
+    public function gdprQueue()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $userId = (int)($_POST['user_id'] ?? 0);
+        $type = (string)($_POST['type'] ?? 'export');
+
+        if ($tenantId<=0 || $userId<=0) Response::json(['ok'=>false,'error'=>'tenant_id_and_user_id_required']);
+        Response::json(\Compliance\GDPR::queueReport($tenantId, $userId, $type));
+    }
+
+    public function gdprRun()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $reportId = (int)($_POST['report_id'] ?? 0);
+        if ($reportId<=0) Response::json(['ok'=>false,'error'=>'report_id_required']);
+        Response::json(\Compliance\GDPR::runReport($reportId));
+    }
+
+    public function incidentCreate()
+    {
+        \API\Auth::requireScope('admin.write');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+        \Security\AuditTrail::ensureSchema();
+
+        $tenantId = (int)($_POST['tenant_id'] ?? 0);
+        $severity = (string)($_POST['severity'] ?? 'info');
+        $title = (string)($_POST['title'] ?? '');
+        $details = (string)($_POST['details'] ?? '');
+
+        if ($tenantId<=0 || $title==='') Response::json(['ok'=>false,'error'=>'tenant_id_and_title_required']);
+
+        $pdo = \Database\DB::pdo();
+        $pdo->prepare("INSERT INTO ce_incidents(tenant_id,severity,title,details,status,created_at,updated_at)
+                       VALUES(:t,:s,:ti,:d,'open',NOW(),NOW())")
+            ->execute([':t'=>$tenantId,':s'=>$severity,':ti'=>$title,':d'=>$details]);
+
+        $id = (int)$pdo->lastInsertId();
+        \Security\AuditTrail::append('incident.create', ['severity'=>$severity,'title'=>$title,'id'=>$id], 'tenant:'.$tenantId);
+        \Ops\Hooks::incident('incident.created', ['tenant_id'=>$tenantId,'incident_id'=>$id,'severity'=>$severity,'title'=>$title]);
+
+        Response::json(['ok'=>true,'incident_id'=>$id]);
+    }
+
+    public function accessReportList()
+    {
+        \API\Auth::requireScope('admin.read');
+        $cfg = require ROOT_PATH . '/system/config.php';
+        \Database\DB::connect($cfg['db']);
+
+        $tenantId = (int)($_GET['tenant_id'] ?? 0);
+        if ($tenantId<=0) Response::json(['ok'=>false,'error'=>'tenant_id_required']);
+
+        $pdo = \Database\DB::pdo();
+        $items = $pdo->query("SELECT id,user_id,report_type,status,created_at,updated_at FROM ce_access_reports WHERE tenant_id=".(int)$tenantId." ORDER BY id DESC LIMIT 100")->fetchAll(\PDO::FETCH_ASSOC);
+        Response::json(['ok'=>true,'items'=>$items]);
+    }
+
 }

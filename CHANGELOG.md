@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.0] - 2025-12-29
+### Добавлено
+- Enterprise security foundation: SSO (OIDC/SAML configs + DB), MFA factors storage.
+- Immutable audit trails (hash-chained) + verification API/CLI.
+- SaaS: tenant lifecycle controls + quotas enforcement hook.
+- Compliance: GDPR export/erase tooling (queue/run) + access reports listing.
+- Ops: SLA/incident hooks foundation + incident create endpoint.
+
 ## [2.8.0] - 2025-12-29
 ### Добавлено
 - Advanced UI Builder: nested layouts, patterns, block permissions, layout versioning + rollback.

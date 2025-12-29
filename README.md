@@ -422,3 +422,9 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - UI API: `/api/v1/ui/*`
 - Theme build: `/api/v1/theme/build`
 - DB: `system/sql/ui_builder_v2_8.sql`
+
+
+## v2.9 — Enterprise SaaS & Compliance
+- Docs: `docs/ENTERPRISE_2_9_RU.md`
+- DB: `system/sql/enterprise_v2_9.sql`
+- API: `/api/v1/tenant/*`, `/api/v1/gdpr/*`, `/api/v1/audit/*`

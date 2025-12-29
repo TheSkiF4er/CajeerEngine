@@ -54,4 +54,14 @@ return [
     '/api/v1/marketplace/search' => ['api', 'marketplaceSearch'],
     '/api/v1/marketplace/rate' => ['api', 'marketplaceRate'],
     '/api/v1/marketplace/preflight' => ['api', 'marketplacePreflight'],
+
+    '/api/v1/tenant/status' => ['api','tenantSetStatus'],
+    '/api/v1/tenant/quotas/set' => ['api','tenantQuotasSet'],
+    '/api/v1/audit/verify' => ['api','auditVerify'],
+    '/api/v1/sso/provider/create' => ['api','ssoProviderCreate'],
+    '/api/v1/mfa/list' => ['api','mfaList'],
+    '/api/v1/gdpr/queue' => ['api','gdprQueue'],
+    '/api/v1/gdpr/run' => ['api','gdprRun'],
+    '/api/v1/incident/create' => ['api','incidentCreate'],
+    '/api/v1/access-reports/list' => ['api','accessReportList'],
 ];
