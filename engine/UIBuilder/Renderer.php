@@ -1,33 +1,47 @@
 <?php
 namespace UIBuilder;
-class Renderer
-{
-    protected BlockRegistry $registry;
-    public function __construct(?BlockRegistry $registry=null){ $this->registry = $registry ?: new BlockRegistry(); }
-    public function registry(): BlockRegistry { return $this->registry; }
-
-    public function render(array $layout, array $context=[]): string
-    {
-        $sections = (array)($layout['sections'] ?? []);
-        $html = '';
-        foreach ($sections as $sec) {
-            $cls = htmlspecialchars((string)($sec['class'] ?? ''), ENT_QUOTES);
-            $grid = (array)($sec['grid'] ?? []);
-            $cols = max(1, (int)($grid['cols'] ?? 12));
-            $gap = max(0, (int)($grid['gap'] ?? 4));
-            $html .= '<section class="'.$cls.'">';
-            $html .= '<div class="ce-uib-grid" style="display:grid;grid-template-columns:repeat('.$cols.',minmax(0,1fr));gap:'.$gap.'rem;">';
-            foreach ((array)($sec['blocks'] ?? []) as $blk) {
-                $type = (string)($blk['type'] ?? '');
-                $span = max(1, min($cols, (int)(($blk['col']['span'] ?? 12))));
-                $bcls = htmlspecialchars((string)($blk['class'] ?? ''), ENT_QUOTES);
-                $html .= '<div class="ce-uib-block '.$bcls.'" style="grid-column: span '.$span.';">';
-                $block = $this->registry->get($type);
-                $html .= $block ? $block->render((array)($blk['props'] ?? []), $context) : ('<!-- Unknown block: '.htmlspecialchars($type,ENT_QUOTES).' -->');
-                $html .= '</div>';
-            }
-            $html .= '</div></section>';
-        }
-        return $html;
+use Observability\Logger;
+class Renderer {
+  public static function render(array $layout, array $ctx=[]): string {
+    $errors=[]; if(!Schema::validate($layout,$errors)){ Logger::warn('ui_builder.schema_invalid',['errors'=>$errors]); return "<!-- ui_builder invalid schema -->"; }
+    return self::renderNode($layout,$ctx);
+  }
+  protected static function renderNode(array $node, array $ctx): string {
+    if(!RBAC::allowed($node)) return "<!-- ui_builder block denied -->";
+    $type=(string)$node['type'];
+    $props=is_array($node['props']??null)?$node['props']:[];
+    $children=is_array($node['children']??null)?$node['children']:[];
+    if($type==='pattern'){
+      $key=(string)($props['key']??'');
+      if($key!=='' && class_exists('UIBuilder\\Store')){
+        $pat=Store::getPattern($key,(int)($_SERVER['CE_TENANT_ID']??0),(int)($_SERVER['CE_SITE_ID']??0));
+        if($pat) return self::render($pat,$ctx);
+      }
+      return "<!-- pattern not found -->";
     }
+    if($type==='text'){
+      return "<div data-ui='text'>".htmlspecialchars((string)($props['text']??''),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8')."</div>";
+    }
+    if($type==='html'){
+      return "<div data-ui='html'>".(string)($props['html']??'')."</div>";
+    }
+    if($type==='image'){
+      $src=htmlspecialchars((string)($props['src']??''),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');
+      $alt=htmlspecialchars((string)($props['alt']??''),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');
+      return "<img data-ui='image' src=\"$src\" alt=\"$alt\" />";
+    }
+    if($type==='module'){
+      $name=(string)($props['name']??''); $args=(array)($props['args']??[]);
+      return "<!-- module:$name ".htmlspecialchars(json_encode($args),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8')." -->";
+    }
+    $cls=htmlspecialchars((string)($props['class']??''),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');
+    $attr=$cls?(" class=\"$cls\""):"";
+    $out="<div data-ui=\"$type\"$attr>";
+    foreach($children as $ch){ $out.=self::renderNode($ch,$ctx); }
+    $out.="</div>";
+    return $out;
+  }
+  public static function preview(array $layout): array {
+    return ['ok'=>true,'html'=>self::render($layout,[])];
+  }
 }

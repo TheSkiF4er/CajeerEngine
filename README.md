@@ -415,3 +415,10 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Docs: `docs/MARKETPLACE_2_7_RU.md`
 - API: `/api/v1/marketplace/*`
 - DB: `system/sql/marketplace_v2_7.sql`
+
+
+## v2.8 — Advanced UI Builder & Frontend Platform
+- Docs: `docs/UI_BUILDER_2_8_RU.md`
+- UI API: `/api/v1/ui/*`
+- Theme build: `/api/v1/theme/build`
+- DB: `system/sql/ui_builder_v2_8.sql`

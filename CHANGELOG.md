@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.8.0] - 2025-12-29
+### Добавлено
+- Advanced UI Builder: nested layouts, patterns, block permissions, layout versioning + rollback.
+- Frontend platform: Theme SDK + asset build hooks (recorded), headless preview endpoint.
+- DX: UI vs DSL diff, export UI -> DSL.
+
 ## [2.7.0] - 2025-12-29
 ### Добавлено
 - Remote registries (official + custom) + sync to local DB index.
