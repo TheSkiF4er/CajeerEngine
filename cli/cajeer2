@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . '/../engine/bootstrap.php';
+
+$cmd = $argv[1] ?? 'help';
+function out($s){ echo $s . "\n"; }
+
+if ($cmd === 'help') {
+  out("CajeerEngine Platform CLI v2");
+  out("Commands:");
+  out("  plugins:sync                 Discover and sync plugins registry");
+  out("  plugins:enable <slug>        Enable plugin (loads provider)");
+  out("  plugins:disable <slug>       Disable plugin");
+  out("  jobs:work [queue] [max]      Run jobs worker");
+  out("  audit:verify                 Verify immutable audit chain");
+  exit(0);
+}
+
+$kernel = new \Core\Kernel();
+$kernel->boot();
+
+$cfg = require ROOT_PATH . '/system/config.php';
+\Database\DB::connect($cfg['db']);
+
+if ($cmd === 'plugins:sync') {
+  $pm = $kernel->get('plugins');
+  if (!$pm) { out("Plugin manager not available"); exit(1); }
+  out(json_encode($pm->syncRegistry((int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'plugins:enable') {
+  $slug = $argv[2] ?? '';
+  if ($slug === '') { out("Usage: plugins:enable <slug>"); exit(1); }
+  $pm = $kernel->get('plugins'); if(!$pm){ out("Plugin manager not available"); exit(1); }
+  out(json_encode($pm->enable($slug, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'plugins:disable') {
+  $slug = $argv[2] ?? '';
+  if ($slug === '') { out("Usage: plugins:disable <slug>"); exit(1); }
+  $pm = $kernel->get('plugins'); if(!$pm){ out("Plugin manager not available"); exit(1); }
+  out(json_encode($pm->disable($slug, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'jobs:work') {
+  $queue = $argv[2] ?? 'default';
+  $max = (int)($argv[3] ?? 50);
+  $worker = new \Core\Jobs\Worker($kernel->jobs());
+  $worker->work($queue, $max);
+  exit(0);
+}
+if ($cmd === 'audit:verify') {
+  out(json_encode(\Security\AuditTrail::verifyChain(5000), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+out("Unknown command. Use: help");
+exit(1);

@@ -1,0 +1,7 @@
+{
+  "name": "Hello Plugin",
+  "slug": "hello",
+  "version": "1.0.0",
+  "provider": "Plugins\\Hello\\HelloProvider",
+  "autoload": "src/HelloProvider.php"
+}

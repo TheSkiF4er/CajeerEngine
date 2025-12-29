@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.0] - 2025-12-29
+### Добавлено
+- Platform Core: stable Public Kernel API + plugin-first architecture (foundation).
+- Event-driven core: EventBus.
+- Async jobs/queues: DB-backed queue + worker (CLI v2).
+- Ecosystem foundation: PHP/JS SDK stubs, plugins registry table.
+- LTS strategy docs for 3.x.
+
 ## [2.9.0] - 2025-12-29
 ### Добавлено
 - Enterprise security foundation: SSO (OIDC/SAML configs + DB), MFA factors storage.

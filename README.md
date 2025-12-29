@@ -428,3 +428,12 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Docs: `docs/ENTERPRISE_2_9_RU.md`
 - DB: `system/sql/enterprise_v2_9.sql`
 - API: `/api/v1/tenant/*`, `/api/v1/gdpr/*`, `/api/v1/audit/*`
+
+
+## v3.0 — CajeerEngine Platform
+- Stable Public Kernel API: `engine/Core/PublicKernelAPI.php`
+- Plugin-first: `/plugins/*/plugin.json`
+- Event bus: `engine/Events/EventBus.php`
+- Jobs/queues: `engine/Jobs/DBQueue.php` + `cli/cajeer2 jobs:work`
+- SDKs: `sdk/php`, `sdk/js`
+- LTS: `docs/LTS_3X_RU.md`
