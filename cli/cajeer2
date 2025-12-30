@@ -20,6 +20,8 @@ if ($cmd === 'help') {
   marketplace:update <registry> <id>       Update (reinstall) package
   marketplace:uninstall <type> <slug>      Uninstall package
   marketplace:rollback <type> <slug> <dir> Rollback from backup dir
+  accesslog:verify [limit]     Verify immutable access log chain
+  compliance:soc2 [from] [to]  Generate SOC2 foundation report
   audit:verify                 Verify immutable audit chain");
   exit(0);
 }
@@ -139,6 +141,20 @@ if ($cmd === 'marketplace:rollback') {
   $mp = $kernel->get('marketplace');
   if (!$mp) { out("Marketplace not available"); exit(1); }
   out(json_encode($mp->rollback($type, $slug, $dir, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+
+if ($cmd === 'accesslog:verify') {
+  $limit = (int)($argv[2] ?? 10000);
+  out(json_encode(\Security\AccessLog::verifyChain($limit), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'compliance:soc2') {
+  $from = $argv[2] ?? null;
+  $to = $argv[3] ?? null;
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  out(json_encode(\Security\Compliance::generateSOC2($tenant, $from, $to), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);
 }
 

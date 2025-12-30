@@ -453,3 +453,12 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Mandatory signatures (Ed25519 via ext-sodium; fail-closed)
 - Monetization hooks (webhook foundation)
 - Docs: `docs/MARKETPLACE_3_2_RU.md`
+
+
+## v3.3 — Enterprise Identity & Zero Trust
+- OIDC/SAML wiring + API endpoints (production wiring; crypto validation hardening in 3.3.x)
+- MFA: TOTP (RFC6238) + WebAuthn foundation
+- Zero Trust: per-request auth context + continuous authorization
+- Immutable access logs (hash chain) + verification
+- Compliance: SOC2/ISO prep report generator (foundation)
+- Docs: `docs/IDENTITY_ZERO_TRUST_3_3_RU.md`

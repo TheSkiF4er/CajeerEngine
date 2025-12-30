@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.3.0] - 2025-12-30
+### Добавлено
+- Enterprise Identity: OIDC/SAML providers wiring + API endpoints.
+- MFA: TOTP (RFC6238) implementation; WebAuthn foundation placeholder.
+- Zero Trust: per-request auth context + continuous authorization + device posture (foundation).
+- Immutable access logs with hash chain + CLI verification.
+- Policy-as-code foundation (simple JSON rules).
+- Compliance SOC2/ISO preparation report generator (foundation).
+
 ## [3.2.0] - 2025-12-30
 ### Добавлено
 - Marketplace 2.0 (production baseline): remote registry client, authenticated calls.
