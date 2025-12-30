@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0] - 2025-12-30
+### Добавлено
+- Async Jobs (production baseline): visibility timeout, retries (backoff+jitter), DLQ.
+- Pluggable queue backends: DB default, Redis/SQS/RabbitMQ adapters (stubs).
+- Exactly-once foundation via idempotency_key.
+- Async events: persistence (optional), async delivery, replay.
+- Ops: graceful shutdown, supervisor.
+
 ## [3.0.0] - 2025-12-29
 ### Добавлено
 - Platform Core: stable Public Kernel API + plugin-first architecture (foundation).

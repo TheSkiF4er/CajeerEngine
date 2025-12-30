@@ -11,7 +11,10 @@ if ($cmd === 'help') {
   out("  plugins:sync                 Discover and sync plugins registry");
   out("  plugins:enable <slug>        Enable plugin (loads provider)");
   out("  plugins:disable <slug>       Disable plugin");
-  out("  jobs:work [queue] [max]      Run jobs worker");
+  out("  jobs:work [queue] [max]      Run jobs worker (graceful shutdown)");
+  out("  jobs:supervise [queue]       Simple supervisor loop (restarts worker)");
+  out("  dlq:list [tenant]            List dead-letter jobs");
+  out("  events:replay <event_id>     Replay persisted event (foundation)");
   out("  audit:verify                 Verify immutable audit chain");
   exit(0);
 }
@@ -21,6 +24,8 @@ $kernel->boot();
 
 $cfg = require ROOT_PATH . '/system/config.php';
 \Database\DB::connect($cfg['db']);
+
+$qcfg = is_file(ROOT_PATH . '/system/queue.php') ? require ROOT_PATH . '/system/queue.php' : [];
 
 if ($cmd === 'plugins:sync') {
   $pm = $kernel->get('plugins');
@@ -42,13 +47,48 @@ if ($cmd === 'plugins:disable') {
   out(json_encode($pm->disable($slug, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);
 }
+
 if ($cmd === 'jobs:work') {
-  $queue = $argv[2] ?? 'default';
-  $max = (int)($argv[3] ?? 50);
-  $worker = new \Core\Jobs\Worker($kernel->jobs());
+  $queue = $argv[2] ?? ($qcfg['default_queue'] ?? 'default');
+  $max = (int)($argv[3] ?? 0);
+  $worker = new \Core\Jobs\Worker($kernel->jobs(), $qcfg);
   $worker->work($queue, $max);
   exit(0);
 }
+
+if ($cmd === 'jobs:supervise') {
+  $queue = $argv[2] ?? ($qcfg['default_queue'] ?? 'default');
+  out("Supervisor started for queue: " . $queue);
+  while (true) {
+    $cmdline = PHP_BINARY . " " . escapeshellarg(__FILE__) . " jobs:work " . escapeshellarg($queue);
+    passthru($cmdline);
+    out("Worker exited. Restarting in 1s...");
+    sleep(1);
+  }
+}
+
+if ($cmd === 'dlq:list') {
+  $tenant = (int)($argv[2] ?? 0);
+  $pdo = \Database\DB::pdo();
+  $sql = "SELECT id,job_id,tenant_id,queue,handler,attempts,failed_at FROM ce_job_failures";
+  if ($tenant>0) $sql .= " WHERE tenant_id=".(int)$tenant;
+  $sql .= " ORDER BY id DESC LIMIT 100";
+  $items = $pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+  out(json_encode(['ok'=>true,'items'=>$items], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+if ($cmd === 'events:replay') {
+  $id = (int)($argv[2] ?? 0);
+  if ($id<=0) { out("Usage: events:replay <event_id>"); exit(1); }
+  $e = \Core\Events\EventStore::fetchById($id);
+  if (!$e) { out("Event not found"); exit(1); }
+  $sync = $kernel->get('events_sync');
+  $sync->emit((string)$e['name'], (array)$e['payload']);
+  out(json_encode(['ok'=>true,'replayed'=>$id,'name'=>$e['name']], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
 if ($cmd === 'audit:verify') {
   out(json_encode(\Security\AuditTrail::verifyChain(5000), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);

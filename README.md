@@ -437,3 +437,11 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Jobs/queues: `engine/Jobs/DBQueue.php` + `cli/cajeer2 jobs:work`
 - SDKs: `sdk/php`, `sdk/js`
 - LTS: `docs/LTS_3X_RU.md`
+
+
+## v3.1 — Async Core & Workers
+- Queue drivers: DB (prod), Redis/SQS/RabbitMQ (adapters stubs)
+- Retries (backoff+jitter) + DLQ
+- Async events + persistence + replay
+- Worker supervisor + graceful shutdown
+- Docs: `docs/ASYNC_3_1_RU.md`

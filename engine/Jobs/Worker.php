@@ -1,16 +1,36 @@
 <?php
 namespace Core\Jobs;
+
 use Observability\Logger;
 
 class Worker
 {
-    public function __construct(protected QueueContract $q) {}
-    public function work(string $queue = 'default', int $max = 50): void
+    protected bool $running = true;
+
+    public function __construct(protected QueueContract $q, protected array $cfg = [])
     {
-        $count = 0;
-        while ($count < $max) {
+        if (function_exists('pcntl_signal')) {
+            pcntl_signal(SIGTERM, fn() => $this->running = false);
+            pcntl_signal(SIGINT, fn() => $this->running = false);
+        }
+    }
+
+    public function work(string $queue = 'default', int $max = 0): void
+    {
+        $maxInflight = (int)($this->cfg['worker']['max_inflight'] ?? 50);
+        $sleepMs = (int)($this->cfg['worker']['sleep_ms'] ?? 250);
+
+        $processed = 0;
+
+        while ($this->running) {
+            if (function_exists('pcntl_signal_dispatch')) pcntl_signal_dispatch();
+
             $job = $this->q->reserve($queue);
-            if (!$job) { echo "No jobs\n"; return; }
+            if (!$job) {
+                usleep(max(10, $sleepMs) * 1000);
+                if ($max > 0 && $processed >= $max) break;
+                continue;
+            }
 
             $id = (int)$job['id'];
             $handler = (string)$job['handler'];
@@ -20,14 +40,23 @@ class Worker
                 Logger::info('jobs.run', ['id'=>$id,'handler'=>$handler]);
                 $this->dispatch($handler, $payload);
                 $this->q->markDone($id);
-                $count++;
+                $processed++;
             } catch (\Throwable $e) {
                 $this->q->markFailed($id, $e->getMessage());
                 Logger::warn('jobs.failed', ['id'=>$id,'err'=>$e->getMessage()]);
-                $count++;
+                $processed++;
             }
+
+            if ($processed % max(1, $maxInflight) == 0) {
+                usleep(max(10, $sleepMs) * 1000);
+            }
+
+            if ($max > 0 && $processed >= $max) break;
         }
+
+        echo "Worker stopped. processed=$processed\n";
     }
+
     protected function dispatch(string $handler, array $payload): void
     {
         if (strpos($handler, '@') !== false) {
@@ -36,7 +65,10 @@ class Worker
             $obj->{$method}($payload);
             return;
         }
-        if (is_callable($handler)) { call_user_func($handler, $payload); return; }
+        if (is_callable($handler)) {
+            call_user_func($handler, $payload);
+            return;
+        }
         throw new \RuntimeException("Unknown job handler: $handler");
     }
 }
