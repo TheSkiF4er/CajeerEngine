@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.2.0] - 2025-12-30
+### Добавлено
+- Marketplace 2.0 (production baseline): remote registry client, authenticated calls.
+- Package lifecycle: install/update/rollback/uninstall + backups.
+- Mandatory signatures (Ed25519, fail-closed if sodium missing).
+- Publisher reputation + security scans tables (foundation).
+- Monetization hooks: license metadata + usage hooks (foundation).
+- CLI commands: marketplace:search/install/update/uninstall/rollback.
+
 ## [3.1.0] - 2025-12-30
 ### Добавлено
 - Async Jobs (production baseline): visibility timeout, retries (backoff+jitter), DLQ.

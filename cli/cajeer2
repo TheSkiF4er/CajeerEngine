@@ -15,7 +15,12 @@ if ($cmd === 'help') {
   out("  jobs:supervise [queue]       Simple supervisor loop (restarts worker)");
   out("  dlq:list [tenant]            List dead-letter jobs");
   out("  events:replay <event_id>     Replay persisted event (foundation)");
-  out("  audit:verify                 Verify immutable audit chain");
+  out("  marketplace:search <q> [type]            Search packages
+  marketplace:install <registry> <id>      Install package
+  marketplace:update <registry> <id>       Update (reinstall) package
+  marketplace:uninstall <type> <slug>      Uninstall package
+  marketplace:rollback <type> <slug> <dir> Rollback from backup dir
+  audit:verify                 Verify immutable audit chain");
   exit(0);
 }
 
@@ -86,6 +91,54 @@ if ($cmd === 'events:replay') {
   $sync = $kernel->get('events_sync');
   $sync->emit((string)$e['name'], (array)$e['payload']);
   out(json_encode(['ok'=>true,'replayed'=>$id,'name'=>$e['name']], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+
+if ($cmd === 'marketplace:search') {
+  $q = $argv[2] ?? '';
+  $type = $argv[3] ?? '';
+  if ($q === '') { out("Usage: marketplace:search <q> [type]"); exit(1); }
+  $mp = $kernel->get('marketplace');
+  if (!$mp) { out("Marketplace not available"); exit(1); }
+  out(json_encode($mp->search($q, $type), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'marketplace:install') {
+  $reg = $argv[2] ?? '';
+  $id = $argv[3] ?? '';
+  if ($reg==='' || $id==='') { out("Usage: marketplace:install <registry> <package_id>"); exit(1); }
+  $mp = $kernel->get('marketplace');
+  if (!$mp) { out("Marketplace not available"); exit(1); }
+  out(json_encode($mp->install($reg, $id, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'marketplace:update') {
+  $reg = $argv[2] ?? '';
+  $id = $argv[3] ?? '';
+  if ($reg==='' || $id==='') { out("Usage: marketplace:update <registry> <package_id>"); exit(1); }
+  $mp = $kernel->get('marketplace');
+  if (!$mp) { out("Marketplace not available"); exit(1); }
+  out(json_encode($mp->update($reg, $id, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'marketplace:uninstall') {
+  $type = $argv[2] ?? '';
+  $slug = $argv[3] ?? '';
+  if ($type==='' || $slug==='') { out("Usage: marketplace:uninstall <type> <slug>"); exit(1); }
+  $mp = $kernel->get('marketplace');
+  if (!$mp) { out("Marketplace not available"); exit(1); }
+  out(json_encode($mp->uninstall($type, $slug, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'marketplace:rollback') {
+  $type = $argv[2] ?? '';
+  $slug = $argv[3] ?? '';
+  $dir = $argv[4] ?? '';
+  if ($type==='' || $slug==='' || $dir==='') { out("Usage: marketplace:rollback <type> <slug> <backup_dir>"); exit(1); }
+  $mp = $kernel->get('marketplace');
+  if (!$mp) { out("Marketplace not available"); exit(1); }
+  out(json_encode($mp->rollback($type, $slug, $dir, (int)($_SERVER['CE_TENANT_ID'] ?? 0)), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);
 }
 

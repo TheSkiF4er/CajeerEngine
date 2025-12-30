@@ -26,6 +26,11 @@ class Kernel implements KernelContract
         $this->set('jobs', $this->jobs);
 
         $GLOBALS['CE_KERNEL'] = $this;
+
+        // Marketplace (3.2)
+        if (class_exists('Marketplace\\MarketplaceServiceProvider')) {
+            $this->registerProvider(new \\Marketplace\\MarketplaceServiceProvider());
+        }
     }
 
     public function version(): string

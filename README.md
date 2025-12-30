@@ -445,3 +445,11 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Async events + persistence + replay
 - Worker supervisor + graceful shutdown
 - Docs: `docs/ASYNC_3_1_RU.md`
+
+
+## v3.2 — Marketplace 2.0
+- Remote registry client (HTTP + file://)
+- Package lifecycle: install/update/rollback/uninstall
+- Mandatory signatures (Ed25519 via ext-sodium; fail-closed)
+- Monetization hooks (webhook foundation)
+- Docs: `docs/MARKETPLACE_3_2_RU.md`
