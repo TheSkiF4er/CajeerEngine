@@ -462,3 +462,12 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Immutable access logs (hash chain) + verification
 - Compliance: SOC2/ISO prep report generator (foundation)
 - Docs: `docs/IDENTITY_ZERO_TRUST_3_3_RU.md`
+
+
+## v3.4 — Frontend Platform & No-Code
+- UI Builder Pro: collaborative locks + patch log (foundation)
+- Component marketplace registry (foundation)
+- A/B testing foundation (experiments + deterministic assignment)
+- Frontend Runtime: ISR cache + CDN-native headers (optional) + edge rendering stub
+- No-code: logic blocks registry, workflow runner foundation, advanced form submissions
+- Docs: `docs/FRONTEND_NOCODE_3_4_RU.md`

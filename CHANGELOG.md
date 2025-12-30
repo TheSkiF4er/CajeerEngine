@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.4.0] - 2025-12-30
+### Добавлено
+- UI Builder Pro foundation: collaborative locks + patches log.
+- Component marketplace registry (foundation) + A/B testing foundation.
+- Frontend Runtime: ISR cache in DB, CDN-native headers (optional), edge rendering stub.
+- No-code foundation: logic blocks, workflows runner, advanced forms + submissions.
+- New API endpoints for builder/AB/no-code and ISR purge.
+
 ## [3.3.0] - 2025-12-30
 ### Добавлено
 - Enterprise Identity: OIDC/SAML providers wiring + API endpoints.

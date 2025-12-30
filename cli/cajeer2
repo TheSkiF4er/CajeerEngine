@@ -21,6 +21,11 @@ if ($cmd === 'help') {
   marketplace:uninstall <type> <slug>      Uninstall package
   marketplace:rollback <type> <slug> <dir> Rollback from backup dir
   accesslog:verify [limit]     Verify immutable access log chain
+  frontend:isr:purge <key>     Purge ISR cache by surrogate key
+  builder:lock <type> <id>     Acquire builder lock (requires X-CE-USER-ID)
+  ab:assign <exp> <userHash>   Assign A/B variant
+  nocode:run <workflow>        Run workflow (foundation)
+  nocode:submit <form> <json>  Submit form payload JSON
   compliance:soc2 [from] [to]  Generate SOC2 foundation report
   audit:verify                 Verify immutable audit chain");
   exit(0);
@@ -155,6 +160,50 @@ if ($cmd === 'compliance:soc2') {
   $to = $argv[3] ?? null;
   $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
   out(json_encode(\Security\Compliance::generateSOC2($tenant, $from, $to), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+
+if ($cmd === 'frontend:isr:purge') {
+  $key = $argv[2] ?? '';
+  if ($key==='') { out("Usage: frontend:isr:purge <surrogate_key>"); exit(1); }
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $n = \Frontend\ISRCache::purgeBySurrogate($key, $tenant);
+  out(json_encode(['ok'=>true,'purged'=>$n], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'builder:lock') {
+  $type = $argv[2] ?? 'page';
+  $id = $argv[3] ?? '';
+  if ($id==='') { out("Usage: builder:lock <doc_type> <doc_id>"); exit(1); }
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $user = (int)($_SERVER['HTTP_X_CE_USER_ID'] ?? 0);
+  if ($user<=0) { out(json_encode(['ok'=>false,'error'=>'missing X-CE-USER-ID'], JSON_UNESCAPED_UNICODE)); exit(1); }
+  out(json_encode(\UIBuilder\Pro\Collab::acquire($type, $id, $user, 30, $tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'ab:assign') {
+  $exp = $argv[2] ?? '';
+  $user = $argv[3] ?? '';
+  if ($exp==='' || $user==='') { out("Usage: ab:assign <experiment> <userHash>"); exit(1); }
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  out(json_encode(\AB\ABTesting::assign($exp, $user, $tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'nocode:run') {
+  $wf = $argv[2] ?? '';
+  if ($wf==='') { out("Usage: nocode:run <workflow_slug>"); exit(1); }
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  out(json_encode(\NoCode\Workflows::run($wf, [], $tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'nocode:submit') {
+  $form = $argv[2] ?? '';
+  $jsonp = $argv[3] ?? '{}';
+  if ($form==='') { out("Usage: nocode:submit <form_slug> <payload_json>"); exit(1); }
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $payload = json_decode($jsonp, true) ?: [];
+  out(json_encode(\NoCode\Forms::submit($form, $payload, $tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);
 }
 
