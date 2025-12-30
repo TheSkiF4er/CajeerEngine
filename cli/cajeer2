@@ -25,6 +25,13 @@ if ($cmd === 'help') {
   builder:lock <type> <id>     Acquire builder lock (requires X-CE-USER-ID)
   ab:assign <exp> <userHash>   Assign A/B variant
   nocode:run <workflow>        Run workflow (foundation)
+  intelligence:usage [from] [to]  Usage analytics summary
+  intelligence:perf [from] [to]   Performance insights (slow requests)
+  intelligence:cost [from] [to]   Cost visibility (credits)
+  automation:run                  Run automation policies once
+  ai:suggest:content              AI content suggestions (optional)
+  ai:suggest:layout               AI layout hints (optional)
+  ai:admin:copilot                Admin copilot (foundation)
   nocode:submit <form> <json>  Submit form payload JSON
   compliance:soc2 [from] [to]  Generate SOC2 foundation report
   audit:verify                 Verify immutable audit chain");
@@ -204,6 +211,70 @@ if ($cmd === 'nocode:submit') {
   $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
   $payload = json_decode($jsonp, true) ?: [];
   out(json_encode(\NoCode\Forms::submit($form, $payload, $tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+
+
+if ($cmd === 'intelligence:usage') {
+  $from = $argv[2] ?? date('Y-m-d 00:00:00');
+  $to = $argv[3] ?? date('Y-m-d 23:59:59');
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $pdo = \Database\DB::pdo(); if(!$pdo){ out(json_encode(['ok'=>false,'error'=>'db_required'])); exit(1); }
+  $sql = ROOT_PATH . '/system/sql/intelligence_v3_5.sql'; if(is_file($sql)) $pdo->exec(file_get_contents($sql));
+  $st = $pdo->prepare("SELECT event_type, COUNT(*) c, SUM(value) v FROM ce_usage_events WHERE tenant_id=:t AND ts BETWEEN :f AND :to GROUP BY event_type ORDER BY c DESC");
+  $st->execute([':t'=>$tenant,':f'=>$from,':to'=>$to]);
+  out(json_encode(['ok'=>true,'rows'=>$st->fetchAll(\PDO::FETCH_ASSOC)], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'intelligence:perf') {
+  $from = $argv[2] ?? date('Y-m-d 00:00:00');
+  $to = $argv[3] ?? date('Y-m-d 23:59:59');
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $pdo = \Database\DB::pdo(); if(!$pdo){ out(json_encode(['ok'=>false,'error'=>'db_required'])); exit(1); }
+  $sql = ROOT_PATH . '/system/sql/intelligence_v3_5.sql'; if(is_file($sql)) $pdo->exec(file_get_contents($sql));
+  $st = $pdo->prepare("SELECT path, COUNT(*) c, AVG(duration_ms) avg_ms, MAX(duration_ms) max_ms FROM ce_perf_requests WHERE tenant_id=:t AND ts BETWEEN :f AND :to GROUP BY path ORDER BY max_ms DESC LIMIT 50");
+  $st->execute([':t'=>$tenant,':f'=>$from,':to'=>$to]);
+  out(json_encode(['ok'=>true,'rows'=>$st->fetchAll(\PDO::FETCH_ASSOC)], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'intelligence:cost') {
+  $from = $argv[2] ?? date('Y-m-d 00:00:00');
+  $to = $argv[3] ?? date('Y-m-d 23:59:59');
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $pdo = \Database\DB::pdo(); if(!$pdo){ out(json_encode(['ok'=>false,'error'=>'db_required'])); exit(1); }
+  $sql = ROOT_PATH . '/system/sql/intelligence_v3_5.sql'; if(is_file($sql)) $pdo->exec(file_get_contents($sql));
+  $st = $pdo->prepare("SELECT category, SUM(amount) total, unit FROM ce_cost_ledger WHERE tenant_id=:t AND ts BETWEEN :f AND :to GROUP BY category, unit ORDER BY total DESC");
+  $st->execute([':t'=>$tenant,':f'=>$from,':to'=>$to]);
+  out(json_encode(['ok'=>true,'rows'=>$st->fetchAll(\PDO::FETCH_ASSOC)], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'automation:run') {
+  $tenant = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
+  $kernel = $GLOBALS['CE_KERNEL'] ?? null;
+  $auto = ($kernel && method_exists($kernel,'get')) ? $kernel->get('automation') : null;
+  if (!$auto) { out(json_encode(['ok'=>false,'error'=>'automation_not_available'])); exit(1); }
+  out(json_encode($auto->runOnce($tenant), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'ai:suggest:content') {
+  $kernel = $GLOBALS['CE_KERNEL'] ?? null;
+  $ai = ($kernel && method_exists($kernel,'get')) ? $kernel->get('ai') : null;
+  if (!$ai) { out(json_encode(['ok'=>false,'error'=>'ai_not_available'])); exit(1); }
+  out(json_encode($ai->suggestContent([]), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'ai:suggest:layout') {
+  $kernel = $GLOBALS['CE_KERNEL'] ?? null;
+  $ai = ($kernel && method_exists($kernel,'get')) ? $kernel->get('ai') : null;
+  if (!$ai) { out(json_encode(['ok'=>false,'error'=>'ai_not_available'])); exit(1); }
+  out(json_encode($ai->suggestLayout([]), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+  exit(0);
+}
+if ($cmd === 'ai:admin:copilot') {
+  $kernel = $GLOBALS['CE_KERNEL'] ?? null;
+  $ai = ($kernel && method_exists($kernel,'get')) ? $kernel->get('ai') : null;
+  if (!$ai) { out(json_encode(['ok'=>false,'error'=>'ai_not_available'])); exit(1); }
+  out(json_encode($ai->adminCopilot([]), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
   exit(0);
 }
 

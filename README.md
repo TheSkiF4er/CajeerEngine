@@ -471,3 +471,10 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Frontend Runtime: ISR cache + CDN-native headers (optional) + edge rendering stub
 - No-code: logic blocks registry, workflow runner foundation, advanced form submissions
 - Docs: `docs/FRONTEND_NOCODE_3_4_RU.md`
+
+
+## v3.5 — Platform Intelligence & Automation
+- Usage analytics + performance insights + cost ledger (multi-tenant)
+- Automation policies engine + predictive alerts (foundation)
+- Optional AI Assist endpoints (safe default, disabled)
+- New docs: `docs/INTELLIGENCE_AUTOMATION_3_5_RU.md`

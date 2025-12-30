@@ -28,6 +28,12 @@ class Kernel implements KernelContract
         $GLOBALS['CE_KERNEL'] = $this;
 
         // Marketplace (3.2)
+        // Intelligence (3.5)
+        if (class_exists('Intelligence\\IntelligenceServiceProvider')) {
+            $this->registerProvider(new \\Intelligence\\IntelligenceServiceProvider());
+        }
+
+        
         if (class_exists('Marketplace\\MarketplaceServiceProvider')) {
             $this->registerProvider(new \\Marketplace\\MarketplaceServiceProvider());
         }

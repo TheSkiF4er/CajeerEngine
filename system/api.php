@@ -21,4 +21,12 @@ return [
   '/api/ab/assign' => ['AB', 'assign'],
   '/api/nocode/workflow/run' => ['NoCode', 'runWorkflow'],
   '/api/nocode/form/submit' => ['NoCode', 'submitForm'],
+
+  '/api/intelligence/usage' => ['Intelligence', 'usage'],
+  '/api/intelligence/perf' => ['Intelligence', 'perf'],
+  '/api/intelligence/cost' => ['Intelligence', 'cost'],
+  '/api/automation/run' => ['Automation', 'runOnce'],
+  '/api/ai/suggest/content' => ['AI', 'suggestContent'],
+  '/api/ai/suggest/layout' => ['AI', 'suggestLayout'],
+  '/api/ai/admin/copilot' => ['AI', 'adminCopilot'],
 ];

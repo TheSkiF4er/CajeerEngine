@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.5.0] - 2025-12-30
+### Добавлено
+- Usage analytics (events) + API summaries.
+- Performance insights for slow requests/queries (thresholds configurable).
+- Cost visibility ledger (credits) per tenant.
+- Automation policies engine + run logs; predictive alerts (foundation).
+- Optional AI Assist endpoints (disabled by default).
+
 ## [3.4.0] - 2025-12-30
 ### Добавлено
 - UI Builder Pro foundation: collaborative locks + patches log.
