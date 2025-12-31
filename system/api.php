@@ -29,4 +29,12 @@ return [
   '/api/ai/suggest/content' => ['AI', 'suggestContent'],
   '/api/ai/suggest/layout' => ['AI', 'suggestLayout'],
   '/api/ai/admin/copilot' => ['AI', 'adminCopilot'],
+
+  '/api/ai/policy' => ['AI', 'policy'],
+  '/api/ai/optin' => ['AI', 'optIn'],
+  '/api/ai/requests' => ['AI', 'requests'],
+  '/api/ai/request' => ['AI', 'request'],
+  '/api/ai/recommendations' => ['AI', 'recommendations'],
+  '/api/ai/recommend/run' => ['AI', 'recommendRun'],
+  '/api/ai/alerts/run' => ['AI', 'alertsRun'],
 ];

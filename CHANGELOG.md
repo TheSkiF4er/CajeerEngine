@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.7.0] - 2025-12-31
+### Добавлено
+- AI governance: per-tenant opt-in/opt-out, data boundaries, privacy redaction.
+- Pluggable AI providers: mock + generic HTTP JSON provider.
+- Prompt transparency: request logs + API endpoints.
+- Recommendations (heuristic) + AI alerts baseline integration.
+- DB schema: `system/sql/ai_v3_7.sql`.
+
 ## [3.6.0] - 2025-12-31
 ### Добавлено
 - 3.x LTS API freeze (`system/api_lock.php`) и политика совместимости.

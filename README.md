@@ -486,3 +486,10 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Governance docs, Marketplace rules, Certified Partners program (foundation)
 - Ops: upgrade playbook, disaster recovery, reference architectures
 - CI test matrix + perf regression harness (foundation)
+
+
+## v3.7 — AI-Assisted Platform (Production baseline)
+- Pluggable AI providers (mock + generic HTTP JSON)
+- Per-tenant AI governance (opt-in/opt-out), prompt transparency, privacy redaction
+- Auto-recommendations (heuristic) + AI-driven alerts baseline
+- Docs: `docs/ai/AI_GOVERNANCE_3_7_RU.md`
