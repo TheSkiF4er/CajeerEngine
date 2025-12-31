@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.8.0] - 2025-12-31
+### Добавлено
+- Distributed & Edge config (`system/edge.php`).
+- Distributed cache + event bus abstractions (Redis, DB fallback).
+- Edge rendering (HTML cache) + read-only edge nodes enforcement.
+- Region-aware routing + canary decision + routing logs.
+- Data locality + replication journal (foundation).
+- DB schema: `system/sql/edge_v3_8.sql`.
+
 ## [3.7.0] - 2025-12-31
 ### Добавлено
 - AI governance: per-tenant opt-in/opt-out, data boundaries, privacy redaction.

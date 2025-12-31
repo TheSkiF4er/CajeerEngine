@@ -493,3 +493,13 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Per-tenant AI governance (opt-in/opt-out), prompt transparency, privacy redaction
 - Auto-recommendations (heuristic) + AI-driven alerts baseline
 - Docs: `docs/ai/AI_GOVERNANCE_3_7_RU.md`
+
+
+## v3.8 — Distributed & Edge Platform
+- Multi-region awareness config (`system/edge.php`)
+- Distributed cache + event bus (Redis with DB fallback)
+- Edge rendering (production baseline): cached HTML on edge, origin stores cache
+- Read-only edge nodes enforcement
+- Region-aware routing + canary decision + routing logs
+- Data locality + replication journal (foundation)
+- Docs: `docs/edge/DISTRIBUTED_EDGE_3_8_RU.md`

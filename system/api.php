@@ -37,4 +37,8 @@ return [
   '/api/ai/recommendations' => ['AI', 'recommendations'],
   '/api/ai/recommend/run' => ['AI', 'recommendRun'],
   '/api/ai/alerts/run' => ['AI', 'alertsRun'],
+
+  '/api/edge/route' => ['Edge', 'route'],
+  '/api/edge/config' => ['Edge', 'config'],
+  '/api/edge/canary' => ['Edge', 'canary'],
 ];

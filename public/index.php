@@ -1,6 +1,16 @@
 <?php
 require_once __DIR__ . '/../engine/bootstrap.php';
 
+// v3.8 Edge/Distributed bootstrap
+$edgeCfg = is_file(ROOT_PATH . '/system/edge.php') ? require ROOT_PATH . '/system/edge.php' : [];
+\Edge\EdgeGuard::enforce($edgeCfg);
+
+$cache = new \Edge\DistributedCache($edgeCfg['distributed_cache'] ?? []);
+$edgeRenderer = new \Edge\EdgeRenderer($cache, $edgeCfg['edge_rendering'] ?? []);
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+if ($edgeRenderer->tryServe($path)) { exit; }
+
+
 $cfg = is_file(ROOT_PATH . '/system/frontend.php') ? require ROOT_PATH . '/system/frontend.php' : [];
 $runtime = new \Frontend\FrontendRuntime($cfg);
 
