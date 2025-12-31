@@ -55,4 +55,14 @@ return [
   '/api/cp/rollouts/step' => ['ControlPlane', 'rolloutStep'],
   '/api/cp/heal/enqueue' => ['ControlPlane', 'healEnqueue'],
   '/api/cp/heal/run' => ['ControlPlane', 'healRun'],
+
+  '/api/v4/platform/config' => ['PlatformV4', 'platformConfig'],
+  '/api/v4/intents' => ['PlatformV4', 'intents'],
+  '/api/v4/reconcile' => ['PlatformV4', 'reconcile'],
+  '/api/v4/iac/docker-compose' => ['PlatformV4', 'iacDockerCompose'],
+  '/api/v4/iac/kubernetes' => ['PlatformV4', 'iacKubernetes'],
+  '/api/v4/eventmesh/recent' => ['PlatformV4', 'eventMeshRecent'],
+  '/api/v4/marketplace/ai' => ['PlatformV4', 'marketAI'],
+  '/api/v4/marketplace/automation' => ['PlatformV4', 'marketAutomation'],
+  '/api/v4/blueprints' => ['PlatformV4', 'blueprints'],
 ];

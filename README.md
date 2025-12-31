@@ -514,3 +514,14 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Policy-driven rollouts + health gates (foundation)
 - Self-healing workflows queue (foundation)
 - Docs: `docs/control_plane/CONTROL_PLANE_3_9_RU.md`
+
+
+## v4.0 — AI-Native & Cloud-First Platform
+- Declarative platform config: `system/platform.yaml`
+- Intent-based management + reconciler (`/api/v4/intents`, `/api/v4/reconcile`)
+- Event mesh persistence (foundation)
+- Platform SDK v4 (foundation)
+- IaC outputs (docker-compose + Kubernetes deployment) (foundation)
+- AI marketplace + Automation marketplace + Certified blueprints (foundation)
+- DB schema: `system/sql/platform_v4_0.sql`
+- Docs: `docs/v4/PLATFORM_V4_RU.md`

@@ -8,6 +8,12 @@ function out($s){ echo $s . "\n"; }
 if ($cmd === 'help') {
   out("CajeerEngine Platform CLI v2");
   out("Commands:
+  v4:platform:config               Show platform.yaml
+  v4:intent:create [tenant] [kind] Create intent (reads JSON from stdin)
+  v4:intent:list [tenant] [status] List intents
+  v4:reconcile                      Run reconciler once
+  v4:iac:compose                    Print docker-compose.yaml
+  v4:iac:k8s                        Print Kubernetes deployment YAML
   cp:status                        Control Plane status
   cp:insights                      Cross-tenant insights (24h)
   cp:health [tenant]               Compute health score

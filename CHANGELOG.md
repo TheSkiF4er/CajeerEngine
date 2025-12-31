@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.0.0] - 2025-12-31
+### Добавлено
+- AI-Native & Cloud-First foundation.
+- Declarative platform config: `system/platform.yaml`.
+- Intent engine + reconciler (intent-based management).
+- Event mesh persistence (foundation).
+- Platform SDK v4 + IaC outputs (docker-compose + Kubernetes deployment) (foundation).
+- Ecosystem v4 tables: AI marketplace, Automation marketplace, Certified blueprints (foundation).
+- DB schema: `system/sql/platform_v4_0.sql`.
+
 ## [3.9.0] - 2025-12-31
 ### Добавлено
 - Control Plane: central management API + token auth.

@@ -1,0 +1,52 @@
+apiVersion: cajeer.dev/v4
+kind: PlatformConfig
+metadata:
+  name: cajeerengine
+spec:
+  mode: cloud-first
+  controlPlane:
+    enabled: true
+    endpoints:
+      - /api/cp/*
+    auth:
+      tokenEnv: CE_CP_TOKEN
+      header: X-Control-Plane-Token
+  dataPlane:
+    enabled: true
+    regions:
+      currentEnv: CE_REGION
+    edge:
+      role: origin
+      readonly: false
+  eventMesh:
+    enabled: true
+    backend: redis
+    topicPrefix: ce:mesh:
+  ai:
+    enabled: true
+    providers:
+      - name: mock
+        kind: builtin
+      - name: http
+        kind: gateway
+        endpointEnv: CE_AI_GATEWAY
+    governance:
+      optInDefault: false
+      promptTransparency: true
+      dataBoundaries:
+        redactPatterns:
+          - "(?i)password\s*[:=]\s*[^\s]+"
+          - "(?i)token\s*[:=]\s*[^\s]+"
+  plugins:
+    declarative: true
+    directories:
+      - plugins
+  iac:
+    enabled: true
+    outputs:
+      - docker-compose
+      - kubernetes
+  marketplace:
+    aiMarketplace: true
+    automationMarketplace: true
+    certifiedBlueprints: true
