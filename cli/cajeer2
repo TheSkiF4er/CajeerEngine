@@ -7,7 +7,16 @@ function out($s){ echo $s . "\n"; }
 
 if ($cmd === 'help') {
   out("CajeerEngine Platform CLI v2");
-  out("Commands:");
+  out("Commands:
+  cp:status                        Control Plane status
+  cp:insights                      Cross-tenant insights (24h)
+  cp:health [tenant]               Compute health score
+  cp:forecast [tenant]             Capacity forecast
+  cp:rollout:plan [tenant] [ver]   Plan rollout
+  cp:rollout:create [tenant] [ver] Create rollout
+  cp:rollout:list [status]         List rollouts
+  cp:heal:enqueue [tenant] [kind]  Enqueue self-heal action
+  cp:heal:run                      Run one queued self-heal action");
   out("  plugins:sync                 Discover and sync plugins registry");
   out("  plugins:enable <slug>        Enable plugin (loads provider)");
   out("  plugins:disable <slug>       Disable plugin");

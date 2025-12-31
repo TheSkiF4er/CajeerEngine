@@ -41,4 +41,18 @@ return [
   '/api/edge/route' => ['Edge', 'route'],
   '/api/edge/config' => ['Edge', 'config'],
   '/api/edge/canary' => ['Edge', 'canary'],
+
+  '/api/cp/status' => ['ControlPlane', 'status'],
+  '/api/cp/fleet' => ['ControlPlane', 'fleet'],
+  '/api/cp/policies/get' => ['ControlPlane', 'policyGet'],
+  '/api/cp/policies/set' => ['ControlPlane', 'policySet'],
+  '/api/cp/insights/tenants' => ['ControlPlane', 'insightsTenants'],
+  '/api/cp/health/compute' => ['ControlPlane', 'healthCompute'],
+  '/api/cp/capacity/forecast' => ['ControlPlane', 'capacityForecast'],
+  '/api/cp/rollouts/plan' => ['ControlPlane', 'rolloutPlan'],
+  '/api/cp/rollouts/create' => ['ControlPlane', 'rolloutCreate'],
+  '/api/cp/rollouts/list' => ['ControlPlane', 'rolloutList'],
+  '/api/cp/rollouts/step' => ['ControlPlane', 'rolloutStep'],
+  '/api/cp/heal/enqueue' => ['ControlPlane', 'healEnqueue'],
+  '/api/cp/heal/run' => ['ControlPlane', 'healRun'],
 ];

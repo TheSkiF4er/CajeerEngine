@@ -503,3 +503,14 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Region-aware routing + canary decision + routing logs
 - Data locality + replication journal (foundation)
 - Docs: `docs/edge/DISTRIBUTED_EDGE_3_8_RU.md`
+
+
+## v3.9 — Platform Control Plane
+- Central management API (Control Plane)
+- Fleet management (sites/tenants registry)
+- Global policies & overrides (global/tenant/site)
+- Observability++: cross-tenant insights + platform health scoring
+- Capacity forecasting (foundation)
+- Policy-driven rollouts + health gates (foundation)
+- Self-healing workflows queue (foundation)
+- Docs: `docs/control_plane/CONTROL_PLANE_3_9_RU.md`

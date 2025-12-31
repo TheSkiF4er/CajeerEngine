@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.9.0] - 2025-12-31
+### Добавлено
+- Control Plane: central management API + token auth.
+- Fleet management: sites/tenants registry (`ce_fleet_sites`).
+- Global policies & overrides (`ce_platform_policies`).
+- Observability++: cross-tenant insights + health scoring (`ce_platform_health`).
+- Capacity forecasting (foundation) (`ce_capacity_forecast`).
+- Policy-driven rollouts (foundation) (`ce_rollouts`).
+- Self-healing workflows queue (foundation) (`ce_self_heal_actions`).
+- DB schema: `system/sql/control_plane_v3_9.sql`.
+
 ## [3.8.0] - 2025-12-31
 ### Добавлено
 - Distributed & Edge config (`system/edge.php`).
