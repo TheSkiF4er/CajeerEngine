@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.6.0] - 2025-12-31
+### Добавлено
+- 3.x LTS API freeze (`system/api_lock.php`) и политика совместимости.
+- Strict deprecation policy + `Core\\Deprecation`.
+- Governance: LTS policy, Security response, Marketplace rules, Certified Partners (foundation).
+- Ops playbooks: upgrade, disaster recovery, reference architectures.
+- CI: extended test matrix skeleton + performance regression harness (foundation).
+
 ## [3.5.0] - 2025-12-30
 ### Добавлено
 - Usage analytics (events) + API summaries.

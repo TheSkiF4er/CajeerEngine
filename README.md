@@ -478,3 +478,11 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Automation policies engine + predictive alerts (foundation)
 - Optional AI Assist endpoints (safe default, disabled)
 - New docs: `docs/INTELLIGENCE_AUTOMATION_3_5_RU.md`
+
+
+## v3.6 — LTS Hardening & Governance
+- API freeze for 3.x LTS (`system/api_lock.php`)
+- Strict deprecation policy + helper (`engine/Core/Deprecation.php`)
+- Governance docs, Marketplace rules, Certified Partners program (foundation)
+- Ops: upgrade playbook, disaster recovery, reference architectures
+- CI test matrix + perf regression harness (foundation)
