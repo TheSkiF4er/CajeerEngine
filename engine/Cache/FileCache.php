@@ -8,7 +8,16 @@ namespace Cache;
  */
 class FileCache
 {
-    private string $path;
+    
+    private static function ensureDirExists(string $path): void
+    {
+        $dir = dirname($path);
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0775, true);
+        }
+    }
+
+private string $path;
     private bool $enabled;
 
     public function __construct(string $path, bool $enabled = true)

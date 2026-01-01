@@ -60,6 +60,9 @@ class Template
             // {include file="x.tpl"} supported in compiler stage
             $php = Compiler::compile((string)$content, $this->tplPath, $this->cachePath);
 
+            if (!is_dir(dirname($compiled))) { @mkdir(dirname($compiled), 0775, true); }
+
+
             file_put_contents($compiled, $php);
         }
 
