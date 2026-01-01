@@ -6,7 +6,7 @@ use Plugins\PluginManager;
 use Cache\Cache;
 use Cache\PageCache;
 
-class Kernel
+class Kernel implements KernelContract
 {
     public Container $container;
     public EventBus $events;

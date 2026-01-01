@@ -11,12 +11,10 @@ return [
     '/admin/ui-builder/save' => ['admin', 'uiBuilderSave'],
     '/admin/marketplace/themes' => ['admin', 'marketplaceThemes'],
     '/admin/marketplace/plugins' => ['admin', 'marketplacePlugins'],
-,
   '/page' => ['pages', 'view'],
   '/category' => ['category', 'view'],
-,
     '/sitemap.xml' => ['seo', 'sitemap'],
-    '/robots.txt' => ['seo', 'robots']
+    '/robots.txt' => ['seo', 'robots'],
     '/api/v1/ping' => ['api', 'ping'],
     '/api/v1/content' => ['api', 'contentIndex'],
     '/api/v1/content/get' => ['api', 'contentGet'],
