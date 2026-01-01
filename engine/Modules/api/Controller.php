@@ -366,6 +366,7 @@ class Controller
         \Audit\AuditLogger::log('backup.import', ['tables'=>$restored]);
         Response::json(['ok'=>true,'restored'=>$restored]);
     
+    }
     // Marketplace v2.7
     public function marketplaceSync()
     {
