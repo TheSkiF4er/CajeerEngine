@@ -8,6 +8,14 @@ namespace Cache;
  */
 class FileCache
 {
+
+    private static function ensureDir(string $dir): void
+    {
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0775, true);
+        }
+    }
+
     
     private static function ensureDirExists(string $path): void
     {
@@ -124,6 +132,8 @@ private string $path;
             if (!is_array($keys)) $keys = [];
         }
         if (!in_array($key, $keys, true)) $keys[] = $key;
+        self::ensureDir(dirname($tf));
+
         file_put_contents($tf, json_encode($keys, JSON_UNESCAPED_UNICODE));
     }
 }

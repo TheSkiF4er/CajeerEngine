@@ -9,6 +9,17 @@ use Core\KernelSingleton;
 
 class Template
 {
+
+    private function ensureDirWritable(string $dir): void
+    {
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0775, true);
+        }
+        if (!is_dir($dir) || !is_writable($dir)) {
+            throw new \Exception('Template cache directory not writable: ' . $dir);
+        }
+    }
+
     protected string $tplPath;
     protected string $cachePath;
     protected bool $debug;
