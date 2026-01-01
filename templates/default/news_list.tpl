@@ -1,21 +1,14 @@
 {include file="header.tpl"}
 
-<main class="rg-container rg-mt-3">
-  <div class="rg-card rg-mb-2">
-    <div class="rg-card-body">
-      <form method="get" action="/news">
-        <input class="rg-input" type="text" name="q" value="{q}" placeholder="Поиск по новостям">
-        <input type="hidden" name="cat" value="{cat}">
-        <div class="rg-mt-2">
-          <button class="rg-btn rg-btn-primary" type="submit">Искать</button>
-          <a class="rg-btn rg-btn-secondary" href="/news">Сброс</a>
-        </div>
-      </form>
-    </div>
+<section class="ce-section">
+  <div class="ce-section__head">
+    <h1 class="ce-h2">Обновления движка</h1>
+    <p class="ce-muted">Список релизов и ключевых изменений.</p>
   </div>
 
-  {items_html}
-  {pagination_html}
-</main>
+  <div class="ce-card ce-card--flat">
+    {items_html}
+  </div>
+</section>
 
 {include file="footer.tpl"}

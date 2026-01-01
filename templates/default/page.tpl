@@ -1,12 +1,9 @@
 {include file="header.tpl"}
-
-<main class="rg-container rg-mt-3">
-  <div class="rg-card">
-    <div class="rg-card-body">
-      <div class="rg-text">{content}</div>
-      <pre class="rg-mt-2">{fields}</pre>
-    </div>
+<section class="ce-section">
+  <div class="ce-section__head">
+    <h1 class="ce-h2">{title}</h1>
+    <p class="ce-muted">{breadcrumbs}</p>
   </div>
-</main>
-
+  <article class="ce-article">{content}</article>
+</section>
 {include file="footer.tpl"}

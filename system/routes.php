@@ -2,6 +2,8 @@
 return [
   '/' => ['news', 'index'],
   '/news' => ['news', 'index'],
+  '/docs' => ['docs', 'index'],
+  '/arog' => ['arog', 'index'],
   '/news/view' => ['news', 'view'],
   '/admin' => ['admin', 'index'],
     '/admin/themes' => ['admin', 'themesIndex'],

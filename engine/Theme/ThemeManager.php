@@ -30,7 +30,7 @@ class ThemeManager
 
     public static function themesPath(): string
     {
-        return (string)(self::cfg()['themes_path'] ?? (ROOT_PATH . '/templates/themes'));
+        return (string)(self::cfg()['themes_path'] ?? (ROOT_PATH . '/templates'));
     }
 
     public static function list(): array

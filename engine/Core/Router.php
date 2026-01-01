@@ -1,90 +1,79 @@
 <?php
-declare(strict_types=1);
-
 namespace Core;
 
-/**
- * Minimal router for CajeerEngine.
- *
- * - Loads explicit routes from system/routes.php (if present)
- * - Supports module/action fallback: /<module>/<action>
- * - Special-cases /api/* to API\Router (if present)
- */
-final class Router
+class Router
 {
-    /** @var array<string, array{0:string,1:string}> */
-    private array $routes = [];
+    protected array $routes = [];
 
     public function __construct()
     {
         $routesFile = ROOT_PATH . '/system/routes.php';
-        if (is_file($routesFile)) {
+        if (file_exists($routesFile)) {
             $loaded = require $routesFile;
-            if (is_array($loaded)) {
-                $this->routes = $loaded;
-            }
+            if (is_array($loaded)) $this->routes = $loaded;
         }
+    }
+
+    protected function normalize(string $uri): string
+    {
+        $path = (string)parse_url($uri, PHP_URL_PATH);
+
+        // Ensure leading slash
+        if ($path === '' || $path[0] !== '/') $path = '/' . $path;
+
+        // Remove trailing slash (except root)
+        if ($path !== '/') $path = rtrim($path, '/');
+
+        return $path === '' ? '/' : $path;
     }
 
     public function dispatch(): void
     {
-        $uri = (string)parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-        $uri = '/' . ltrim($uri, '/');
+        $uri = $this->normalize($_SERVER['REQUEST_URI'] ?? '/');
 
-        // API routing (headless)
-        if (function_exists('str_starts_with') && str_starts_with($uri, '/api')) {
-            $apiRouter = '\\API\\Router';
-            if (class_exists($apiRouter) && method_exists($apiRouter, 'handle')) {
-                $apiRouter::handle();
-                return;
+        // Exact match, then optional trailing-slash alias (for legacy arrays)
+        if (!isset($this->routes[$uri])) {
+            $alt = ($uri === '/') ? '/' : ($uri . '/');
+            if (isset($this->routes[$alt])) $uri = $alt;
+        }
+
+        if (isset($this->routes[$uri])) {
+            [$controller, $action] = $this->routes[$uri];
+
+            $controllerClass = '\\Modules\\' . $controller . '\\Controller';
+            if (class_exists($controllerClass)) {
+                $ctrl = new $controllerClass();
+                if (method_exists($ctrl, $action)) {
+                    $ctrl->{$action}();
+                    return;
+                }
             }
         }
 
-        // Explicit routes first
-        if (isset($this->routes[$uri])) {
-            [$module, $action] = $this->routes[$uri];
-            $this->dispatchModule((string)$module, (string)$action);
-            return;
+        // 404 fallback
+        http_response_code(404);
+
+        try {
+            if (class_exists('\Template\Template')) {
+                $tpl = new \Template\Template();
+                $tpl->render('404.tpl', [
+                    'seo_title' => '404 — Not Found',
+                    'seo_description' => 'Page not found',
+                    'seo_canonical' => '',
+                    'seo_og' => '',
+                    'seo_twitter' => '',
+                    'head_extra' => '',
+                    'body_extra' => '',
+                    'year' => date('Y'),
+                    'runtime_mode' => 'web',
+                    'app_version' => trim((string)@file_get_contents(ROOT_PATH . '/system/version.txt')) ?: '0.0.0',
+                ]);
+                return;
+            }
+        } catch (\Throwable $e) {
+            // ignore and fall through
         }
 
-        // Fallback: /module/action
-        $parts = array_values(array_filter(explode('/', trim($uri, '/'))));
-        if (count($parts) >= 1) {
-            $module = (string)$parts[0];
-            $action = (string)($parts[1] ?? 'index');
-            $this->dispatchModule($module, $action);
-            return;
-        }
-
-        $this->notFound();
-    }
-
-    private function dispatchModule(string $module, string $action): void
-    {
-        // Modules namespace convention: Modules\<module>\Controller
-        $controllerClass = '\\Modules\\' . $module . '\\Controller';
-
-        if (!class_exists($controllerClass)) {
-            $this->notFound("Controller not found: {$controllerClass}");
-            return;
-        }
-
-        $controller = new $controllerClass();
-
-        if (!method_exists($controller, $action)) {
-            $this->notFound("Action not found: {$controllerClass}::{$action}()");
-            return;
-        }
-
-        $controller->{$action}();
-    }
-
-    private function notFound(string $msg = '404 Not Found'): void
-    {
-        if (!headers_sent()) {
-            http_response_code(404);
-            header('Content-Type: text/plain; charset=utf-8');
-        }
-        echo $msg;
+        echo "404 Not Found";
     }
 }

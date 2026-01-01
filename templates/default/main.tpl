@@ -4,7 +4,9 @@
   <div class="rg-card rg-mb-2">
     <div class="rg-card-body">
       <div class="rg-btn-group">
-        <a class="rg-btn rg-btn-primary" href="/news">Новости</a>
+        <a class="rg-btn rg-btn-primary" href="/news">Обновления</a>
+        <a class="rg-btn rg-btn-secondary" href="/docs">Документация</a>
+        <a class="rg-btn rg-btn-secondary" href="/arog">Arog</a>
         <a class="rg-btn rg-btn-secondary" href="/page?slug=about">Страница: О проекте</a>
         <a class="rg-btn rg-btn-secondary" href="/category?slug=updates&type=news">Категория: Обновления</a>
       </div>
