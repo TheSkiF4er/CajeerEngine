@@ -2,43 +2,50 @@
 
 <section class="ce-section">
   <div class="ce-section__head">
-    <h1 class="ce-h2">API (Headless)</h1>
-    <p class="ce-muted">Точки интеграции для SPA, мобильных приложений и SSG.</p>
+    <h1 class="ce-h2">API</h1>
+    <p class="ce-muted">Публичный Content API v1 и внутренняя карта /api для модулей платформы.</p>
   </div>
 
-  <div class="ce-article">
-    <h3>Проверка</h3>
-    <p><code>GET /api/v1/ping</code></p>
+  <div class="ce-cards">
+    <div class="ce-card">
+      <div class="ce-card__top">
+        <div class="ce-card__title">Content API v1</div>
+        <span class="ce-badge ce-badge--brand">/api/v1/*</span>
+      </div>
+      <div class="ce-card__text">
+        Рекомендуемый путь для headless‑интеграций и внешних клиентов. Авторизация: <code>Authorization: Bearer &lt;token&gt;</code>.
+      </div>
+    </div>
 
-    <h3>Content</h3>
-    <ul>
-      <li><code>GET /api/v1/content</code></li>
-      <li><code>GET /api/v1/content/get</code></li>
-      <li><code>POST /api/v1/content/create</code></li>
-      <li><code>POST /api/v1/content/update</code></li>
-      <li><code>POST /api/v1/content/delete</code></li>
-      <li><code>POST /api/v1/content/publish</code></li>
-    </ul>
-
-    <h3>UI Builder / Marketplace</h3>
-    <ul>
-      <li><code>GET /api/v1/ui/blocks</code>, <code>/api/v1/ui/get</code>, <code>/api/v1/ui/preview</code>, <code>POST /api/v1/ui/save</code></li>
-      <li><code>GET /api/v1/marketplace/index</code>, <code>/api/v1/marketplace/installed</code>, <code>POST /api/v1/marketplace/upload-install</code></li>
-    </ul>
-
-    <h3>Health / Metrics</h3>
-    <ul>
-      <li><code>GET /api/v1/health/live</code>, <code>/api/v1/health/ready</code></li>
-      <li><code>GET /metrics</code></li>
-    </ul>
-
-    <p class="ce-muted ce-text-sm">Примечание: права доступа зависят от scopes и policy-aware RBAC.</p>
+    <div class="ce-card">
+      <div class="ce-card__top">
+        <div class="ce-card__title">Internal API</div>
+        <span class="ce-badge">{api_internal_enabled}</span>
+      </div>
+      <div class="ce-card__text">
+        Внутренняя карта эндпоинтов из <code>system/api.php</code>. Токенов в конфиге: <b>{api_tokens_count}</b>.
+      </div>
+    </div>
   </div>
 
-  <div class="ce-actions ce-mt-16">
-    <a class="ce-btn ce-btn--primary" href="/api/v1/ping">Ping →</a>
-    <a class="ce-btn ce-btn--ghost" href="/docs">Документация</a>
-    <a class="ce-btn ce-btn--ghost" href="/admin">Админка</a>
+  <div class="ce-api__grid ce-mt-16">
+    <div class="ce-panel">
+      <div class="ce-panel__title">Endpoints: /api/v1</div>
+      <div class="ce-panel__list ce-api__list">
+        {api_v1_html}
+      </div>
+    </div>
+
+    <div class="ce-panel">
+      <div class="ce-panel__title">Endpoints: /api</div>
+      <div class="ce-panel__list ce-api__list">
+        {api_internal_html}
+      </div>
+    </div>
+  </div>
+
+  <div class="ce-article ce-markdown ce-mt-16">
+    {api_docs_html}
   </div>
 </section>
 

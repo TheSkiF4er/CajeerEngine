@@ -1,4 +1,10 @@
-{include file="header.tpl"}
+<?php
+// Compiled by CajeerEngine Template DSL
+$__out = '';
+$vars = $vars ?? [];
+
+$__out .= \Template\DSL\Runtime::includeFile('header.tpl', $vars);
+$__out .= '
 
 <section class="ce-section">
   <div class="ce-section__head">
@@ -48,8 +54,16 @@
   </div>
 
   <div class="ce-article ce-markdown ce-mt-16">
-    {rarog_doc_html}
+    ';
+$__out .= \Template\DSL\Runtime::value('rarog_doc_html', $vars);
+$__out .= '
   </div>
 </section>
 
-{include file="footer.tpl"}
+';
+$__out .= \Template\DSL\Runtime::includeFile('footer.tpl', $vars);
+$__out .= '
+';
+
+echo $__out;
+return $__out;

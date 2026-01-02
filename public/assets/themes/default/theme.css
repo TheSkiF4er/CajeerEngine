@@ -49,9 +49,9 @@ body.ce-body{
   position:sticky;
   top:0;
   z-index:50;
-  backdrop-filter: blur(10px);
-  background: rgba(5,8,18,.55);
-  border-bottom:1px solid var(--ce-border);
+  backdrop-filter: blur(12px);
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
 
 .ce-header__row{
@@ -240,7 +240,9 @@ body.ce-body{
   border-radius: var(--ce-radius);
   border:1px solid rgba(255,255,255,.10);
   background: rgba(5,8,18,.35);
+  word-break: break-word;
 }
+
 .ce-panel__name{font-weight:800}
 .ce-panel__desc{margin-top:4px; color:var(--ce-muted); font-size:13px; line-height:1.45}
 .ce-badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
@@ -316,7 +318,7 @@ body.ce-body{
 .ce-link:hover{text-decoration:underline}
 
 .ce-list{list-style:none; padding:0; margin:0}
-.ce-footer{margin-top: 34px; border-top:1px solid var(--ce-border); background: rgba(5,8,18,.35)}
+.ce-footer{margin-top: 34px; border-top:1px solid var(--ce-border); background: transparent;}
 .ce-footer__grid{
   display:grid;
   gap:18px;
@@ -357,3 +359,144 @@ body.ce-body{
 
 /* If Rarog provides default link styles, keep ours stronger */
 a{color: inherit}
+
+/* --- Docs & Markdown typography --- */
+.ce-panel__item{display:block; text-decoration:none; color: inherit}
+.ce-panel__item:hover{background: rgba(255,255,255,.06)}
+.ce-panel__item--active{background: rgba(59,130,246,.16); border-color: rgba(59,130,246,.28)}
+.ce-panel__group{
+  padding:10px 14px 6px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(234,240,255,.55);
+}
+.ce-panel__list--dense .ce-panel__item{padding:10px 12px}
+
+.ce-docs__grid{
+  display:grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 16px;
+  align-items:start;
+}
+
+.ce-docs__sidebar{
+  position: sticky;
+  top: 86px;
+  align-self: start;
+}
+.ce-docs__sidebar .ce-panel{
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+}
+.ce-panel--ghost{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.ce-panel--ghost:before{display:none !important;}
+
+@media (max-width: 980px){
+  .ce-docs__grid{grid-template-columns: 1fr}
+}
+
+.ce-markdown h1,
+.ce-markdown h2,
+.ce-markdown h3,
+.ce-markdown h4{
+  line-height: 1.25;
+  margin: 18px 0 10px;
+}
+.ce-markdown h1{font-size: 28px}
+.ce-markdown h2{font-size: 22px}
+.ce-markdown h3{font-size: 18px}
+.ce-markdown p{margin: 10px 0}
+.ce-markdown ul,
+.ce-markdown ol{margin: 10px 0 10px 18px}
+.ce-markdown li{margin: 6px 0}
+.ce-markdown code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size: .92em;
+  padding: .15em .35em;
+  border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+}
+.ce-markdown pre{
+  overflow:auto;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.24);
+  border: 1px solid rgba(255,255,255,.10);
+}
+.ce-markdown pre code{
+  padding:0;
+  border:0;
+  background: transparent;
+  font-size: 13px;
+}
+.ce-markdown blockquote{
+  margin: 14px 0;
+  padding: 10px 12px;
+  border-left: 3px solid rgba(59,130,246,.55);
+  background: rgba(255,255,255,.04);
+  border-radius: 12px;
+  color: rgba(234,240,255,.86);
+}
+.ce-markdown table{
+  width:100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  overflow:hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+}
+.ce-markdown th,
+.ce-markdown td{
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  vertical-align: top;
+}
+.ce-markdown th{
+  background: rgba(255,255,255,.06);
+  color: rgba(234,240,255,.92);
+  text-align:left;
+}
+.ce-markdown tr:last-child td{border-bottom:0}
+
+/* --- API page --- */
+.ce-api__grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 980px){
+  .ce-api__grid{grid-template-columns: 1fr}
+}
+.ce-api__list{max-height: 420px; overflow:auto}
+.ce-api__row{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.ce-api__row:last-child{border-bottom:0}
+
+
+/* Footer layout safety */
+.ce-footer__grid > div{min-width:0}
+.ce-footer__grid a{word-break:break-word}
+
+/* --- Overrides / fixes --- */
+.ce-panel--ghost{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.ce-panel--ghost:before{display:none !important;}
+/* Ensure footer layout never overflows on long links */
+.ce-footer__grid > *{min-width:0}
+.ce-footer__grid a{overflow-wrap:anywhere}

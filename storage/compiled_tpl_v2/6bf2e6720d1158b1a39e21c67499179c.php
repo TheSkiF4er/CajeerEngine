@@ -1,8 +1,16 @@
-{include file="header.tpl"}
+<?php
+// Compiled by CajeerEngine Template DSL
+$__out = '';
+$vars = $vars ?? [];
+
+$__out .= \Template\DSL\Runtime::includeFile('header.tpl', $vars);
+$__out .= '
 
 <section class="ce-hero">
   <div class="ce-hero__left">
-    <div class="ce-kicker">Platform • {app_version}</div>
+    <div class="ce-kicker">Platform • ';
+$__out .= \Template\DSL\Runtime::value('app_version', $vars);
+$__out .= '</div>
     <h1 class="ce-h1">CajeerEngine — независимая CMS‑платформа, а не «шаблонный движок»</h1>
     <p class="ce-lead">
       DLE‑совместимые .tpl + расширенный DSL, headless‑API, marketplace, multi‑tenant и enterprise‑контроль.
@@ -18,7 +26,9 @@
     <div class="ce-metrics">
       <div class="ce-metric">
         <div class="ce-metric__label">Режим</div>
-        <div class="ce-metric__value">{runtime_mode}</div>
+        <div class="ce-metric__value">';
+$__out .= \Template\DSL\Runtime::value('runtime_mode', $vars);
+$__out .= '</div>
       </div>
       <div class="ce-metric">
         <div class="ce-metric__label">Шаблоны</div>
@@ -64,7 +74,9 @@
     <p class="ce-muted">От внутреннего инструмента до третьего поколения open‑source платформы.</p>
   </div>
   <div class="ce-article ce-markdown">
-    {history_html}
+    ';
+$__out .= \Template\DSL\Runtime::value('history_html', $vars);
+$__out .= '
   </div>
 </section>
 
@@ -76,9 +88,17 @@
 
   <div class="ce-panel ce-panel--ghost">
     <div class="ce-panel__list">
-      {releases_html}
+      ';
+$__out .= \Template\DSL\Runtime::value('releases_html', $vars);
+$__out .= '
     </div>
   </div>
 </section>
 
-{include file="footer.tpl"}
+';
+$__out .= \Template\DSL\Runtime::includeFile('footer.tpl', $vars);
+$__out .= '
+';
+
+echo $__out;
+return $__out;

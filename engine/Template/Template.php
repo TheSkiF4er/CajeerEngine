@@ -35,17 +35,29 @@ class Template
 
     private function globals(): array
     {
-        $g = [];
+        $g = [
+            'meta_tags' => '',
+            'jsonld' => '',
+            'seo_title' => 'CajeerEngine',
+            'seo_description' => '',
+            'seo_canonical' => '',
+            'seo_og' => '',
+            'seo_twitter' => '',
+            'head_extra' => '',
+            'body_extra' => '',
+            'year' => date('Y'),
+            'runtime_mode' => 'web',
+            'app_version' => trim((string)@file_get_contents(ROOT_PATH . '/system/version.txt')) ?: '0.0.0',
+        ];
+
         try {
             $seo = KernelSingleton::container()->get('seo');
             if ($seo instanceof \Seo\MetaManager) {
                 $g['meta_tags'] = $seo->renderHead();
                 $g['jsonld'] = $seo->renderJsonLd();
             }
-        } catch (\Throwable $e) {
-            $g['meta_tags'] = '';
-            $g['jsonld'] = '';
-        }
+        } catch (\Throwable $e) {}
+
         return $g;
     }
 

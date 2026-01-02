@@ -57,6 +57,7 @@ class Router
             if (class_exists('\Template\Template')) {
                 $tpl = new \Template\Template();
                 $tpl->render('404.tpl', [
+                    'title' => '404 — Not Found',
                     'seo_title' => '404 — Not Found',
                     'seo_description' => 'Page not found',
                     'seo_canonical' => '',

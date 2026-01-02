@@ -1,8 +1,11 @@
 <?php
 return [
-  '/' => ['news', 'index'],
+  '/' => ['home', 'index'],
   '/news' => ['news', 'index'],
   '/docs' => ['docs', 'index'],
+  '/api' => ['site', 'api'],
+  '/marketplace' => ['marketplace', 'index'],
+  '/rarog' => ['site', 'rarog'],
   '/arog' => ['arog', 'index'],
   '/news/view' => ['news', 'view'],
   '/admin' => ['admin', 'index'],

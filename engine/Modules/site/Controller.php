@@ -2,6 +2,7 @@
 namespace Modules\site;
 
 use Template\Template;
+use Support\MarkdownLite;
 
 class Controller
 {
@@ -14,13 +15,12 @@ class Controller
 
         return [
             'seo_title' => $title . ' — CajeerEngine',
-            'seo_description' => $desc ?: 'CajeerEngine — CMS-платформа нового поколения.',
+            'seo_description' => $desc,
             'seo_canonical' => $canonical,
             'seo_og' => '',
             'seo_twitter' => '',
             'head_extra' => '',
             'body_extra' => '',
-            'year' => date('Y'),
             'runtime_mode' => 'web',
             'app_version' => $version,
         ];
@@ -28,19 +28,87 @@ class Controller
 
     public function docs(): void
     {
-        $tpl = new Template();
+        // kept for backward compatibility (if someone routes /docs to site/docs)
+        $tpl = new Template(theme: 'default');
         $tpl->render('docs.tpl', $this->baseVars('Документация', 'Документация и быстрый старт CajeerEngine.'));
     }
 
     public function api(): void
     {
-        $tpl = new Template();
-        $tpl->render('api.tpl', $this->baseVars('API', 'Headless API и точки интеграции CajeerEngine.'));
+        // Render API docs from docs/API_V1_RU.md + auto-generated endpoints list
+        $docPath = ROOT_PATH . '/docs/API_V1_RU.md';
+        $docMd = is_file($docPath) ? (string)@file_get_contents($docPath) : '';
+
+        // /api/v1 routes (public website router)
+        $routesPath = ROOT_PATH . '/system/routes.php';
+        $routesArr = is_file($routesPath) ? (include $routesPath) : [];
+        $v1 = [];
+        if (is_array($routesArr)) {
+            foreach ($routesArr as $path => $handler) {
+                if (!is_string($path)) continue;
+                if (strpos($path, '/api/v1/') !== 0) continue;
+                if (!is_array($handler) || count($handler) < 2) continue;
+                $v1[] = ['path' => $path, 'handler' => $handler[0] . '::' . $handler[1]];
+            }
+        }
+
+        // /api internal map (system/api.php)
+        $apiMapPath = ROOT_PATH . '/system/api.php';
+        $apiMap = is_file($apiMapPath) ? (include $apiMapPath) : [];
+        $internal = [];
+        $enabled = true;
+        $tokensCount = 0;
+
+        if (is_array($apiMap)) {
+            $enabled = (bool)($apiMap['enabled'] ?? true);
+            $tokens = $apiMap['tokens'] ?? [];
+            $tokensCount = is_array($tokens) ? count($tokens) : 0;
+
+            foreach ($apiMap as $path => $handler) {
+                if (!is_string($path)) continue;
+                if (strpos($path, '/api/') !== 0) continue;
+                if (!is_array($handler) || count($handler) < 2) continue;
+                $internal[] = ['path' => $path, 'handler' => $handler[0] . '::' . $handler[1]];
+            }
+        }
+
+        $toList = function(array $rows): string {
+            if (empty($rows)) return '<div class="ce-muted">Нет данных.</div>';
+            usort($rows, function($a, $b){ return strcmp($a['path'], $b['path']); });
+
+            $html = '';
+            foreach ($rows as $r) {
+                $p = htmlspecialchars((string)$r['path'], ENT_QUOTES, 'UTF-8');
+                $h = htmlspecialchars((string)$r['handler'], ENT_QUOTES, 'UTF-8');
+                $html .= '<div class="ce-api__row"><code>' . $p . '</code><span class="ce-muted ce-text-sm">' . $h . '</span></div>';
+            }
+            return $html;
+        };
+
+        $tpl = new Template(theme: 'default');
+        $tpl->render('api.tpl', array_merge(
+            $this->baseVars('API', 'Headless API и точки интеграции CajeerEngine.'),
+            [
+                'api_docs_html' => MarkdownLite::toHtml($docMd),
+                'api_v1_html' => $toList($v1),
+                'api_internal_html' => $toList($internal),
+                'api_internal_enabled' => $enabled ? 'enabled' : 'disabled',
+                'api_tokens_count' => (string)$tokensCount,
+            ]
+        ));
     }
 
     public function rarog(): void
     {
-        $tpl = new Template();
-        $tpl->render('rarog.tpl', $this->baseVars('Rarog', 'Rarog UI — официальный UI-слой и дизайн-система для CajeerEngine.'));
+        $docPath = ROOT_PATH . '/docs/RAROG_RU.md';
+        $docMd = is_file($docPath) ? (string)@file_get_contents($docPath) : '';
+
+        $tpl = new Template(theme: 'default');
+        $tpl->render('rarog.tpl', array_merge(
+            $this->baseVars('Rarog', 'Rarog — UI / Design System: tokens, utilities, компоненты и JS‑ядро.'),
+            [
+                'rarog_doc_html' => MarkdownLite::toHtml($docMd),
+            ]
+        ));
     }
 }

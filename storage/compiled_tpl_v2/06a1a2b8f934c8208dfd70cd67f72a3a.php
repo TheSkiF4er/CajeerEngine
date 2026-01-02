@@ -1,19 +1,40 @@
-<!doctype html>
+<?php
+// Compiled by CajeerEngine Template DSL
+$__out = '';
+$vars = $vars ?? [];
+
+$__out .= '<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{seo_title}</title>
-  <meta name="description" content="{seo_description}">
-  <link rel="canonical" href="{seo_canonical}">
-  {seo_og}
-  {seo_twitter}
+  <title>';
+$__out .= \Template\DSL\Runtime::value('seo_title', $vars);
+$__out .= '</title>
+  <meta name="description" content="';
+$__out .= \Template\DSL\Runtime::value('seo_description', $vars);
+$__out .= '">
+  <link rel="canonical" href="';
+$__out .= \Template\DSL\Runtime::value('seo_canonical', $vars);
+$__out .= '">
+  ';
+$__out .= \Template\DSL\Runtime::value('seo_og', $vars);
+$__out .= '
+  ';
+$__out .= \Template\DSL\Runtime::value('seo_twitter', $vars);
+$__out .= '
 
   <!-- Rarog (optional, if installed) -->
-  <link rel="stylesheet" href="/assets/rarog/rarog.min.css?v={app_version}">
+  <link rel="stylesheet" href="/assets/rarog/rarog.min.css?v=';
+$__out .= \Template\DSL\Runtime::value('app_version', $vars);
+$__out .= '">
   <!-- CajeerEngine theme -->
-  <link rel="stylesheet" href="/assets/themes/default/theme.css?v={app_version}">
-  {head_extra}
+  <link rel="stylesheet" href="/assets/themes/default/theme.css?v=';
+$__out .= \Template\DSL\Runtime::value('app_version', $vars);
+$__out .= '">
+  ';
+$__out .= \Template\DSL\Runtime::value('head_extra', $vars);
+$__out .= '
 </head>
 <body class="ce-body">
 <div class="ce-bg"></div>
@@ -52,3 +73,7 @@
 </header>
 
 <main class="ce-container ce-main">
+';
+
+echo $__out;
+return $__out;
