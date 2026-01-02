@@ -1,4 +1,4 @@
-# v2.5 — SaaS & Platform Mode
+# v2.5 — SaaS и Platform Mode
 
 ## Platform mode (multi-tenant)
 - Конфиг: `system/platform.php`
@@ -14,12 +14,6 @@
 ## Site isolation
 - Для репозиториев/запросов используйте `Platform\Isolation::whereTenantSite(...)`.
 - По умолчанию Kernel проставляет tenant/site в preflight.
-
-## Usage metrics / billing hooks
-- Счетчик запросов: `Platform\Usage::inc('api_requests')` (включен в Kernel).
-- Таблица: `ce_usage_metrics`
-- Limits: `Platform\Limits` (soft check, можно включить в конфиге)
-- Billing hooks: `Platform\Billing` (placeholder)
 
 ## Auto-updates
 - Cron worker: `php system/cron/autoupdate_worker.php`

@@ -2,14 +2,14 @@
 
 <section class="ce-hero">
   <div class="ce-hero__left">
-    <div class="ce-kicker">Ecosystem</div>
-    <h1 class="ce-h1">Marketplace</h1>
+    <div class="ce-kicker">Экосистема</div>
+    <h1 class="ce-h1">Ресурсы</h1>
     <p class="ce-lead">
       Каталог расширений, тем и пакетов для CajeerEngine с проверкой подписи и контролем целостности.
     </p>
 
     <div class="ce-actions">
-      <a class="ce-btn ce-btn--primary ce-btn--lg" href="/admin">Админ‑панель</a>
+      <a class="ce-btn ce-btn--primary ce-btn--lg" href="/admin">Загрузить</a>
       <a class="ce-btn ce-btn--ghost ce-btn--lg" href="/admin/marketplace/status">Статус</a>
       <a class="ce-btn ce-btn--ghost ce-btn--lg" href="/docs">Документация</a>
     </div>
@@ -34,7 +34,7 @@
 
 <section class="ce-section">
   <div class="ce-panel">
-    <div class="ce-panel__title">О Marketplace</div>
+    <div class="ce-panel__title">О Ресурсах</div>
     <div class="ce-markdown ce-mt-10">
       {content_html}
     </div>

@@ -1,1 +1,1 @@
-Runtime data: cache, logs, sessions, compiled templates, backups.
+Runtime‑данные: кеш, логи, сессии, скомпилированные шаблоны, бэкапы.

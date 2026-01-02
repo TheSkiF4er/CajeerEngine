@@ -1,6 +1,6 @@
-# v2.7 — Marketplace Expansion & Economy
+# v2.7 — Расширение Marketplace и экономика
 
-## Remote registries
+## Удалённые реестры (remote registries)
 - Конфиг: `system/marketplace.php` → `registries`
 - Ожидаемый API реестра:
   - `GET {base}/api/v1/registry/index`
@@ -10,18 +10,14 @@
 ## Локальный индекс
 - Таблицы: `system/sql/marketplace_v2_7.sql`
 - Пакеты: `ce_marketplace_packages`
-- Ratings: `ce_marketplace_ratings`
+- Рейтинги: `ce_marketplace_ratings`
 
-## SemVer constraints
+## SemVer‑ограничения
 - Поддержка: `^`, `~`, `>= <`, wildcard `*`
 
-## Security
-- Signature enforcement: `marketplace.security.require_signature`
-- Sandbox preflight: конфликты файлов + зависимости
-
-## Monetization hooks
+## Hooks монетизации (monetization hooks)
 - Поля: `is_paid`, `license`, `price`
-- Entitlement: external provider (foundation)
+- Entitlement: внешний провайдер (foundation)
 
 ## API
 - `/api/v1/marketplace/sync`

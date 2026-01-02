@@ -1,10 +1,10 @@
-# v4.0 — AI-Native & Cloud-First Platform
+# v4.0 — AI‑Native и Cloud‑First платформа
 
-## Vision
-- AI-native workflows
-- Declarative platform config (`system/platform.yaml`)
-- Intent-based management (intent → reconciler)
-- Control plane / data plane split
+## Видение
+- AI‑native workflows
+- Декларативный конфиг платформы (`system/platform.yaml`)
+- Intent‑based management (intent → reconciler)
+- Разделение control plane / data plane
 
 ## Platform Config
 - `GET /api/v4/platform/config` (YAML)
@@ -14,12 +14,6 @@ API:
 - `POST /api/v4/intents` `{ tenant_id, name, kind, desired }`
 - `GET /api/v4/intents?tenant_id=1&status=pending`
 - `POST /api/v4/reconcile`
-
-Kinds (foundation):
-- `PolicyIntent`
-- `FleetIntent`
-- `SelfHealIntent`
-- `EventIntent`
 
 ## Event Mesh
 - `GET /api/v4/eventmesh/recent?topic=...`

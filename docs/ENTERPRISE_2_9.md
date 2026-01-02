@@ -1,6 +1,6 @@
-# v2.9 — Enterprise SaaS & Compliance (foundation)
+# v2.9 — Enterprise SaaS и Compliance (foundation)
 
-## Security & Compliance
+## Безопасность и соответствие требованиям
 ### SSO (OIDC/SAML)
 - Флаги: `system/sso.php`
 - Хранилище провайдеров: `ce_sso_providers`
@@ -12,39 +12,19 @@
 - Таблица: `ce_mfa_factors`
 - Endpoint: `GET /api/v1/mfa/list?user_id=...`
 
-### Immutable audit trails
+### Неизменяемые аудит‑следы
 - Таблица: `ce_audit_log_immutable`
-- Hash-chain verify:
-  - API: `GET /api/v1/audit/verify`
-  - CLI: `php cli/cajeer audit:verify`
-
-### Data residency
-- Конфиг: `system/residency.php`
-- Поля tenant: `region`, `residency_region`
-
-## SaaS
-### Tenant lifecycle
-- Таблица: `ce_tenants` (status: active/suspended/archived/deleted)
-- API: `POST /api/v1/tenant/status`
-- CLI: `php cli/cajeer tenant:status <id> suspended`
-
-### Quotas enforcement
-- Таблица: `ce_tenant_quotas`
-- API: `POST /api/v1/tenant/quotas/set`
-- Hook: `SaaS\TenantManager::checkUsage($tenantId, $usageMap)`
-
-### SLA / Incident hooks
 - Конфиг: `system/ops.php`
 - Hook logger: `Ops\Hooks::sla()` / `Ops\Hooks::incident()`
 
 ## Legal / Ops
-### GDPR tooling
+### Инструменты GDPR
 - Очередь: `POST /api/v1/gdpr/queue`
 - Выполнение: `POST /api/v1/gdpr/run`
 - CLI: `php cli/cajeer gdpr:queue ...` / `gdpr:run ...`
 
-### Access reports
+### Отчёты доступа
 - `GET /api/v1/access-reports/list?tenant_id=...`
 
-### Incidents
+### Инциденты
 - `POST /api/v1/incident/create`

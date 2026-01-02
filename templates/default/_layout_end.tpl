@@ -21,8 +21,6 @@
         <li><a class="ce-link" href="https://discord.gg/E52DxpShQy" target="_blank" rel="noopener noreferrer">Сообщество</a></li>
         <li><a class="ce-link" href="/marketplace">Ресурсы</a></li>
         <li><a class="ce-link" href="/rarog">Rarog</a></li>
-        <li><a class="ce-link" href="https://github.com/TheSkiF4er/CajeerEngine?tab=coc-ov-file" target="_blank" rel="noopener noreferrer">Кодекс поведения</a></li>
-        <li><a class="ce-link" href="https://github.com/TheSkiF4er/CajeerEngine?tab=contributing-ov-file" target="_blank" rel="noopener noreferrer">Вклад в проект</a></li>
         <li><a class="ce-link" href="https://github.com/TheSkiF4er/CajeerEngine?tab=security-ov-file" target="_blank" rel="noopener noreferrer">Безопасность</a></li>
       </ul>
     </div>

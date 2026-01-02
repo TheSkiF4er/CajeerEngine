@@ -1,26 +1,38 @@
 <?php
+declare(strict_types=1);
+
 namespace Modules\admin\Controllers;
 
 use Core\Response;
 use Marketplace\Client;
 
-class MarketplaceController
+final class MarketplaceController
 {
-    public function status()
+    private function client(): Client
     {
-        $c = new Client();
-        Response::json(['marketplace'=>$c->status()]);
+        $cfgFile = ROOT_PATH . '/system/marketplace.php';
+        $cfg = is_file($cfgFile) ? (require $cfgFile) : null;
+        if (!is_array($cfg)) {
+            $cfg = null;
+        }
+        return new Client($cfg);
     }
 
-    public function themes()
+    public function status(): void
     {
-        $c = new \Marketplace\Client();
-        \Core\Response::json(['ok'=>true,'themes'=>$c->listThemes()]);
+        $c = $this->client();
+        Response::json(['ok' => true, 'marketplace' => $c->status()]);
     }
 
-    public function plugins()
+    public function themes(): void
     {
-        $c = new \Marketplace\Client();
-        \Core\Response::json(['ok'=>true,'plugins'=>$c->listPlugins()]);
+        $c = $this->client();
+        Response::json(['ok' => true, 'themes' => $c->listThemes()]);
+    }
+
+    public function plugins(): void
+    {
+        $c = $this->client();
+        Response::json(['ok' => true, 'plugins' => $c->listPlugins()]);
     }
 }

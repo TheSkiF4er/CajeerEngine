@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Запрос улучшения
 about: Предложить улучшение
 labels: enhancement
 ---

@@ -1,7 +1,7 @@
 # v3.8 — Distributed & Edge Platform
 
 ## Цель
-Подготовить платформу к multi-region и CDN-native архитектурам.
+Подготовить платформу к multi‑region и CDN‑native архитектурам.
 
 ## Конфигурация
 `system/edge.php`:
@@ -14,13 +14,6 @@
 ## Read-only edge nodes
 На edge_readonly:
 - POST/PUT/PATCH/DELETE блокируются `Edge\EdgeGuard`.
-
-## Edge rendering
-- Edge: пытается отдать кэш HTML
-- Origin: генерирует HTML и сохраняет в distributed cache
-
-Headers:
-- `X-CE-Edge-Cache: HIT|MISS`
 
 ## Region-aware routing (foundation)
 API:

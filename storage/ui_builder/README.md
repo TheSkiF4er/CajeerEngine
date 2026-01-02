@@ -1,1 +1,1 @@
-UI Builder schemas (JSON) — v2.0 skeleton.
+Схемы UI Builder (JSON) — каркас v2.0.

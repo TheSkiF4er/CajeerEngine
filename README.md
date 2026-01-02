@@ -282,7 +282,7 @@ class NewsController
 
 ---
 
-## 📌 Дорожная карта (Roadmap)
+## 📌 Дорожная карта
 
 Планируемое развитие ветки open-source:
 
@@ -371,14 +371,14 @@ Cajeer Engine — открытый проект. Любой желающий м�
 ## v2.1 — Content API v1 (Headless)
 Документация: `docs/API_V1_RU.md`
 
-### Quick start
+### Быстрый старт
 1) Настройте БД в `system/config.php`
 2) Установите схему: `php cli/cajeer content:install`
 3) Используйте Bearer token: `dev-token` из `system/api.php`
 
 
 ## v2.2 — UI Builder (Visual Editor)
-- Install: `php cli/cajeer ui:install`
+- Установка: `php cli/cajeer ui:install`
 - Admin editor: `public/admin/ui_builder.php`
 - Docs: `docs/UI_BUILDER_RU.md`
 
@@ -389,7 +389,7 @@ Cajeer Engine — открытый проект. Любой желающий м�
 - Docs: `docs/MARKETPLACE_RU.md`
 
 
-## v2.4 — Enterprise & Security
+## v2.4 — Enterprise и безопасность
 - Config: `system/security.php`, `system/workspaces.php`
 - Docs: `docs/ENTERPRISE_SECURITY_RU.md`
 - Admin: `public/admin/security.php`
@@ -474,7 +474,7 @@ Cajeer Engine — открытый проект. Любой желающий м�
 
 
 ## v3.5 — Platform Intelligence & Automation
-- Usage analytics + performance insights + cost ledger (multi-tenant)
+- Аналитика использования + performance‑инсайты + cost ledger (multi‑tenant)
 - Automation policies engine + predictive alerts (foundation)
 - Optional AI Assist endpoints (safe default, disabled)
 - New docs: `docs/INTELLIGENCE_AUTOMATION_3_5_RU.md`

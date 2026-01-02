@@ -1,4 +1,4 @@
-# v2.8 — Advanced UI Builder & Frontend Platform
+# v2.8 — Расширенный UI Builder и Frontend‑платформа
 
 ## UI Builder
 - Nested layouts: `layout/section/row/col` + `children`

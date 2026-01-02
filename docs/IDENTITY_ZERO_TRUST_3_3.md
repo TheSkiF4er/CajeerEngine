@@ -1,11 +1,11 @@
-# v3.3 — Enterprise Identity & Zero Trust
+# v3.3 — Enterprise Identity и Zero Trust
 
 ## Identity (OIDC / SAML)
 - Конфиг: `system/identity.php`
 - OIDC: `engine/Identity/OIDCProvider.php` (startAuth/callback)
 - SAML: `engine/Identity/SAMLProvider.php` (startAuth/ACS)
 
-> Важно: криптографическая валидация токенов/JWKS и XML-signature для SAML помечены как **foundation stubs** и харднятся в 3.3.x minors.
+> Важно: криптографическая валидация токенов/JWKS и XML‑подписи для SAML помечены как **foundation stubs** и усиливаются в 3.3.x minors.
 
 ## MFA
 - TOTP (RFC 6238) без сторонних библиотек: `engine/MFA/TOTP.php`

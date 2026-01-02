@@ -1,3 +1,3 @@
-# CajeerEngine PHP SDK (foundation)
+# PHP SDK CajeerEngine (foundation)
 
-Content/Admin API clients.
+Клиенты Content/Admin API.

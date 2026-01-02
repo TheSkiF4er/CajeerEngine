@@ -1,3 +1,3 @@
-# CajeerEngine JS SDK (foundation)
+# JS SDK CajeerEngine (foundation)
 
-Fetch-based clients.
+Клиенты на базе Fetch.

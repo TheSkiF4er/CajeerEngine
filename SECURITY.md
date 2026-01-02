@@ -1,20 +1,20 @@
-# Security Policy
+# Политика безопасности
 
-## Supported Versions
-| Version | Supported |
-|--------:|:---------|
+## Поддерживаемые версии
+| Версия | Поддержка |
+|------:|:---------|
 | 3.x LTS | ✅ |
 | < 3.6  | ❌ |
 
-## Reporting a Vulnerability
+## Сообщение об уязвимости
 Email: **security@cajeer.ru**  
-Subject: `CajeerEngine Security Report`
+Тема: `CajeerEngine Security Report`
 
-## Security Response Process
-1. Acknowledge: up to 72 hours
-2. Triage: up to 7 days
-3. Fix & patch: per severity
-4. Advisory publication after patch readiness
+## Процесс реакции на инциденты безопасности
+1. Подтверждение получения: до 72 часов
+2. Триаж и воспроизведение: до 7 дней
+3. Исправление и патч: в зависимости от критичности
+4. Публикация advisory после готовности исправления
 
-## Coordinated Disclosure
-Please do not disclose publicly before a fix is released.
+## Координированное раскрытие
+Пожалуйста, не раскрывайте детали публично до выхода патча.
