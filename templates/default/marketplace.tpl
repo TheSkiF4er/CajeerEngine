@@ -1,59 +1,64 @@
 {include file="header.tpl"}
 
-<section class="ce-hero">
-  <div class="ce-hero__left">
-    <div class="ce-kicker">Экосистема</div>
-    <h1 class="ce-h1">Ресурсы</h1>
-    <p class="ce-lead">
-      Каталог расширений, тем и пакетов для CajeerEngine с проверкой подписи и контролем целостности.
-    </p>
+<section class="ce-section">
+  <div class="ce-section__head">
+    <h1 class="ce-h2">{title}</h1>
+    <p class="ce-muted">{subtitle}</p>
 
-    <div class="ce-actions">
-      <a class="ce-btn ce-btn--primary ce-btn--lg" href="/admin">Загрузить</a>
-      <a class="ce-btn ce-btn--ghost ce-btn--lg" href="/admin/marketplace/status">Статус</a>
-      <a class="ce-btn ce-btn--ghost ce-btn--lg" href="/docs">Документация</a>
+    <div class="ce-actions ce-mt-16">
+      <a class="ce-btn ce-btn--primary" href="/marketplace/themes">Темы</a>
+      <a class="ce-btn ce-btn--ghost" href="/marketplace/plugins">Плагины и модули</a>
+      <a class="ce-btn ce-btn--ghost" href="/marketplace/profile">Загрузить</a>
     </div>
   </div>
 
-  <div class="ce-hero__right">
-    <div class="ce-panel">
-      <div class="ce-panel__title">Быстрый доступ</div>
-      <div class="ce-panel__list">
-        <a class="ce-panel__item" href="/admin/marketplace/themes">
-          <div class="ce-panel__itemTitle">Темы</div>
-          <div class="ce-muted ce-text-sm">Каталог и установка тем (admin).</div>
-        </a>
-        <a class="ce-panel__item" href="/admin/marketplace/plugins">
-          <div class="ce-panel__itemTitle">Плагины</div>
-          <div class="ce-muted ce-text-sm">Каталог и установка плагинов (admin).</div>
-        </a>
+  <div class="ce-panel">
+    <div class="ce-panel__title">Что такое Marketplace</div>
+    <div class="ce-panel__desc">Публичная витрина ресурсов CajeerEngine. Здесь вы выбираете темы и расширения, а управление публикацией — в профиле.</div>
+
+    <div class="ce-panel__grid">
+      <div class="ce-panel__item">
+        <div class="ce-panel__name">Темы</div>
+        <div class="ce-panel__desc">Оформление и UI‑пакеты.</div>
+        <div class="ce-badges"><span class="ce-badge">theme</span></div>
+      </div>
+      <div class="ce-panel__item">
+        <div class="ce-panel__name">Плагины</div>
+        <div class="ce-panel__desc">Функциональные расширения.</div>
+        <div class="ce-badges"><span class="ce-badge">plugin</span></div>
+      </div>
+      <div class="ce-panel__item">
+        <div class="ce-panel__name">Модули</div>
+        <div class="ce-panel__desc">Крупные подсистемы.</div>
+        <div class="ce-badges"><span class="ce-badge">module</span></div>
       </div>
     </div>
   </div>
-</section>
 
-<section class="ce-section">
-  <div class="ce-panel">
-    <div class="ce-panel__title">О Ресурсах</div>
-    <div class="ce-markdown ce-mt-10">
-      {content_html}
-    </div>
+  <div class="ce-section__head ce-mt-16">
+    <h2 class="ce-h2">Рекомендуемые темы</h2>
+    <p class="ce-muted">Выдержка из локального индекса Marketplace.</p>
+  </div>
+  {themes_html}
+
+  <div class="ce-actions ce-mt-16">
+    <a class="ce-btn ce-btn--ghost" href="/marketplace/themes">Показать все темы</a>
   </div>
 
-  <div class="ce-cards ce-mt-14">
-    <div class="ce-card">
-      <div class="ce-card__title">Пакеты</div>
-      <div class="ce-muted ce-mt-8">Единый формат поставки, версионирование и предсказуемая установка.</div>
-    </div>
+  <div class="ce-section__head ce-mt-16">
+    <h2 class="ce-h2">Рекомендуемые расширения</h2>
+    <p class="ce-muted">Плагины и модули из локального индекса Marketplace.</p>
+  </div>
+  {plugins_html}
 
-    <div class="ce-card">
-      <div class="ce-card__title">Обновления</div>
-      <div class="ce-muted ce-mt-8">Контролируемое обновление и откат (rollback) через подсистему обновлений.</div>
-    </div>
+  <div class="ce-actions ce-mt-16">
+    <a class="ce-btn ce-btn--ghost" href="/marketplace/plugins">Показать все расширения</a>
+    <a class="ce-btn ce-btn--primary" href="/marketplace/profile">Загрузить ресурс</a>
+  </div>
 
-    <div class="ce-card">
-      <div class="ce-card__title">Безопасность</div>
-      <div class="ce-muted ce-mt-8">Проверка целостности и подписи (Ed25519) перед установкой.</div>
+  <div class="ce-card ce-card--flat ce-mt-16">
+    <div class="ce-card__text ce-muted">
+      В этой сборке витрина читает локальный индекс. Следующий шаг — подключение реестра и пользовательских аккаунтов.
     </div>
   </div>
 </section>
