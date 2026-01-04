@@ -33,7 +33,7 @@
         </li>
         <li class="ce-muted ce-text-sm">Support: <a class="ce-link" href="mailto:support@cajeer.ru">support@cajeer.ru</a></li>
         <li class="ce-muted ce-text-sm">Security: <a class="ce-link" href="mailto:security@cajeer.ru">security@cajeer.ru</a></li>
-        <li class="ce-muted ce-text-sm">Telegram: <a class="ce-link" href="https://t.me/skif4er" target="_blank" rel="noopener noreferrer">@skif4er</a></li>
+        <li class="ce-muted ce-text-sm">Telegram: <a class="ce-link" href="https://t.me/sf4blog" target="_blank" rel="noopener noreferrer">@sf4blog</a></li>
       </ul>
     </div>
   </div>

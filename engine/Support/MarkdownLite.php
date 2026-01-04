@@ -18,6 +18,22 @@ final class MarkdownLite
         $inCode = false;
         $codeLang = '';
         $listOpen = false;
+        $quoteOpen = false;
+        $quoteLines = [];
+
+        $flushQuote = function() use (&$html, &$quoteOpen, &$quoteLines): void {
+            if (!$quoteOpen) return;
+            $quoteOpen = false;
+            $text = implode("\n", $quoteLines);
+            $quoteLines = [];
+            $text = trim($text);
+            if ($text === '') return;
+            // Render quote body as inline text with <br> line breaks.
+            $parts = array_map(function($ln){
+                return MarkdownLite::inline($ln);
+            }, preg_split('/\R/', $text) ?: []);
+            $html .= '<blockquote><p>' . implode("<br>", $parts) . "</p></blockquote>\n";
+        };
 
         foreach ($lines as $line) {
             // fenced code
@@ -25,6 +41,7 @@ final class MarkdownLite
                 if (!$inCode) {
                     $inCode = true;
                     $codeLang = $m[1] ?? '';
+                    $flushQuote();
                     if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
                     $html .= '<pre class="rg-code"><code>';
                 } else {
@@ -43,12 +60,30 @@ final class MarkdownLite
 
             // blank line closes list
             if ($trim === '') {
+                $flushQuote();
                 if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
+                continue;
+            }
+
+            // horizontal rule
+            if (preg_match('/^(-{3,}|\*{3,}|_{3,})$/', $trim)) {
+                $flushQuote();
+                if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
+                $html .= "<hr>\n";
+                continue;
+            }
+
+            // blockquote (single-level)
+            if (preg_match('/^>\s?(.*)$/', $trim, $m)) {
+                if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
+                $quoteOpen = true;
+                $quoteLines[] = (string)$m[1];
                 continue;
             }
 
             // headings
             if (preg_match('/^(#{1,6})\s+(.*)$/', $trim, $m)) {
+                $flushQuote();
                 if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
                 $level = strlen($m[1]);
                 $text = self::inline($m[2]);
@@ -59,16 +94,19 @@ final class MarkdownLite
 
             // unordered lists
             if (preg_match('/^[-*]\s+(.*)$/', $trim, $m)) {
+                $flushQuote();
                 if (!$listOpen) { $html .= "<ul>\n"; $listOpen = true; }
                 $html .= '<li>' . self::inline($m[1]) . "</li>\n";
                 continue;
             }
 
             // paragraph
+            $flushQuote();
             if ($listOpen) { $html .= "</ul>\n"; $listOpen = false; }
             $html .= '<p>' . self::inline($trim) . "</p>\n";
         }
 
+        $flushQuote();
         if ($listOpen) { $html .= "</ul>\n"; }
         if ($inCode) { $html .= "</code></pre>\n"; }
 

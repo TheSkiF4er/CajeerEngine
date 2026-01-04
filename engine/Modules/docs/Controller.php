@@ -42,9 +42,10 @@ class Controller
 
         foreach ($rootFiles as $path => $label) {
             if (is_file($path)) {
+                $display = preg_replace('/\.(md|txt)$/i', '', $label) ?? $label;
                 $items[] = [
                     'key' => 'root:' . $label,
-                    'label' => $label,
+                    'label' => $display,
                     'path' => $path,
                     'group' => 'Repository',
                 ];
@@ -67,7 +68,12 @@ class Controller
 
                 $items[] = [
                     'key' => 'docs:' . $rel,
-                    'label' => $rel,
+                    // Display: hide folder prefix and extension (.md/.txt) for readability
+                    'label' => (function(string $rel): string {
+                        $base = basename($rel);
+                        $base = preg_replace('/\.(md|txt)$/i', '', $base) ?? $base;
+                        return $base;
+                    })($rel),
                     'path' => $file->getPathname(),
                     'group' => $group,
                 ];

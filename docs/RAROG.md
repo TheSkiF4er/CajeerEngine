@@ -1,47 +1,37 @@
 # Rarog
 
-Rarog — гибридный CSS‑фреймворк и дизайн‑система: **design‑tokens + utilities + компоненты + JS‑ядро**.
-Задуман как практичная альтернатива связке **Tailwind CSS + Bootstrap** и подходит как для Cajeer‑экосистемы, так и для обычных стеков (Laravel, React, Vue, Next.js, SvelteKit и т.д.). 
+**Rarog** — гибридный CSS‑фреймворк нового поколения: **design‑tokens + utilities + компоненты + JS‑ядро (без jQuery)**.
 
-## Что входит в Rarog 3.x
+## Ключевые возможности
 
-- **Tokens** (`rarog.tokens.json`) и theme‑packs
-- Utility‑классы (responsive/state‑префиксы, JIT, произвольные значения)
-- Компоненты + сетка
-- JS‑ядро и UI‑киты (Admin/Landing/SaaS) 
+- **Дизайн‑токены**: цвета, типографика, spacing, радиусы, тени, брейкпоинты — единый слой токенов.
+- **Utility‑first**: утилитарные классы + responsive/state‑варианты в духе Tailwind.
+- **Компоненты**: кнопки, карточки, навигация, формы, alerts и др.
+- **JS Core**: dropdown, collapse, modal и другие интерактивные компоненты на vanilla JS.
+- **Темизация**: готовые темы (light/dark/contrast) и кастом через CSS‑переменные.
+- **JIT / Tree‑shaking**: сборка только реально используемых классов на основе контента проекта.
 
 ## Быстрый старт
 
-### CDN / статическое подключение
-
-```html
-<link rel="stylesheet" href="/css/rarog-core.min.css">
-<link rel="stylesheet" href="/css/rarog-utilities.min.css">
-<link rel="stylesheet" href="/css/rarog-components.min.css">
-<link rel="stylesheet" href="/css/rarog-theme-default.min.css">
-<script src="/js/rarog.umd.js" defer></script>
-```
-
-
-### npm + CLI + JIT
+### Установка
 
 ```bash
-npm install rarog-css
-npx rarog build
+npm i rarog
+# или
+pnpm add rarog
 ```
 
+### Подключение CSS
 
-## Rarog в CajeerEngine
-
-В CajeerEngine Rarog используется как UI‑слой: админка, системные страницы, базовая тема.
-Подключение ассетов (пример):
+Если Rarog уже установлен в CajeerEngine, достаточно:
 
 ```html
-<link rel="stylesheet" href="/assets/rarog/rarog.min.css?v={app_version}">
-<link rel="stylesheet" href="/assets/themes/default/theme.css?v={app_version}">
+<link rel="stylesheet" href="/assets/rarog/rarog.min.css">
 ```
 
 ## Ссылки
 
-- Репозиторий: https://github.com/TheSkiF4er/Rarog 
-- Документация: `rarog.cajeer.ru` 
+- Репозиторий: https://github.com/TheSkiF4er/rarog
+- Релизы: https://github.com/TheSkiF4er/rarog/releases
+- npm: https://www.npmjs.com/package/rarog
+- Документация/портал: https://cajeer.ru/rarog

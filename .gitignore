@@ -8,3 +8,7 @@
 .vscode/
 /vendor/
 .DS_Store
+/storage/cache/
+/storage/compiled_tpl/
+/storage/compiled_tpl_v2/
+/storage/dev/requests.log

@@ -1,0 +1,13 @@
+/* --- Auth & Alerts (email verification & reset) --- */
+.ce-auth { max-width: 860px; margin: 0 auto; }
+.ce-auth__wrap { display: flex; justify-content: center; }
+.ce-auth__card { width: 100%; max-width: 560px; }
+
+.ce-form .ce-field__label { font-weight: 600; margin-bottom: 6px; }
+.ce-field { display: block; }
+.ce-input { width: 100%; }
+
+.ce-alert { border-radius: 14px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); }
+.ce-alert--success { border-color: rgba(84, 255, 176, .25); background: rgba(84, 255, 176, .08); }
+.ce-alert--danger { border-color: rgba(255, 92, 92, .25); background: rgba(255, 92, 92, .08); }
+.ce-alert--warn { border-color: rgba(255, 190, 72, .25); background: rgba(255, 190, 72, .08); }

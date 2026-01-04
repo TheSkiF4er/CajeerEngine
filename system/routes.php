@@ -1,44 +1,50 @@
 <?php
+/**
+ * Routes map: "path" => ["module", "method"]
+ * Note: keep this file deterministic; do not include runtime logic.
+ */
 return [
+  // Public
   '/' => ['home', 'index'],
   '/news' => ['news', 'index'],
+  '/news/view' => ['news', 'view'],
   '/docs' => ['docs', 'index'],
   '/api' => ['site', 'api'],
-  '/marketplace' => ['marketplace', 'index'],
-  '/marketplace/themes' => ['marketplace', 'themes'],
-  '/marketplace/plugins' => ['marketplace', 'plugins'],
-  '/marketplace/profile' => ['marketplace', 'profile'],
-  '/login' => ['auth_local', 'login'],
-  '/register' => ['auth_local', 'register'],
+  '/rarog' => ['rarog', 'index'],
 
-  '/rarog' => ['site', 'rarog'],
-  '/arog' => ['arog', 'index'],
-  '/news/view' => ['news', 'view'],
+  // Resources (public витрина)
+  '/resources' => ['resources', 'index'],
+  '/resources/themes' => ['resources', 'themes'],
+  '/resources/plugins' => ['resources', 'plugins'],
+  '/resources/profile' => ['resources', 'profile'],
 
-  // API v1
-  '/api/v1/ping' => ['api', 'ping'],
-  '/api/v1/content' => ['api', 'contentIndex'],
-  '/api/v1/content/get' => ['api', 'contentGet'],
-  '/api/v1/content/create' => ['api', 'contentCreate'],
-  '/api/v1/content/update' => ['api', 'contentUpdate'],
-  '/api/v1/content/delete' => ['api', 'contentDelete'],
-  '/api/v1/content/publish' => ['api', 'contentPublish'],
-  '/api/v1/health/live' => ['api', 'healthLive'],
-  '/api/v1/health/ready' => ['api', 'healthReady'],
-  '/metrics' => ['api', 'metrics'],
+  // Legacy Marketplace -> Resources (301)
+  '/marketplace' => ['resources', 'redirectMarketplace'],
+  '/marketplace/themes' => ['resources', 'redirectMarketplace'],
+  '/marketplace/plugins' => ['resources', 'redirectMarketplace'],
+  '/marketplace/profile' => ['resources', 'redirectMarketplace'],
+
+  // Account (public users, not admin)
+  '/login' => ['account', 'login'],
+  '/register' => ['account', 'register'],
+  '/logout' => ['account', 'logout'],
+  '/profile' => ['account', 'profile'],
+  '/verify' => ['account', 'verify'],
+  '/resend' => ['account', 'resendVerification'],
+  '/forgot' => ['account', 'forgot'],
+  '/reset' => ['account', 'reset'],
+
+  // Content pages
+  '/page' => ['pages', 'view'],
+  '/category' => ['category', 'view'],
 
   // Admin
   '/admin' => ['admin', 'index'],
   '/admin/themes' => ['admin', 'themesIndex'],
   '/admin/themes/switch' => ['admin', 'themesSwitch'],
-  '/admin/marketplace/status' => ['admin', 'marketplaceStatus'],
   '/admin/ui-builder' => ['admin', 'uiBuilderIndex'],
   '/admin/ui-builder/save' => ['admin', 'uiBuilderSave'],
+  '/admin/marketplace/status' => ['admin', 'marketplaceStatus'],
   '/admin/marketplace/themes' => ['admin', 'marketplaceThemes'],
   '/admin/marketplace/plugins' => ['admin', 'marketplacePlugins'],
-
-  '/page' => ['pages', 'view'],
-  '/category' => ['category', 'view'],
-  '/sitemap.xml' => ['seo', 'sitemap'],
-  '/robots.txt' => ['seo', 'robots'],
 ];
