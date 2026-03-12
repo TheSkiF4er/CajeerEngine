@@ -1,7 +1,7 @@
 <?php
-namespace Core\Jobs\Adapters;
+namespace Jobs\Adapters;
 
-use Core\Jobs\QueueContract;
+use Jobs\QueueContract;
 use Observability\Logger;
 
 class SQSQueue implements QueueContract
