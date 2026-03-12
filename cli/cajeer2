@@ -86,7 +86,7 @@ if ($cmd === 'plugins:disable') {
 if ($cmd === 'jobs:work') {
   $queue = $argv[2] ?? ($qcfg['default_queue'] ?? 'default');
   $max = (int)($argv[3] ?? 0);
-  $worker = new \Core\Jobs\Worker($kernel->jobs(), $qcfg);
+  $worker = new \Jobs\Worker($kernel->jobs(), $qcfg);
   $worker->work($queue, $max);
   exit(0);
 }
@@ -116,7 +116,7 @@ if ($cmd === 'dlq:list') {
 if ($cmd === 'events:replay') {
   $id = (int)($argv[2] ?? 0);
   if ($id<=0) { out("Usage: events:replay <event_id>"); exit(1); }
-  $e = \Core\Events\EventStore::fetchById($id);
+  $e = \Events\EventStore::fetchById($id);
   if (!$e) { out("Event not found"); exit(1); }
   $sync = $kernel->get('events_sync');
   $sync->emit((string)$e['name'], (array)$e['payload']);
