@@ -1,4 +1,5 @@
 <?php
+define('CAJEER_BOOT_KERNEL', false);
 require_once __DIR__ . '/../../engine/bootstrap.php';
 $cfg = require ROOT_PATH . '/system/marketplace.php';
 ?>

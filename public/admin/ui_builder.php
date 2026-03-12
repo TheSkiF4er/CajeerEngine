@@ -1,4 +1,5 @@
 <?php
+define('CAJEER_BOOT_KERNEL', false);
 require_once __DIR__ . '/../../engine/bootstrap.php';
 $cfg = is_file(ROOT_PATH.'/system/ui_builder.php') ? require ROOT_PATH.'/system/ui_builder.php' : ['enabled'=>false];
 if (empty($cfg['enabled'])) { echo "UI Builder disabled in system/ui_builder.php"; exit; }
