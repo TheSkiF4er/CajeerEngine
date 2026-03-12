@@ -7,6 +7,11 @@
 
 use Core\Kernel;
 
+if (defined('CAJEER_KERNEL_INITIALIZED')) {
+    return;
+}
+define('CAJEER_KERNEL_INITIALIZED', true);
+
 register_shutdown_function(function() {
     try {
         $data = \Dev\Collector::finish();

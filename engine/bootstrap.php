@@ -17,4 +17,6 @@ spl_autoload_register(function(string $class): void {
 defined('ROOT_PATH') || define('ROOT_PATH', dirname(__DIR__));
 defined('PUBLIC_PATH') || define('PUBLIC_PATH', ROOT_PATH . '/public');
 
-require_once __DIR__ . '/init.php';
+if (!defined('CAJEER_BOOT_KERNEL') || CAJEER_BOOT_KERNEL !== false) {
+    require_once __DIR__ . '/init.php';
+}
