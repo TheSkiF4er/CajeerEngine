@@ -1,5 +1,5 @@
 <?php
-namespace Core\Events;
+namespace Events;
 
 use Observability\Logger;
 

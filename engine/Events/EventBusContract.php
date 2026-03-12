@@ -1,5 +1,5 @@
 <?php
-namespace Core\Events;
+namespace Events;
 interface EventBusContract
 {
     public function on(string $event, callable $listener, int $priority = 0): void;

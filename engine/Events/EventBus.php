@@ -1,5 +1,5 @@
 <?php
-namespace Legacy\Events;
+namespace Events;
 use Observability\Logger;
 
 class EventBus

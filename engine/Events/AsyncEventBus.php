@@ -1,7 +1,8 @@
 <?php
-namespace Core\Events;
+namespace Events;
 
-use Core\Jobs\QueueContract;
+use Core\Events\EventBusContract;
+use Jobs\QueueContract;
 use Observability\Logger;
 
 class AsyncEventBus implements EventBusContract
@@ -17,7 +18,7 @@ class AsyncEventBus implements EventBusContract
         $this->syncBus->on($event, $listener, $priority);
     }
 
-    public function emit(string $event, array $payload = []): void
+    public function emit(string $event, array $payload = []): mixed
     {
         $tenantId = (int)($_SERVER['CE_TENANT_ID'] ?? 0);
 
@@ -27,7 +28,7 @@ class AsyncEventBus implements EventBusContract
             if (!empty($res['event_id'])) $eventId = (int)$res['event_id'];
         }
 
-        $this->jobs->enqueue('Core\\Events\\AsyncEventWorker@handle', [
+        $this->jobs->enqueue('Events\\AsyncEventWorker@handle', [
             'event' => $event,
             'payload' => $payload,
             'event_id' => $eventId,
@@ -38,5 +39,6 @@ class AsyncEventBus implements EventBusContract
         ]);
 
         Logger::info('events.emit_async', ['event'=>$event,'event_id'=>$eventId]);
+        return ['ok' => true, 'event_id' => $eventId, 'event' => $event];
     }
 }
