@@ -1,12 +1,13 @@
 #!/usr/bin/env php
 <?php
+define('CAJEER_BOOT_KERNEL', false);
 require_once __DIR__ . '/../engine/bootstrap.php';
 
 $cmd = $argv[1] ?? '';
 if ($cmd === 'ui:install') {
     $cfg = require ROOT_PATH . '/system/config.php';
-    \\Database\\DB::connect($cfg['db']);
-    $pdo = \\Database\\DB::pdo();
+    \Database\DB::connect($cfg['db']);
+    $pdo = \Database\DB::pdo();
     $sql = file_get_contents(ROOT_PATH . '/system/sql/ui_builder_v2_2.sql');
     $pdo->exec($sql);
     echo "OK: UI Builder schema (v2.2) installed\n";
@@ -25,5 +26,6 @@ if ($cmd === 'content:install') {
 
 echo "CajeerEngine CLI\n";
 echo "Commands:\n";
+echo "  ui:install         Install UI Builder schema (v2.2)\n";
 echo "  content:install    Install v2.1 content schema\n";
 exit(0);
