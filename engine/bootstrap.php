@@ -10,7 +10,7 @@ spl_autoload_register(function(string $class): void {
     $base = __DIR__ . '/';
     $path = $base . str_replace('\\', '/', $class) . '.php';
     if (file_exists($path)) {
-        require $path;
+        require_once $path;
     }
 });
 
