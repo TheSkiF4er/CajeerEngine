@@ -1,7 +1,7 @@
 <?php
 namespace Core\Events;
 
-class EventBus
+class EventBus implements EventBusContract
 {
     private array $listeners = [];
 
