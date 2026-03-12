@@ -1,5 +1,5 @@
 <?php
-namespace Core\Jobs;
+namespace Jobs;
 
 use Observability\Logger;
 
