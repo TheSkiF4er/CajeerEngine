@@ -29,7 +29,7 @@ class Store {
     $st->execute([':t'=>$tenantId,':s'=>$siteId,':p'=>$pageKey]); $l=$st->fetch(\PDO::FETCH_ASSOC);
     if(!$l) return null;
     $st2=$pdo->prepare("SELECT json FROM ce_ui_layout_versions WHERE layout_id=:id AND version=:v LIMIT 1");
-    $st2->execute([':id'=>(int)$l['id'],':v'=>(int)$l['active_version']); $r=$st2->fetch(\PDO::FETCH_ASSOC);
+    $st2->execute([':id'=>(int)$l['id'],':v'=>(int)$l['active_version']]); $r=$st2->fetch(\PDO::FETCH_ASSOC);
     if(!$r) return null;
     $j=json_decode((string)$r['json'],true);
     return is_array($j)?$j:null;
@@ -75,7 +75,7 @@ class Store {
     $st->execute([':t'=>$tenantId,':s'=>$siteId,':p'=>$pageKey]); $l=$st->fetch(\PDO::FETCH_ASSOC);
     if(!$l) return ['ok'=>false,'error'=>'layout_not_found'];
     $st2=$pdo->prepare("SELECT json,dsl_snapshot FROM ce_ui_layout_versions WHERE layout_id=:id AND version=:v LIMIT 1");
-    $st2->execute([':id'=>(int)$l['id'],':v'=>(int)$l['active_version']); $r=$st2->fetch(\PDO::FETCH_ASSOC);
+    $st2->execute([':id'=>(int)$l['id'],':v'=>(int)$l['active_version']]); $r=$st2->fetch(\PDO::FETCH_ASSOC);
     if(!$r) return ['ok'=>false,'error'=>'version_not_found'];
     return ['ok'=>true,'diff'=>Diff::unified((string)$r['json'], (string)($r['dsl_snapshot']??''))];
   }
