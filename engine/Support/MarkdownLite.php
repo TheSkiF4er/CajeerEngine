@@ -134,7 +134,12 @@ final class MarkdownLite
 
     private static function slug(string $s): string
     {
-        $s = mb_strtolower(trim($s), 'UTF-8');
+        $s = trim($s);
+        if (function_exists('mb_strtolower')) {
+            $s = mb_strtolower($s, 'UTF-8');
+        } else {
+            $s = strtolower($s);
+        }
         $s = preg_replace('/[^\p{L}\p{N}]+/u', '-', $s) ?? $s;
         $s = trim($s, '-');
         return $s !== '' ? $s : 'section';
