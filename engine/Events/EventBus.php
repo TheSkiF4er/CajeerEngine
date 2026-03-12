@@ -1,8 +1,8 @@
 <?php
-namespace Core\Events;
+namespace Legacy\Events;
 use Observability\Logger;
 
-class EventBus implements EventBusContract
+class EventBus
 {
     protected array $listeners = [];
     public function on(string $event, callable $listener, int $priority = 0): void
